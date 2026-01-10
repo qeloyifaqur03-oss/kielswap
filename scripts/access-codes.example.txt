@@ -1,0 +1,21 @@
+# Access codes file
+# One code per line
+# Lines starting with # are comments and will be skipped
+# Empty lines are ignored
+
+A9F3K7
+4MZ8Q2
+X7A2L9
+P6R4T8
+9KJ2FQ
+L8M4A7
+2ZP9R5
+F3Q7X8
+K5A9M2
+R7L4Z8
+
+
+
+
+
+

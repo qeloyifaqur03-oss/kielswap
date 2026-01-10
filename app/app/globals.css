@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --accent: 196 37% 88%;
+  }
+
+  body {
+    @apply bg-background text-white antialiased;
+    overflow-x: hidden;
+  }
+}
+
+@layer utilities {
+  .glass {
+    @apply backdrop-blur-xl border border-white/5;
+    background-color: rgba(255, 255, 255, 0.03);
+  }
+  
+  .glass-strong {
+    @apply backdrop-blur-xl border border-white/10;
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-pink-400 via-accent to-purple-400 bg-clip-text text-transparent;
+  }
+
+  .animate-slow-float {
+    animation: slow-float 20s ease-in-out infinite;
+  }
+
+  .animate-slow-float-reverse {
+    animation: slow-float-reverse 25s ease-in-out infinite;
+  }
+
+  @keyframes slow-float {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    33% {
+      transform: translateY(-20px) translateX(10px);
+    }
+    66% {
+      transform: translateY(10px) translateX(-10px);
+    }
+  }
+
+  @keyframes slow-float-reverse {
+    0%, 100% {
+      transform: translateY(0px) translateX(0px);
+    }
+    33% {
+      transform: translateY(20px) translateX(-10px);
+    }
+    66% {
+      transform: translateY(-10px) translateX(10px);
+    }
+  }
+
+  /* Fix autofill styling */
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.05) inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  /* Access card glass style - soft translucent glass */
+  .access-card-glass {
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    background-color: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  }
+
+  .access-card-glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.10) 0%, rgba(196, 37, 88, 0.08) 50%, rgba(168, 85, 247, 0.10) 100%);
+    border-radius: inherit;
+  }
+
+  /* Access input gradient border wrapper */
+  .access-input-border-wrapper {
+    position: relative;
+  }
+
+  /* Gradient border line appears on focus - exactly matches input field size and border-radius */
+  .access-input-border-wrapper:focus-within::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 48px;
+    border-radius: 18px;
+    padding: 1px;
+    background: linear-gradient(to right, rgba(236, 72, 153, 0.25), rgba(196, 37, 88, 0.27), rgba(168, 85, 247, 0.25));
+    -webkit-mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask: 
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 10;
+    box-sizing: border-box;
+  }
+
+  /* Inner input surface */
+  .access-input-surface {
+    position: relative;
+    width: 100%;
+    min-height: 48px;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.12);
+    box-sizing: border-box;
+  }
+
+  /* Ensure input inside surface is transparent */
+  .access-input-surface input {
+    background-color: transparent !important;
+    background: transparent !important;
+    border: none !important;
+  }
+
+  /* Fix autofill for access input - match inner surface background */
+  .access-input-surface input:-webkit-autofill,
+  .access-input-surface input:-webkit-autofill:hover,
+  .access-input-surface input:-webkit-autofill:focus,
+  .access-input-surface input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px rgba(255, 255, 255, 0.04) inset !important;
+    -webkit-text-fill-color: #ffffff !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+}

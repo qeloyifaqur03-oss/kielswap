@@ -1,0 +1,26 @@
+---
+title: "Intents as signed constraints"
+description: "A signed declaration of constraints, not a route."
+---
+
+An intent is a signed declaration of constraints.
+
+It is not:
+- a transaction
+- a route
+- a promise of execution
+
+Instead, it authorizes execution *only if* constraints are satisfied.
+
+Key properties:
+- the intent is signed once
+- execution may involve multiple on-chain steps
+- funds move strictly according to the signed intent
+- the intent expires automatically after its deadline
+
+This allows execution logic to operate independently while remaining fully user-authorized.
+
+
+
+
+

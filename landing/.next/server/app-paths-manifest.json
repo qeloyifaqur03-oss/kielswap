@@ -1,0 +1,5 @@
+{
+  "/api/token-price/route": "app/api/token-price/route.js",
+  "/(landing)/request/page": "app/(landing)/request/page.js",
+  "/(landing)/page": "app/(landing)/page.js"
+}

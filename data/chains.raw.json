@@ -1,0 +1,903 @@
+[
+  {
+    "name": "Ethereum",
+    "chainId": 1,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://cloudflare-eth.com",
+    "rpc2": "https://ethereum-rpc.publicnode.com",
+    "explorer": "https://etherscan.io",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "BNB Chain",
+    "chainId": 56,
+    "chainType": "EVM",
+    "native": {
+      "name": "BNB",
+      "symbol": "BNB",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://bsc-dataseed1.bnbchain.org",
+    "rpc2": "https://bsc-dataseed2.bnbchain.org",
+    "explorer": "https://bscscan.com",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Avalanche",
+    "chainId": 43114,
+    "chainType": "EVM",
+    "native": {
+      "name": "Avalanche",
+      "symbol": "AVAX",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://api.avax.network/ext/bc/C/rpc",
+    "rpc2": "https://avalanche-c-chain-rpc.publicnode.com",
+    "explorer": "https://snowtrace.io",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Polygon",
+    "chainId": 137,
+    "chainType": "EVM",
+    "native": {
+      "name": "Matic",
+      "symbol": "MATIC",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://polygon-rpc.com",
+    "rpc2": "https://rpc.ankr.com/polygon",
+    "explorer": "https://polygonscan.com",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Base",
+    "chainId": 8453,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://mainnet.base.org",
+    "rpc2": "https://base-rpc.publicnode.com",
+    "explorer": "https://basescan.org",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Arbitrum One",
+    "chainId": 42161,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://arb1.arbitrum.io/rpc",
+    "rpc2": "https://arbitrum-one-rpc.publicnode.com",
+    "explorer": "https://arbiscan.io",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Optimism",
+    "chainId": 10,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://mainnet.optimism.io",
+    "rpc2": "https://optimism-rpc.publicnode.com",
+    "explorer": "https://optimistic.etherscan.io",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "zkSync Era",
+    "chainId": 324,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://mainnet.era.zksync.io",
+    "rpc2": "https://zksync.drpc.org",
+    "explorer": "https://explorer.zksync.io",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Linea",
+    "chainId": 59144,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.linea.build",
+    "rpc2": "https://linea-rpc.publicnode.com",
+    "explorer": "https://lineascan.build",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Scroll",
+    "chainId": 534352,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.scroll.io",
+    "rpc2": "https://rpc.ankr.com/scroll",
+    "explorer": "https://scrollscan.com",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Blast",
+    "chainId": 238,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://zkevmrpc.blastchain.org",
+    "rpc2": "https://238.rpc.thirdweb.com",
+    "explorer": "https://blastscan.io",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Gnosis",
+    "chainId": 100,
+    "chainType": "EVM",
+    "native": {
+      "name": "xDAI",
+      "symbol": "xDAI",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.gnosischain.com",
+    "rpc2": "https://rpc.gnosis.gateway.fm",
+    "explorer": "https://gnosisscan.io",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Celo",
+    "chainId": 42220,
+    "chainType": "EVM",
+    "native": {
+      "name": "Celo",
+      "symbol": "CELO",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://forno.celo.org",
+    "rpc2": null,
+    "explorer": "https://celoscan.io",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Cronos",
+    "chainId": 25,
+    "chainType": "EVM",
+    "native": {
+      "name": "Cronos",
+      "symbol": "CRO",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://evm.cronos.org",
+    "rpc2": "https://cronos-evm-rpc.publicnode.com",
+    "explorer": "https://cronoscan.com",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Mantle",
+    "chainId": 5000,
+    "chainType": "EVM",
+    "native": {
+      "name": "Mantle",
+      "symbol": "MNT",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.mantle.xyz",
+    "rpc2": "https://mantle-rpc.publicnode.com",
+    "explorer": "https://mantlescan.xyz",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "opBNB",
+    "chainId": 204,
+    "chainType": "EVM",
+    "native": {
+      "name": "BNB",
+      "symbol": "BNB",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://opbnb-mainnet-rpc.bnbchain.org",
+    "rpc2": null,
+    "explorer": "https://opbnbscan.com",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Kava",
+    "chainId": 2222,
+    "chainType": "EVM",
+    "native": {
+      "name": "Kava",
+      "symbol": "KAVA",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://evm.kava.io",
+    "rpc2": "https://kava-rpc.gateway.pokt.network",
+    "explorer": "https://kavascan.com",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Plasma",
+    "chainId": 9745,
+    "chainType": "EVM",
+    "native": {
+      "name": "XPL",
+      "symbol": "XPL",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.plasma.to",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "HyperEVM",
+    "chainId": 999,
+    "chainType": "EVM",
+    "native": {
+      "name": "HYPE",
+      "symbol": "HYPE",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.hyperliquid.xyz/evm",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Hedera EVM",
+    "chainId": 295,
+    "chainType": "EVM",
+    "native": {
+      "name": "Hedera",
+      "symbol": "HBAR",
+      "decimals": 8
+    },
+    "wrappedNative": null,
+    "rpc1": "https://mainnet.hashio.io/api",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Katana",
+    "chainId": 747474,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.katana.network",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Rootstock",
+    "chainId": 30,
+    "chainType": "EVM",
+    "native": {
+      "name": "RBTC",
+      "symbol": "RBTC",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://public-node.rsk.co",
+    "rpc2": "https://mycrypto.rsk.co",
+    "explorer": "https://explorer.rsk.co",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Sonic",
+    "chainId": 146,
+    "chainType": "EVM",
+    "native": {
+      "name": "Sonic",
+      "symbol": "S",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.soniclabs.com",
+    "rpc2": "https://sonic-rpc.publicnode.com",
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Ink",
+    "chainId": 57073,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc-gel.inkonchain.com",
+    "rpc2": "https://rpc-qnd.inkonchain.com",
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Berachain",
+    "chainId": 80094,
+    "chainType": "EVM",
+    "native": {
+      "name": "Bera",
+      "symbol": "BERA",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.berachain.com",
+    "rpc2": "https://berachain-rpc.publicnode.com",
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Plume",
+    "chainId": 98866,
+    "chainType": "EVM",
+    "native": {
+      "name": "Plume",
+      "symbol": "PLUME",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.plume.org",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "PulseChain",
+    "chainId": 369,
+    "chainType": "EVM",
+    "native": {
+      "name": "Pulse",
+      "symbol": "PLS",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.pulsechain.com",
+    "rpc2": "https://pulsechain-rpc.publicnode.com",
+    "explorer": "https://scan.pulsechain.com",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "BOB",
+    "chainId": 60808,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.gobob.xyz",
+    "rpc2": "https://bob-mainnet.public.blastapi.io",
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Core",
+    "chainId": 1116,
+    "chainType": "EVM",
+    "native": {
+      "name": "Core",
+      "symbol": "CORE",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.coredao.org",
+    "rpc2": null,
+    "explorer": "https://scan.coredao.org",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "World Chain",
+    "chainId": 480,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://worldchain-mainnet.g.alchemy.com/public",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Abstract",
+    "chainId": 2741,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://api.mainnet.abs.xyz",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "ENI",
+    "chainId": 173,
+    "chainType": "EVM",
+    "native": null,
+    "wrappedNative": null,
+    "rpc1": "https://rpc.eniac.network",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xeB3aBd6cC03b146021110F52084B9C5E1B4904b2",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Movement",
+    "chainId": null,
+    "chainType": "EVM",
+    "native": null,
+    "wrappedNative": null,
+    "rpc1": null,
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": null,
+    "multicall3_status": "NO_REPORT",
+    "needs_manual_review": true
+  },
+  {
+    "name": "Flare",
+    "chainId": 14,
+    "chainType": "EVM",
+    "native": {
+      "name": "Flare",
+      "symbol": "FLR",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://flare-api.flare.network/ext/C/rpc",
+    "rpc2": null,
+    "explorer": "https://flare-explorer.flare.network",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Unichain",
+    "chainId": 130,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://mainnet.unichain.org",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Ethereal",
+    "chainId": null,
+    "chainType": "EVM",
+    "native": null,
+    "wrappedNative": null,
+    "rpc1": null,
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": null,
+    "multicall3_status": "NO_REPORT",
+    "needs_manual_review": true
+  },
+  {
+    "name": "Etherlink",
+    "chainId": 42793,
+    "chainType": "EVM",
+    "native": {
+      "name": "Tez",
+      "symbol": "XTZ",
+      "decimals": 6
+    },
+    "wrappedNative": null,
+    "rpc1": "https://node.mainnet.etherlink.com",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Fraxtal",
+    "chainId": 252,
+    "chainType": "EVM",
+    "native": {
+      "name": "Frax Ether",
+      "symbol": "frxETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.frax.com",
+    "rpc2": "https://fraxtal-rpc.publicnode.com",
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Soneium",
+    "chainId": 1868,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.soneium.org",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Merlin",
+    "chainId": 4200,
+    "chainType": "EVM",
+    "native": {
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.merlinchain.io",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0x4606fE997e39aD98cFCb9fC7F53c7A3E2F0031f0",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Reya",
+    "chainId": 1729,
+    "chainType": "EVM",
+    "native": null,
+    "wrappedNative": null,
+    "rpc1": "https://rpc.reya.network",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "X-Layer",
+    "chainId": 196,
+    "chainType": "EVM",
+    "native": {
+      "name": "OKB",
+      "symbol": "OKB",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.xlayer.tech",
+    "rpc2": "https://xlayerrpc.okx.com",
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Bifrost",
+    "chainId": 3068,
+    "chainType": "EVM",
+    "native": null,
+    "wrappedNative": null,
+    "rpc1": "https://public-01.mainnet.bifrostnetwork.com/rpc",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": null,
+    "multicall3_status": "NO_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Botanix",
+    "chainId": 3637,
+    "chainType": "EVM",
+    "native": null,
+    "wrappedNative": null,
+    "rpc1": "https://rpc.botanixlabs.com",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Metis",
+    "chainId": 1088,
+    "chainType": "EVM",
+    "native": {
+      "name": "Metis",
+      "symbol": "METIS",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://andromeda.metis.io/?owner=1088",
+    "rpc2": "https://metis-mainnet.public.blastapi.io",
+    "explorer": "https://andromeda-explorer.metis.io",
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Rollux",
+    "chainId": 570,
+    "chainType": "EVM",
+    "native": null,
+    "wrappedNative": null,
+    "rpc1": "https://rpc.rollux.com",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Hemi",
+    "chainId": 43111,
+    "chainType": "EVM",
+    "native": null,
+    "wrappedNative": null,
+    "rpc1": "https://rpc.hemi.network/rpc",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Saga",
+    "chainId": null,
+    "chainType": "EVM",
+    "native": null,
+    "wrappedNative": null,
+    "rpc1": null,
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": null,
+    "multicall3_status": "NO_RPC",
+    "needs_manual_review": true
+  },
+  {
+    "name": "Chainflip",
+    "chainId": null,
+    "chainType": "EVM",
+    "native": null,
+    "wrappedNative": null,
+    "rpc1": null,
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": null,
+    "multicall3_status": "NO_RPC",
+    "needs_manual_review": true
+  },
+  {
+    "name": "Manta",
+    "chainId": 169,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://pacific-rpc.manta.network/http",
+    "rpc2": "https://manta-pacific.drpc.org",
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Immutable zkEVM",
+    "chainId": 13371,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.immutable.com",
+    "rpc2": "https://immutable-zkevm.drpc.org",
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Sophon",
+    "chainId": 50104,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.sophon.xyz",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Taiko",
+    "chainId": 167000,
+    "chainType": "EVM",
+    "native": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18
+    },
+    "wrappedNative": null,
+    "rpc1": "https://rpc.mainnet.taiko.xyz",
+    "rpc2": "https://taiko-mainnet.rpc.porters.xyz/taiko-public",
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Story",
+    "chainId": 1514,
+    "chainType": "EVM",
+    "native": null,
+    "wrappedNative": null,
+    "rpc1": "https://mainnet.storyrpc.io",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Kaia",
+    "chainId": 8217,
+    "chainType": "EVM",
+    "native": null,
+    "wrappedNative": null,
+    "rpc1": "https://public-en.node.kaia.io",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  },
+  {
+    "name": "Monad",
+    "chainId": 143,
+    "chainType": "EVM",
+    "native": null,
+    "wrappedNative": null,
+    "rpc1": "https://rpc.monad.xyz",
+    "rpc2": null,
+    "explorer": null,
+    "multicall3": "0xcA11bde05977b3631167028862bE2a173976CA11",
+    "multicall3_status": "HAS_MULTICALL3",
+    "needs_manual_review": false
+  }
+]
+

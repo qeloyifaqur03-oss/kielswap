@@ -1,0 +1,6 @@
+{
+  "/api/access/verify/route": "app/api/access/verify/route.js",
+  "/api/access/check/route": "app/api/access/check/route.js",
+  "/(app)/swap/page": "app/(app)/swap/page.js",
+  "/(app)/access/page": "app/(app)/access/page.js"
+}

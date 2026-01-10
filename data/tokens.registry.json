@@ -1,0 +1,2638 @@
+[
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 1,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Contract code not found"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 1,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Contract code not found"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 1,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Contract code not found"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 56,
+    "address": "0x55d398326f99059fF775485246999027B3197955",
+    "decimals": 18,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 56,
+    "address": "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d",
+    "decimals": 18,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 56,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 43114,
+    "address": "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7",
+    "decimals": 6,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 43114,
+    "address": "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E",
+    "decimals": 6,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 43114,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 137,
+    "address": "0xc2132D05D31c914a87C6611C10748AEb04B58e8F",
+    "decimals": 6,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 137,
+    "address": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+    "decimals": 6,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 137,
+    "address": "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063",
+    "decimals": 18,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 8453,
+    "address": "0xfde4C96c8593536E31F229EA8f37b2ADa2699bb2",
+    "decimals": 6,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 8453,
+    "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+    "decimals": 6,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 8453,
+    "address": "0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb",
+    "decimals": 18,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 42161,
+    "address": "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9",
+    "decimals": 6,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 42161,
+    "address": "0xFF970A61A04b1cA14834A43f5dE4533eBDDB5CC8",
+    "decimals": 6,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 42161,
+    "address": "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
+    "decimals": 18,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 10,
+    "address": "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58",
+    "decimals": 6,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 10,
+    "address": "0x7F5c764cBc14f9669B88837ca1490cCa17c31607",
+    "decimals": 6,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 10,
+    "address": "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1",
+    "decimals": 18,
+    "tags": [
+      "stable"
+    ],
+    "status": "verified",
+    "needs_manual_review": false,
+    "sources": {
+      "rpcValidated": true
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 324,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 324,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 324,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 59144,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 59144,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 59144,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 534352,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 534352,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 534352,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 238,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 238,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 238,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 100,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 100,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 100,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 42220,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 42220,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 42220,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 25,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 25,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 25,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 5000,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 5000,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 5000,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 204,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 204,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 204,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 2222,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 2222,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 2222,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 9745,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 9745,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 9745,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 999,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 999,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 999,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 295,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 295,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 295,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 747474,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 747474,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 747474,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 30,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 30,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 30,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 146,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 146,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 146,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 57073,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 57073,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 57073,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 80094,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 80094,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 80094,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 98866,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 98866,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 98866,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 369,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 369,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 369,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 60808,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 60808,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 60808,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 1116,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 1116,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 1116,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 480,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 480,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 480,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 2741,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 2741,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 2741,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 173,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 173,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 173,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 14,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 14,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 14,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 130,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 130,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 130,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 42793,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 42793,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 42793,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 252,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 252,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 252,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 1868,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 1868,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 1868,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 4200,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 4200,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 4200,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 1729,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 1729,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 1729,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 196,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 196,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 196,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 3068,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 3068,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 3068,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 3637,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 3637,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 3637,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 1088,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 1088,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 1088,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 570,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 570,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 570,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 43111,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 43111,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 43111,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 169,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 169,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 169,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 13371,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 13371,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 13371,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 50104,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 50104,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 50104,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 167000,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 167000,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 167000,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 1514,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 1514,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 1514,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 8217,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 8217,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 8217,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdt",
+    "symbol": "USDT",
+    "name": "Tether",
+    "chainId": 143,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "usdc",
+    "symbol": "USDC",
+    "name": "USD Coin",
+    "chainId": 143,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  },
+  {
+    "id": "dai",
+    "symbol": "DAI",
+    "name": "Dai Stablecoin",
+    "chainId": 143,
+    "address": null,
+    "decimals": null,
+    "tags": [
+      "stable"
+    ],
+    "status": "unverified",
+    "needs_manual_review": true,
+    "sources": {
+      "rpcValidated": false,
+      "notes": "Not in seeds - address unknown"
+    }
+  }
+]

@@ -1,0 +1,3054 @@
+[
+  {
+    "key": "bitcoin",
+    "name": "Bitcoin",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": true,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "bip122",
+      "caip2": "bip122:000000000019d6689c085ae165831e93",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [
+        "https://blockstream.info/api"
+      ],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "mempool.space",
+        "url": "https://mempool.space",
+        "standard": null
+      },
+      {
+        "name": "Blockstream Explorer",
+        "url": "https://blockstream.info",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "decimals": 8,
+      "logo": "trustwallet:blockchains/bitcoin/info/logo.png"
+    }
+  },
+  {
+    "key": "ethereum",
+    "name": "Ethereum Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:1",
+      "chainId": 1,
+      "networkId": 1
+    },
+    "endpoints": {
+      "rpc": [
+        "https://mainnet.infura.io/v3/${INFURA_API_KEY}",
+        "https://api.mycryptoapi.com/eth",
+        "https://cloudflare-eth.com",
+        "https://ethereum-rpc.publicnode.com",
+        "https://mainnet.gateway.tenderly.co",
+        "https://rpc.blocknative.com/boost",
+        "https://rpc.flashbots.net",
+        "https://rpc.flashbots.net/fast",
+        "https://rpc.mevblocker.io",
+        "https://rpc.mevblocker.io/fast",
+        "https://rpc.mevblocker.io/noreverts",
+        "https://rpc.mevblocker.io/fullprivacy",
+        "https://eth.drpc.org",
+        "https://api.securerpc.com/v1"
+      ],
+      "ws": [
+        "wss://mainnet.infura.io/ws/v3/${INFURA_API_KEY}",
+        "wss://ethereum-rpc.publicnode.com",
+        "wss://mainnet.gateway.tenderly.co",
+        "wss://eth.drpc.org"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "etherscan",
+        "url": "https://etherscan.io",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "blockscout",
+        "url": "https://eth.blockscout.com",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "dexguru",
+        "url": "https://ethereum.dex.guru",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Routescan",
+        "url": "https://ethereum.routescan.io",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": "ethereum"
+    },
+    "extra": {
+      "chain": "ETH",
+      "shortName": "eth",
+      "infoURL": "https://ethereum.org",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "bnb",
+    "name": "BNB Smart Chain Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:56",
+      "chainId": 56,
+      "networkId": 56
+    },
+    "endpoints": {
+      "rpc": [
+        "https://bsc-dataseed1.bnbchain.org",
+        "https://bsc-dataseed2.bnbchain.org",
+        "https://bsc-dataseed3.bnbchain.org",
+        "https://bsc-dataseed4.bnbchain.org",
+        "https://bsc-dataseed1.defibit.io",
+        "https://bsc-dataseed2.defibit.io",
+        "https://bsc-dataseed3.defibit.io",
+        "https://bsc-dataseed4.defibit.io",
+        "https://bsc-dataseed1.ninicoin.io",
+        "https://bsc-dataseed2.ninicoin.io",
+        "https://bsc-dataseed3.ninicoin.io",
+        "https://bsc-dataseed4.ninicoin.io",
+        "https://bsc-rpc.publicnode.com"
+      ],
+      "ws": [
+        "wss://bsc-rpc.publicnode.com",
+        "wss://bsc-ws-node.nariox.org"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "bscscan",
+        "url": "https://bscscan.com",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "dexguru",
+        "url": "https://bnb.dex.guru",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "BNB Chain Native Token",
+      "symbol": "BNB",
+      "decimals": 18,
+      "logo": null
+    },
+    "extra": {
+      "chain": "BSC",
+      "shortName": "bnb",
+      "infoURL": "https://www.bnbchain.org/en",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "solana",
+    "name": "Solana Mainnet Beta",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": true,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "solana",
+      "caip2": "solana:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [
+        "https://api.mainnet-beta.solana.com"
+      ],
+      "ws": [
+        "wss://api.mainnet-beta.solana.com"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Solana Explorer",
+        "url": "https://explorer.solana.com",
+        "standard": null
+      },
+      {
+        "name": "Solscan",
+        "url": "https://solscan.io",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Solana",
+      "symbol": "SOL",
+      "decimals": 9,
+      "logo": "trustwallet:blockchains/solana/info/logo.png"
+    }
+  },
+  {
+    "key": "ton",
+    "name": "The Open Network (TON)",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": true
+    },
+    "identifiers": {
+      "namespace": "ton",
+      "caip2": "ton:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [
+        "https://toncenter.com/api/v2/jsonRPC"
+      ],
+      "ws": [],
+      "rest": [
+        "https://tonapi.io/v2"
+      ],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "TONScan",
+        "url": "https://tonscan.org",
+        "standard": null
+      },
+      {
+        "name": "Tonviewer",
+        "url": "https://tonviewer.com",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Toncoin",
+      "symbol": "TON",
+      "decimals": 9,
+      "logo": "trustwallet:blockchains/ton/info/logo.png"
+    }
+  },
+  {
+    "key": "tron",
+    "name": "Tron Mainnet",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": true
+    },
+    "identifiers": {
+      "namespace": "tron",
+      "caip2": "tron:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [
+        "https://api.trongrid.io"
+      ],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Tronscan",
+        "url": "https://tronscan.org",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "TRON",
+      "symbol": "TRX",
+      "decimals": 6,
+      "logo": "trustwallet:blockchains/tron/info/logo.png"
+    }
+  },
+  {
+    "key": "avalanche",
+    "name": "Avalanche C-Chain",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:43114",
+      "chainId": 43114,
+      "networkId": 43114
+    },
+    "endpoints": {
+      "rpc": [
+        "https://api.avax.network/ext/bc/C/rpc",
+        "https://avalanche-c-chain-rpc.publicnode.com"
+      ],
+      "ws": [
+        "wss://avalanche-c-chain-rpc.publicnode.com"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Etherscan",
+        "url": "https://snowscan.xyz",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Routescan",
+        "url": "https://snowtrace.io",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Avascan",
+        "url": "https://avascan.info",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Avalanche",
+      "symbol": "AVAX",
+      "decimals": 18,
+      "logo": "avax"
+    },
+    "extra": {
+      "chain": "AVAX",
+      "shortName": "avax",
+      "infoURL": "https://www.avax.network/",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "polygon",
+    "name": "Polygon Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:137",
+      "chainId": 137,
+      "networkId": 137
+    },
+    "endpoints": {
+      "rpc": [
+        "https://polygon-rpc.com/",
+        "https://rpc-mainnet.matic.network",
+        "https://matic-mainnet.chainstacklabs.com",
+        "https://rpc-mainnet.maticvigil.com",
+        "https://rpc-mainnet.matic.quiknode.pro",
+        "https://matic-mainnet-full-rpc.bwarelabs.com",
+        "https://polygon-bor-rpc.publicnode.com",
+        "https://polygon.gateway.tenderly.co",
+        "https://polygon.drpc.org"
+      ],
+      "ws": [
+        "wss://polygon-bor-rpc.publicnode.com",
+        "wss://polygon.gateway.tenderly.co",
+        "wss://polygon.drpc.org"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "polygonscan",
+        "url": "https://polygonscan.com",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "dexguru",
+        "url": "https://polygon.dex.guru",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "POL",
+      "symbol": "POL",
+      "decimals": 18,
+      "logo": "polygon"
+    },
+    "extra": {
+      "chain": "Polygon",
+      "shortName": "pol",
+      "infoURL": "https://polygon.technology/",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "sui",
+    "name": "Sui Mainnet",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": true,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "sui",
+      "caip2": "sui:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [
+        "https://fullnode.mainnet.sui.io:443"
+      ],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Sui Explorer",
+        "url": "https://explorer.sui.io",
+        "standard": null
+      },
+      {
+        "name": "Suivision",
+        "url": "https://suivision.xyz",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Sui",
+      "symbol": "SUI",
+      "decimals": 9,
+      "logo": "trustwallet:blockchains/sui/info/logo.png"
+    }
+  },
+  {
+    "key": "optimism",
+    "name": "OP Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:10",
+      "chainId": 10,
+      "networkId": 10
+    },
+    "endpoints": {
+      "rpc": [
+        "https://mainnet.optimism.io",
+        "https://optimism-rpc.publicnode.com",
+        "https://optimism.gateway.tenderly.co",
+        "https://optimism.drpc.org"
+      ],
+      "ws": [
+        "wss://optimism-rpc.publicnode.com",
+        "wss://optimism.gateway.tenderly.co",
+        "wss://optimism.drpc.org"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "etherscan",
+        "url": "https://optimistic.etherscan.io",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "blockscout",
+        "url": "https://optimism.blockscout.com",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "dexguru",
+        "url": "https://optimism.dex.guru",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Routescan",
+        "url": "https://mainnet.superscan.network",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": null
+    },
+    "extra": {
+      "chain": "ETH",
+      "shortName": "oeth",
+      "infoURL": "https://optimism.io",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "near",
+    "name": "NEAR Mainnet",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": true
+    },
+    "identifiers": {
+      "namespace": "near",
+      "caip2": "near:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.mainnet.near.org"
+      ],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "NearBlocks",
+        "url": "https://nearblocks.io",
+        "standard": null
+      },
+      {
+        "name": "NEAR Explorer",
+        "url": "https://explorer.near.org",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "NEAR",
+      "symbol": "NEAR",
+      "decimals": 24,
+      "logo": "trustwallet:blockchains/near/info/logo.png"
+    }
+  },
+  {
+    "key": "starknet",
+    "name": "Starknet Mainnet",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": true
+    },
+    "identifiers": {
+      "namespace": "starknet",
+      "caip2": "starknet:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [
+        "https://starknet-mainnet.public.blastapi.io/rpc/v0_7"
+      ],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Voyager",
+        "url": "https://voyager.online",
+        "standard": null
+      },
+      {
+        "name": "StarkScan",
+        "url": "https://starkscan.co",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": "ethereum"
+    }
+  },
+  {
+    "key": "aptos",
+    "name": "Aptos Mainnet",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": true,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "aptos",
+      "caip2": "aptos:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [
+        "https://fullnode.mainnet.aptoslabs.com/v1"
+      ],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Aptos Explorer",
+        "url": "https://explorer.aptoslabs.com",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Aptos",
+      "symbol": "APT",
+      "decimals": 8,
+      "logo": "trustwallet:blockchains/aptos/info/logo.png"
+    }
+  },
+  {
+    "key": "ronin",
+    "name": "Ronin Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:2020",
+      "chainId": 2020,
+      "networkId": 2020
+    },
+    "endpoints": {
+      "rpc": [
+        "https://api.roninchain.com/rpc"
+      ],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Ronin Block Explorer",
+        "url": "https://app.roninchain.com",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "RON",
+      "symbol": "RON",
+      "decimals": 18,
+      "logo": null
+    },
+    "extra": {
+      "chain": "ronin",
+      "shortName": "ron",
+      "infoURL": "https://roninchain.com",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "cronos",
+    "name": "Cronos Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:25",
+      "chainId": 25,
+      "networkId": 25
+    },
+    "endpoints": {
+      "rpc": [
+        "https://evm.cronos.org",
+        "https://cronos-evm-rpc.publicnode.com",
+        "https://cronos.drpc.org"
+      ],
+      "ws": [
+        "wss://cronos-evm-rpc.publicnode.com",
+        "wss://cronos.drpc.org"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Cronos Explorer",
+        "url": "https://explorer.cronos.org",
+        "standard": "none"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Cronos",
+      "symbol": "CRO",
+      "decimals": 18,
+      "logo": null
+    },
+    "extra": {
+      "chain": "CRO",
+      "shortName": "cro",
+      "infoURL": "https://cronos.org/",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "gnosis",
+    "name": "Gnosis",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:100",
+      "chainId": 100,
+      "networkId": 100
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.gnosischain.com",
+        "https://rpc.gnosis.gateway.fm",
+        "https://rpc.ankr.com/gnosis",
+        "https://gnosischain-rpc.gateway.pokt.network",
+        "https://gnosis-mainnet.public.blastapi.io",
+        "https://gnosis.api.onfinality.io/public",
+        "https://gnosis.blockpi.network/v1/rpc/public",
+        "https://web3endpoints.com/gnosischain-mainnet",
+        "https://gnosis.oat.farm",
+        "https://gnosis-rpc.publicnode.com"
+      ],
+      "ws": [
+        "wss://rpc.gnosischain.com/wss",
+        "wss://gnosis-rpc.publicnode.com"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "gnosisscan",
+        "url": "https://gnosisscan.io",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "blockscout",
+        "url": "https://gnosis.blockscout.com",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "dexguru",
+        "url": "https://gnosis.dex.guru",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "xDAI",
+      "symbol": "XDAI",
+      "decimals": 18,
+      "logo": "gnosis"
+    },
+    "extra": {
+      "chain": "GNO",
+      "shortName": "gno",
+      "infoURL": "https://docs.gnosischain.com",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "cardano",
+    "name": "Cardano Mainnet",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": true,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "cardano",
+      "caip2": "cardano:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [
+        "https://cardano-mainnet.blockfrost.io/api/v0 (API key required)"
+      ],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Cardanoscan",
+        "url": "https://cardanoscan.io",
+        "standard": null
+      },
+      {
+        "name": "AdaStats",
+        "url": "https://adastats.io",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Cardano",
+      "symbol": "ADA",
+      "decimals": 6,
+      "logo": "trustwallet:blockchains/cardano/info/logo.png"
+    }
+  },
+  {
+    "key": "zksync",
+    "name": "zkSync Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:324",
+      "chainId": 324,
+      "networkId": 324
+    },
+    "endpoints": {
+      "rpc": [
+        "https://mainnet.era.zksync.io",
+        "https://zksync.drpc.org"
+      ],
+      "ws": [
+        "wss://zksync.drpc.org"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "zkSync Era Block Explorer",
+        "url": "https://explorer.zksync.io",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": "zksync-era"
+    },
+    "extra": {
+      "chain": "ETH",
+      "shortName": "zksync",
+      "infoURL": "https://zksync.io/",
+      "status": "unknown",
+      "parent": {
+        "type": "L2",
+        "chain": "eip155-1",
+        "bridges": [
+          {
+            "url": "https://bridge.zksync.io/"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "key": "base",
+    "name": "Base",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:8453",
+      "chainId": 8453,
+      "networkId": 8453
+    },
+    "endpoints": {
+      "rpc": [
+        "https://mainnet.base.org/",
+        "https://developer-access-mainnet.base.org/",
+        "https://base.gateway.tenderly.co",
+        "https://base-rpc.publicnode.com"
+      ],
+      "ws": [
+        "wss://base.gateway.tenderly.co",
+        "wss://base-rpc.publicnode.com"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "basescan",
+        "url": "https://basescan.org",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "basescout",
+        "url": "https://base.blockscout.com",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "dexguru",
+        "url": "https://base.dex.guru",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Routescan",
+        "url": "https://base.superscan.network",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": "base"
+    },
+    "extra": {
+      "chain": "ETH",
+      "shortName": "base",
+      "infoURL": "https://base.org",
+      "status": "active",
+      "parent": null
+    }
+  },
+  {
+    "key": "linea",
+    "name": "Linea",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:59144",
+      "chainId": 59144,
+      "networkId": 59144
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.linea.build",
+        "https://linea-mainnet.infura.io/v3/${INFURA_API_KEY}",
+        "https://linea-rpc.publicnode.com"
+      ],
+      "ws": [
+        "wss://rpc.linea.build",
+        "wss://linea-mainnet.infura.io/ws/v3/${INFURA_API_KEY}",
+        "wss://linea-rpc.publicnode.com"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Etherscan",
+        "url": "https://lineascan.build",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Blockscout",
+        "url": "https://explorer.linea.build",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "L2scan",
+        "url": "https://linea.l2scan.co",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Linea Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": "linea"
+    },
+    "extra": {
+      "chain": "ETH",
+      "shortName": "linea",
+      "infoURL": "https://linea.build",
+      "status": "active",
+      "parent": {
+        "type": "L2",
+        "chain": "eip155-1",
+        "bridges": [
+          {
+            "url": "https://bridge.linea.build"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "key": "scroll",
+    "name": "Scroll",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:534352",
+      "chainId": 534352,
+      "networkId": 534352
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.scroll.io",
+        "https://rpc.ankr.com/scroll",
+        "https://scroll-mainnet.chainstacklabs.com",
+        "https://scroll-rpc.publicnode.com"
+      ],
+      "ws": [
+        "wss://scroll-rpc.publicnode.com"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Scrollscan",
+        "url": "https://scrollscan.com",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": null
+    },
+    "extra": {
+      "chain": "ETH",
+      "shortName": "scr",
+      "infoURL": "https://scroll.io",
+      "status": "active",
+      "parent": {
+        "type": "L2",
+        "chain": "eip155-1",
+        "bridges": [
+          {
+            "url": "https://scroll.io/bridge"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "key": "blast",
+    "name": "Blast",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:81457",
+      "chainId": 81457,
+      "networkId": 81457
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.blast.io",
+        "https://rpc.ankr.com/blast",
+        "https://blast.din.dev/rpc",
+        "https://blastl2-mainnet.public.blastapi.io",
+        "https://blast.blockpi.network/v1/rpc/public",
+        "https://blast-rpc.publicnode.com"
+      ],
+      "ws": [
+        "wss://blast-rpc.publicnode.com"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Blastscan",
+        "url": "https://blastscan.io",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Blast Explorer",
+        "url": "https://blastexplorer.io",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": "blast"
+    },
+    "extra": {
+      "chain": "ETH",
+      "shortName": "blastmainnet",
+      "infoURL": "https://blast.io/",
+      "status": "active",
+      "parent": {
+        "type": "L2",
+        "chain": "eip155-1"
+      }
+    }
+  },
+  {
+    "key": "celo",
+    "name": "Celo Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:42220",
+      "chainId": 42220,
+      "networkId": 42220
+    },
+    "endpoints": {
+      "rpc": [
+        "https://forno.celo.org"
+      ],
+      "ws": [
+        "wss://forno.celo.org/ws"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Celoscan",
+        "url": "https://celoscan.io",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "blockscout",
+        "url": "https://celo.blockscout.com",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "CELO",
+      "symbol": "CELO",
+      "decimals": 18,
+      "logo": null
+    },
+    "extra": {
+      "chain": "CELO",
+      "shortName": "celo",
+      "infoURL": "https://docs.celo.org/",
+      "status": "unknown",
+      "parent": {
+        "type": "L2",
+        "chain": "eip155-1",
+        "bridges": [
+          {
+            "url": "https://superbridge.app/celo"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "key": "katana",
+    "name": "katana",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:747474",
+      "chainId": 747474,
+      "networkId": 747474
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.katana.network"
+      ],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "katana explorer",
+        "url": "https://explorer.katanarpc.com",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": "katana"
+    },
+    "extra": {
+      "chain": "katana",
+      "shortName": "katana",
+      "infoURL": "https://katana.network",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "arbitrum",
+    "name": "Arbitrum One",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:42161",
+      "chainId": 42161,
+      "networkId": 42161
+    },
+    "endpoints": {
+      "rpc": [
+        "https://arbitrum-mainnet.infura.io/v3/${INFURA_API_KEY}",
+        "https://arb-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}",
+        "https://arb1.arbitrum.io/rpc",
+        "https://arbitrum-one-rpc.publicnode.com"
+      ],
+      "ws": [
+        "wss://arbitrum-one-rpc.publicnode.com"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Arbiscan",
+        "url": "https://arbiscan.io",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Arbitrum Explorer",
+        "url": "https://explorer.arbitrum.io",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "dexguru",
+        "url": "https://arbitrum.dex.guru",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": null
+    },
+    "extra": {
+      "chain": "ETH",
+      "shortName": "arb1",
+      "infoURL": "https://arbitrum.io",
+      "status": "unknown",
+      "parent": {
+        "type": "L2",
+        "chain": "eip155-1",
+        "bridges": [
+          {
+            "url": "https://bridge.arbitrum.io"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "key": "plasma",
+    "name": "Plasma Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:9745",
+      "chainId": 9745,
+      "networkId": 9745
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.plasma.to"
+      ],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Routescan",
+        "url": "https://plasmascan.to",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Plasma",
+      "symbol": "XPL",
+      "decimals": 18,
+      "logo": "plasma"
+    },
+    "extra": {
+      "chain": "Plasma",
+      "shortName": "plasma",
+      "infoURL": "https://plasma.to",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "hyperliquid",
+    "name": "Hyperliquid (L1) / Hyperliquid EVM",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": true
+    },
+    "identifiers": {
+      "namespace": "hyperliquid",
+      "caip2": null,
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Hyperliquid App",
+        "url": "https://app.hyperliquid.xyz",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "HYPE",
+      "symbol": "HYPE",
+      "decimals": null,
+      "logo": null
+    },
+    "notes": "If you mean Hyperliquid EVM, chain-registry-like data is on chainid.network; Hyperliquid EVM Testnet uses EVM chainId 998 in chainid.network/chains.json."
+  },
+  {
+    "key": "monad",
+    "name": "Monad Testnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:10143",
+      "chainId": 10143,
+      "networkId": 10143
+    },
+    "endpoints": {
+      "rpc": [
+        "https://testnet-rpc.monad.xyz"
+      ],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Monad Testnet Explorer",
+        "url": "https://testnet.monadexplorer.com",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Testnet MON Token",
+      "symbol": "MON",
+      "decimals": 18,
+      "logo": "monad"
+    },
+    "extra": {
+      "chain": "MON",
+      "shortName": "mon-testnet",
+      "infoURL": "https://monad.xyz",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "flow",
+    "name": "Flow Mainnet",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": true
+    },
+    "identifiers": {
+      "namespace": "flow",
+      "caip2": "flow:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rest-mainnet.onflow.org"
+      ],
+      "ws": [],
+      "rest": [
+        "https://rest-mainnet.onflow.org"
+      ],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "FlowScan",
+        "url": "https://flowscan.org",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Flow",
+      "symbol": "FLOW",
+      "decimals": 8,
+      "logo": "trustwallet:blockchains/flow/info/logo.png"
+    }
+  },
+  {
+    "key": "kava",
+    "name": "Kava",
+    "flags": {
+      "EVM": true,
+      "Cosmos": true,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "cosmos",
+      "caip2": "cosmos:kava_2222-10",
+      "chainId": null,
+      "networkId": "kava_2222-10"
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.data.kava.io",
+        "https://kava-rpc.polkachu.com",
+        "https://rpc-kava-ia.cosmosia.notional.ventures/",
+        "https://kava-mainnet-rpc.autostake.com:443",
+        "https://kava-rpc.ibs.team",
+        "https://rpc-kava-01.stakeflow.io",
+        "https://kava-rpc.publicnode.com:443",
+        "https://kava.drpc.org",
+        "https://rpc.kava.nodestake.org"
+      ],
+      "rest": [
+        "https://api.data.kava.io/",
+        "https://api-kava-ia.cosmosia.notional.ventures/",
+        "https://kava-api.polkachu.com",
+        "https://kava-mainnet-lcd.autostake.com:443",
+        "https://kava-api.ibs.team",
+        "https://api-kava-01.stakeflow.io",
+        "https://kava-rest.publicnode.com",
+        "https://api.kava.nodestake.org"
+      ],
+      "grpc": [
+        "grpc.data.kava.io:443",
+        "grpc-kava-ia.cosmosia.notional.ventures:443",
+        "kava-grpc.polkachu.com:13990",
+        "kava-mainnet-grpc.autostake.com:443",
+        "grpc-kava-01.stakeflow.io:1202",
+        "kava-grpc.publicnode.com:443",
+        "https://grpc.kava.nodestake.org"
+      ],
+      "evm_rpc": [
+        "https://evm.kava.io/",
+        "https://kava-evm.publicnode.com",
+        "https://kava.api.onfinality.io/public",
+        "https://evmrpc.kava.nodestake.org"
+      ],
+      "ws": [],
+      "fetchFromChainRegistry": {
+        "chain.json": "https://raw.githubusercontent.com/cosmos/chain-registry/master/kava/chain.json",
+        "assetlist.json": "https://raw.githubusercontent.com/cosmos/chain-registry/master/kava/assetlist.json"
+      }
+    },
+    "explorers": [
+      {
+        "name": "Chainroot",
+        "url": "https://explorer.chainroot.io/kava",
+        "standard": null
+      },
+      {
+        "name": "Mintscan",
+        "url": "https://www.mintscan.io/kava",
+        "standard": null
+      },
+      {
+        "name": "Ping.pub",
+        "url": "https://ping.pub/kava",
+        "standard": null
+      },
+      {
+        "name": "Atomscan",
+        "url": "https://atomscan.com/kava",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Kava",
+      "symbol": "KAVA",
+      "decimals": 6,
+      "logo": {
+        "png": "https://raw.githubusercontent.com/cosmos/chain-registry/master/kava/images/kava.png",
+        "svg": "https://raw.githubusercontent.com/cosmos/chain-registry/master/kava/images/kava.svg"
+      }
+    },
+    "notes": "RPC/REST/GRPC endpoints + logo URIs are in chain-registry chain.json & assetlist.json (see fetchFromChainRegistry)."
+  },
+  {
+    "key": "immutable x",
+    "name": "Immutable zkEVM",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:13371",
+      "chainId": 13371,
+      "networkId": 13371
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.immutable.com",
+        "https://immutable-zkevm.drpc.org"
+      ],
+      "ws": [
+        "wss://immutable-zkevm.drpc.org"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Immutable explorer",
+        "url": "https://explorer.immutable.com",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "IMX",
+      "symbol": "IMX",
+      "decimals": 18,
+      "logo": "immutable"
+    },
+    "extra": {
+      "chain": "Immutable zkEVM",
+      "shortName": "imx",
+      "infoURL": "https://www.immutable.com",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "opbnb",
+    "name": "opBNB Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:204",
+      "chainId": 204,
+      "networkId": 204
+    },
+    "endpoints": {
+      "rpc": [
+        "https://opbnb-mainnet-rpc.bnbchain.org",
+        "https://opbnb-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3",
+        "https://opbnb-mainnet.nodereal.io/v1/e9a36765eb8a40b9bd12e680a1fd2bc5",
+        "https://opbnb-rpc.publicnode.com",
+        "https://opbnb.drpc.org"
+      ],
+      "ws": [
+        "wss://opbnb-mainnet.nodereal.io/ws/v1/64a9df0874fb4a93b9d0a3849de012d3",
+        "wss://opbnb-mainnet.nodereal.io/ws/v1/e9a36765eb8a40b9bd12e680a1fd2bc5",
+        "wss://opbnb-rpc.publicnode.com",
+        "wss://opbnb.drpc.org"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "opbnbscan",
+        "url": "https://mainnet.opbnbscan.com",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "BNB Chain Native Token",
+      "symbol": "BNB",
+      "decimals": 18,
+      "logo": "bnbchain"
+    },
+    "extra": {
+      "chain": "opBNB",
+      "shortName": "obnb",
+      "infoURL": "https://opbnb.bnbchain.org/en",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "polkadot",
+    "name": "Polkadot",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": true,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "polkadot",
+      "caip2": "polkadot:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [
+        "wss://rpc.polkadot.io"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Subscan",
+        "url": "https://polkadot.subscan.io",
+        "standard": null
+      },
+      {
+        "name": "Polkascan",
+        "url": "https://polkascan.io/polkadot",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Polkadot",
+      "symbol": "DOT",
+      "decimals": 10,
+      "logo": "trustwallet:blockchains/polkadot/info/logo.png"
+    }
+  },
+  {
+    "key": "mantle",
+    "name": "Mantle",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:5000",
+      "chainId": 5000,
+      "networkId": 5000
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.mantle.xyz",
+        "https://mantle-rpc.publicnode.com"
+      ],
+      "ws": [
+        "wss://mantle-rpc.publicnode.com"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "mantlescan",
+        "url": "https://mantlescan.xyz",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Mantle Explorer",
+        "url": "https://explorer.mantle.xyz",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Mantle",
+      "symbol": "MNT",
+      "decimals": 18,
+      "logo": "mantle"
+    },
+    "extra": {
+      "chain": "ETH",
+      "shortName": "mantle",
+      "infoURL": "https://mantle.xyz",
+      "status": "unknown",
+      "parent": {
+        "type": "L2",
+        "chain": "eip155-1",
+        "bridges": [
+          {
+            "url": "https://bridge.mantle.xyz"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "key": "tezos",
+    "name": "Tezos Mainnet",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": true
+    },
+    "identifiers": {
+      "namespace": "tezos",
+      "caip2": "tezos:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [
+        "https://mainnet.api.tez.ie"
+      ],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "TzKT",
+        "url": "https://tzkt.io",
+        "standard": null
+      },
+      {
+        "name": "Better Call Dev",
+        "url": "https://better-call.dev",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Tezos",
+      "symbol": "XTZ",
+      "decimals": 6,
+      "logo": "trustwallet:blockchains/tezos/info/logo.png"
+    }
+  },
+  {
+    "key": "hedera",
+    "name": "Hedera Mainnet",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": true
+    },
+    "identifiers": {
+      "namespace": "hedera",
+      "caip2": "hedera:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [
+        "https://mainnet-public.mirrornode.hedera.com/api/v1"
+      ],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "HashScan",
+        "url": "https://hashscan.io/mainnet",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Hedera",
+      "symbol": "HBAR",
+      "decimals": 8,
+      "logo": "trustwallet:blockchains/hedera/info/logo.png"
+    }
+  },
+  {
+    "key": "ink",
+    "name": "Ink",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:57073",
+      "chainId": 57073,
+      "networkId": 57073
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc-gel.inkonchain.com",
+        "https://rpc-qnd.inkonchain.com"
+      ],
+      "ws": [
+        "wss://rpc-gel.inkonchain.com",
+        "wss://rpc-qnd.inkonchain.com"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Ink Explorer",
+        "url": "https://explorer.inkonchain.com",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": null
+    },
+    "extra": {
+      "chain": "ETH",
+      "shortName": "ink",
+      "infoURL": "https://inkonchain.com",
+      "status": "active",
+      "parent": null
+    }
+  },
+  {
+    "key": "bera",
+    "name": "Berachain",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:80094",
+      "chainId": 80094,
+      "networkId": 80094
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.berachain.com",
+        "https://berachain-rpc.publicnode.com",
+        "https://rpc.berachain-apis.com"
+      ],
+      "ws": [
+        "wss://berachain-rpc.publicnode.com",
+        "wss://rpc.berachain-apis.com"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Berascan",
+        "url": "https://berascan.com",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Beratrail",
+        "url": "https://beratrail.io",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "BERA Token",
+      "symbol": "BERA",
+      "decimals": 18,
+      "logo": "berachain"
+    },
+    "extra": {
+      "chain": "Berachain",
+      "shortName": "berachain",
+      "infoURL": "https://www.berachain.com",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "sei",
+    "name": "Sei",
+    "flags": {
+      "EVM": false,
+      "Cosmos": true,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "cosmos",
+      "caip2": "cosmos:pacific-1",
+      "chainId": null,
+      "networkId": "pacific-1"
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [],
+      "grpc": [],
+      "fetchFromChainRegistry": {
+        "chain.json": "https://raw.githubusercontent.com/cosmos/chain-registry/master/sei/chain.json",
+        "assetlist.json": "https://raw.githubusercontent.com/cosmos/chain-registry/master/sei/assetlist.json"
+      }
+    },
+    "explorers": [
+      {
+        "name": "Mintscan",
+        "url": "https://www.mintscan.io/sei",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Sei",
+      "symbol": "SEI",
+      "decimals": 6,
+      "logo": null
+    },
+    "notes": "RPC/REST/GRPC endpoints + logo URIs are in chain-registry chain.json & assetlist.json (see fetchFromChainRegistry)."
+  },
+  {
+    "key": "stellar",
+    "name": "Stellar Public Network",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": true
+    },
+    "identifiers": {
+      "namespace": "stellar",
+      "caip2": "stellar:pubnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [
+        "https://horizon.stellar.org"
+      ],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Stellar Expert",
+        "url": "https://stellar.expert",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Stellar",
+      "symbol": "XLM",
+      "decimals": 7,
+      "logo": "trustwallet:blockchains/stellar/info/logo.png"
+    }
+  },
+  {
+    "key": "rootstock",
+    "name": "Rootstock Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:30",
+      "chainId": 30,
+      "networkId": 30
+    },
+    "endpoints": {
+      "rpc": [
+        "https://public-node.rsk.co",
+        "https://mycrypto.rsk.co"
+      ],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Rootstock Explorer",
+        "url": "https://explorer.rsk.co",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "blockscout",
+        "url": "https://rootstock.blockscout.com",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Smart Bitcoin",
+      "symbol": "RBTC",
+      "decimals": 18,
+      "logo": "rootstock"
+    },
+    "extra": {
+      "chain": "Rootstock",
+      "shortName": "rsk",
+      "infoURL": "https://rootstock.io",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "plume",
+    "name": "Plume Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:98866",
+      "chainId": 98866,
+      "networkId": 98866
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.plume.org"
+      ],
+      "ws": [
+        "wss://rpc.plume.org"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Blockscout",
+        "url": "https://explorer.plume.org",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Plume",
+      "symbol": "PLUME",
+      "decimals": 18,
+      "logo": "plume"
+    },
+    "extra": {
+      "chain": "PLUME",
+      "shortName": "plume-mainnet",
+      "infoURL": "https://plume.org",
+      "status": "active",
+      "parent": {
+        "type": "L2",
+        "chain": "eip155-1",
+        "bridges": [
+          {
+            "url": "https://bridge.plume.org"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "key": "dydx",
+    "name": "dYdX Chain",
+    "flags": {
+      "EVM": false,
+      "Cosmos": true,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "cosmos",
+      "caip2": "cosmos:dydx-mainnet-1",
+      "chainId": null,
+      "networkId": "dydx-mainnet-1"
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [],
+      "grpc": [],
+      "fetchFromChainRegistry": {
+        "chain.json": "https://raw.githubusercontent.com/cosmos/chain-registry/master/dydx/chain.json",
+        "assetlist.json": "https://raw.githubusercontent.com/cosmos/chain-registry/master/dydx/assetlist.json"
+      }
+    },
+    "explorers": [
+      {
+        "name": "Mintscan",
+        "url": "https://www.mintscan.io/dydx",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "dYdX",
+      "symbol": "DYDX",
+      "decimals": 18,
+      "logo": null
+    },
+    "notes": "RPC/REST/GRPC endpoints + logo URIs are in chain-registry chain.json & assetlist.json (see fetchFromChainRegistry)."
+  },
+  {
+    "key": "pulsechain",
+    "name": "PulseChain",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:369",
+      "chainId": 369,
+      "networkId": 369
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.pulsechain.com",
+        "https://pulsechain-rpc.publicnode.com",
+        "https://rpc-pulsechain.g4mm4.io"
+      ],
+      "ws": [
+        "wss://pulsechain-rpc.publicnode.com"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "pulsechain",
+        "url": "https://ipfs.scan.pulsechain.com",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "otterscan",
+        "url": "https://otter.pulsechain.com",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Pulse",
+      "symbol": "PLS",
+      "decimals": 18,
+      "logo": "pulsechain"
+    },
+    "extra": {
+      "chain": "PLS",
+      "shortName": "pls",
+      "infoURL": "https://pulsechain.com/",
+      "status": "active",
+      "parent": null
+    }
+  },
+  {
+    "key": "hydration",
+    "name": "Hydration (Polkadot parachain)",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": true,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "substrate",
+      "caip2": "substrate:hydration",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [
+        "wss://rpc.hydration.io"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Subscan",
+        "url": "https://hydration.subscan.io",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Hydration",
+      "symbol": "HDX",
+      "decimals": 12,
+      "logo": null
+    }
+  },
+  {
+    "key": "stacks",
+    "name": "Stacks Mainnet",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": true
+    },
+    "identifiers": {
+      "namespace": "stacks",
+      "caip2": "stacks:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [
+        "https://api.mainnet.hiro.so"
+      ],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Hiro Explorer",
+        "url": "https://explorer.hiro.so",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Stacks",
+      "symbol": "STX",
+      "decimals": 6,
+      "logo": "trustwallet:blockchains/stacks/info/logo.png"
+    }
+  },
+  {
+    "key": "mixin",
+    "name": "Mixin Network",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": true
+    },
+    "identifiers": {
+      "namespace": "mixin",
+      "caip2": "mixin:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Mixin Explorer (community)",
+        "url": "https://mixin.one",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Xin",
+      "symbol": "XIN",
+      "decimals": 8,
+      "logo": null
+    }
+  },
+  {
+    "key": "BOB",
+    "name": "BOB",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:60808",
+      "chainId": 60808,
+      "networkId": 60808
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.gobob.xyz",
+        "https://bob-mainnet.public.blastapi.io"
+      ],
+      "ws": [
+        "wss://rpc.gobob.xyz",
+        "wss://bob-mainnet.public.blastapi.io"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "bobscout",
+        "url": "https://explorer.gobob.xyz",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": "bob"
+    },
+    "extra": {
+      "chain": "ETH",
+      "shortName": "bob",
+      "infoURL": "https://gobob.xyz",
+      "status": "active",
+      "parent": {
+        "type": "L2",
+        "chain": "eip155-1",
+        "bridges": [
+          {
+            "url": "https://app.gobob.xyz"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "key": "sonic",
+    "name": "Sonic Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:146",
+      "chainId": 146,
+      "networkId": 146
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.soniclabs.com",
+        "https://sonic-rpc.publicnode.com"
+      ],
+      "ws": [
+        "wss://sonic-rpc.publicnode.com"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "etherscan",
+        "url": "https://sonicscan.org",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "sonic",
+        "url": "https://explorer.soniclabs.com",
+        "standard": "none"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Sonic",
+      "symbol": "S",
+      "decimals": 18,
+      "logo": "sonic"
+    },
+    "extra": {
+      "chain": "sonic",
+      "shortName": "sonic",
+      "infoURL": "https://soniclabs.com",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "core",
+    "name": "Core Blockchain Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:1116",
+      "chainId": 1116,
+      "networkId": 1116
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.coredao.org/",
+        "https://rpc-core.icecreamswap.com",
+        "https://core.drpc.org"
+      ],
+      "ws": [
+        "wss://core.drpc.org"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Core Scan",
+        "url": "https://scan.coredao.org",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Core Blockchain Native Token",
+      "symbol": "CORE",
+      "decimals": 18,
+      "logo": "core"
+    },
+    "extra": {
+      "chain": "Core",
+      "shortName": "core",
+      "infoURL": "https://www.coredao.org",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "algorand",
+    "name": "Algorand Mainnet",
+    "flags": {
+      "EVM": false,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": true
+    },
+    "identifiers": {
+      "namespace": "algorand",
+      "caip2": "algorand:mainnet",
+      "chainId": null,
+      "networkId": null
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [
+        "https://mainnet-api.algonode.cloud",
+        "https://mainnet-idx.algonode.cloud (indexer)"
+      ],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "AlgoExplorer",
+        "url": "https://algoexplorer.io",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Algorand",
+      "symbol": "ALGO",
+      "decimals": 6,
+      "logo": "trustwallet:blockchains/algorand/info/logo.png"
+    }
+  },
+  {
+    "key": "eni",
+    "name": "ENI Mainnet",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:173",
+      "chainId": 173,
+      "networkId": 173
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.eniac.network"
+      ],
+      "ws": [
+        "wss://rpc.eniac.network/ws/"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "ENI Explorer",
+        "url": "https://scan.eniac.network",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "EGAS",
+      "symbol": "EGAS",
+      "decimals": 18,
+      "logo": "eni"
+    },
+    "extra": {
+      "chain": "ENI",
+      "shortName": "eni",
+      "infoURL": "https://eniac.network/",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "neutron",
+    "name": "Neutron",
+    "flags": {
+      "EVM": false,
+      "Cosmos": true,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "cosmos",
+      "caip2": "cosmos:neutron-1",
+      "chainId": null,
+      "networkId": "neutron-1"
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [],
+      "grpc": [],
+      "fetchFromChainRegistry": {
+        "chain.json": "https://raw.githubusercontent.com/cosmos/chain-registry/master/neutron/chain.json",
+        "assetlist.json": "https://raw.githubusercontent.com/cosmos/chain-registry/master/neutron/assetlist.json"
+      }
+    },
+    "explorers": [
+      {
+        "name": "Mintscan",
+        "url": "https://www.mintscan.io/neutron",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Neutron",
+      "symbol": "NTRN",
+      "decimals": 6,
+      "logo": null
+    },
+    "notes": "RPC/REST/GRPC endpoints + logo URIs are in chain-registry chain.json & assetlist.json (see fetchFromChainRegistry)."
+  },
+  {
+    "key": "thorchain",
+    "name": "THORChain",
+    "flags": {
+      "EVM": false,
+      "Cosmos": true,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "cosmos",
+      "caip2": "cosmos:thorchain-1",
+      "chainId": null,
+      "networkId": "thorchain-1"
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [],
+      "grpc": [],
+      "fetchFromChainRegistry": {
+        "chain.json": "https://raw.githubusercontent.com/cosmos/chain-registry/master/thorchain/chain.json",
+        "assetlist.json": "https://raw.githubusercontent.com/cosmos/chain-registry/master/thorchain/assetlist.json"
+      }
+    },
+    "explorers": [
+      {
+        "name": "Mintscan",
+        "url": "https://www.mintscan.io/thorchain",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "THORChain",
+      "symbol": "RUNE",
+      "decimals": 8,
+      "logo": null
+    },
+    "notes": "RPC/REST/GRPC endpoints + logo URIs are in chain-registry chain.json & assetlist.json (see fetchFromChainRegistry)."
+  },
+  {
+    "key": "world (chain)",
+    "name": "World Chain",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:480",
+      "chainId": 480,
+      "networkId": 480
+    },
+    "endpoints": {
+      "rpc": [
+        "https://worldchain-mainnet.g.alchemy.com/public",
+        "https://480.rpc.thirdweb.com",
+        "https://worldchain-mainnet.gateway.tenderly.co"
+      ],
+      "ws": [
+        "wss://worldchain-mainnet.gateway.tenderly.co"
+      ],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "etherscan",
+        "url": "https://worldscan.org",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "blockscout",
+        "url": "https://worldchain-mainnet.explorer.alchemy.com",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": null
+    },
+    "extra": {
+      "chain": "ETH",
+      "shortName": "wc",
+      "infoURL": "https://world.org/world-chain",
+      "status": "unknown",
+      "parent": {
+        "type": "L2",
+        "chain": "eip155-1",
+        "bridges": [
+          {
+            "url": "https://world-chain.superbridge.app"
+          },
+          {
+            "url": "https://app.across.to/bridge?destinationChainId=480"
+          },
+          {
+            "url": "https://worldchain-mainnet.bridge.alchemy.com"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "key": "goat",
+    "name": "GOAT Network",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:2345",
+      "chainId": 2345,
+      "networkId": 2345
+    },
+    "endpoints": {
+      "rpc": [
+        "https://rpc.goat.network"
+      ],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "blockscout",
+        "url": "https://explorer.goat.network",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "decimals": 18,
+      "logo": "goat"
+    },
+    "extra": {
+      "chain": "GOAT",
+      "shortName": "goat",
+      "infoURL": "https://www.goat.network",
+      "status": "unknown",
+      "parent": null
+    }
+  },
+  {
+    "key": "osmosis",
+    "name": "Osmosis",
+    "flags": {
+      "EVM": false,
+      "Cosmos": true,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "cosmos",
+      "caip2": "cosmos:osmosis-1",
+      "chainId": null,
+      "networkId": "osmosis-1"
+    },
+    "endpoints": {
+      "rpc": [],
+      "ws": [],
+      "rest": [],
+      "grpc": [],
+      "fetchFromChainRegistry": {
+        "chain.json": "https://raw.githubusercontent.com/cosmos/chain-registry/master/osmosis/chain.json",
+        "assetlist.json": "https://raw.githubusercontent.com/cosmos/chain-registry/master/osmosis/assetlist.json"
+      }
+    },
+    "explorers": [
+      {
+        "name": "Mintscan",
+        "url": "https://www.mintscan.io/osmosis",
+        "standard": null
+      }
+    ],
+    "nativeAsset": {
+      "name": "Osmosis",
+      "symbol": "OSMO",
+      "decimals": 6,
+      "logo": null
+    },
+    "notes": "RPC/REST/GRPC endpoints + logo URIs are in chain-registry chain.json & assetlist.json (see fetchFromChainRegistry)."
+  },
+  {
+    "key": "abstract",
+    "name": "Abstract",
+    "flags": {
+      "EVM": true,
+      "Cosmos": false,
+      "UTXO": false,
+      "Solana": false,
+      "Substrate": false,
+      "Move": false,
+      "Other": false
+    },
+    "identifiers": {
+      "namespace": "eip155",
+      "caip2": "eip155:2741",
+      "chainId": 2741,
+      "networkId": 2741
+    },
+    "endpoints": {
+      "rpc": [
+        "https://api.mainnet.abs.xyz"
+      ],
+      "ws": [],
+      "rest": [],
+      "grpc": []
+    },
+    "explorers": [
+      {
+        "name": "Etherscan",
+        "url": "https://abscan.org",
+        "standard": "EIP3091"
+      },
+      {
+        "name": "Abstract Explorer",
+        "url": "https://explorer.mainnet.abs.xyz",
+        "standard": "EIP3091"
+      }
+    ],
+    "nativeAsset": {
+      "name": "Ether",
+      "symbol": "ETH",
+      "decimals": 18,
+      "logo": "abstract"
+    },
+    "extra": {
+      "chain": "Abstract",
+      "shortName": "abstract",
+      "infoURL": "https://abs.xyz",
+      "status": "unknown",
+      "parent": {
+        "type": "L2",
+        "chain": "eip155-1",
+        "bridges": [
+          {
+            "url": "https://portal.mainnet.abs.xyz/bridge"
+          }
+        ]
+      }
+    }
+  }
+]

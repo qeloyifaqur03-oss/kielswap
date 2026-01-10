@@ -1,0 +1,626 @@
+[
+  {
+    "chainId": 1,
+    "networkId": "ethereum",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.427Z"
+  },
+  {
+    "chainId": 56,
+    "networkId": "bnb",
+    "native": {
+      "symbol": "BNB",
+      "name": "BNB",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 43114,
+    "networkId": "avalanche",
+    "native": {
+      "symbol": "AVAX",
+      "name": "Avalanche",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 137,
+    "networkId": "polygon",
+    "native": {
+      "symbol": "MATIC",
+      "name": "Matic",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 8453,
+    "networkId": "base",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 42161,
+    "networkId": "arbitrum",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 10,
+    "networkId": "optimism",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 324,
+    "networkId": "zksync",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 59144,
+    "networkId": "linea",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 534352,
+    "networkId": "scroll",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 238,
+    "networkId": "blast",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 100,
+    "networkId": "gnosis",
+    "native": {
+      "symbol": "xDAI",
+      "name": "xDAI",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 42220,
+    "networkId": "celo",
+    "native": {
+      "symbol": "CELO",
+      "name": "Celo",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 25,
+    "networkId": "cronos",
+    "native": {
+      "symbol": "CRO",
+      "name": "Cronos",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 5000,
+    "networkId": "mantle",
+    "native": {
+      "symbol": "MNT",
+      "name": "Mantle",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.428Z"
+  },
+  {
+    "chainId": 204,
+    "networkId": "opbnb",
+    "native": {
+      "symbol": "BNB",
+      "name": "BNB",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 2222,
+    "networkId": "kava",
+    "native": {
+      "symbol": "KAVA",
+      "name": "Kava",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 9745,
+    "networkId": "plasma",
+    "native": {
+      "symbol": "XPL",
+      "name": "XPL",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 999,
+    "networkId": "hyperevm",
+    "native": {
+      "symbol": "HYPE",
+      "name": "HYPE",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 295,
+    "networkId": "hedera-evm",
+    "native": {
+      "symbol": "HBAR",
+      "name": "Hedera",
+      "decimals": 8
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 747474,
+    "networkId": "katana",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 30,
+    "networkId": "rootstock",
+    "native": {
+      "symbol": "RBTC",
+      "name": "RBTC",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 146,
+    "networkId": "sonic",
+    "native": {
+      "symbol": "S",
+      "name": "Sonic",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 57073,
+    "networkId": "ink",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 80094,
+    "networkId": "berachain",
+    "native": {
+      "symbol": "BERA",
+      "name": "Bera",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 98866,
+    "networkId": "plume",
+    "native": {
+      "symbol": "PLUME",
+      "name": "Plume",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 369,
+    "networkId": "pulsechain",
+    "native": {
+      "symbol": "PLS",
+      "name": "Pulse",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 60808,
+    "networkId": "bob",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 1116,
+    "networkId": "core",
+    "native": {
+      "symbol": "CORE",
+      "name": "Core",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 480,
+    "networkId": "world-chain",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 2741,
+    "networkId": "abstract",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 173,
+    "networkId": "eni",
+    "native": {
+      "symbol": "ENI",
+      "name": "ENI",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 14,
+    "networkId": "flare",
+    "native": {
+      "symbol": "FLR",
+      "name": "Flare",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 130,
+    "networkId": "unichain",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 42793,
+    "networkId": "etherlink",
+    "native": {
+      "symbol": "XTZ",
+      "name": "Tez",
+      "decimals": 6
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 252,
+    "networkId": "fraxtal",
+    "native": {
+      "symbol": "frxETH",
+      "name": "Frax Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 1868,
+    "networkId": "soneium",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 4200,
+    "networkId": "merlin",
+    "native": {
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 1729,
+    "networkId": "reya",
+    "native": {
+      "symbol": "REYA",
+      "name": "Reya",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 196,
+    "networkId": "x-layer",
+    "native": {
+      "symbol": "OKB",
+      "name": "OKB",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 3068,
+    "networkId": "bifrost",
+    "native": {
+      "symbol": "BFC",
+      "name": "Bifrost",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 3637,
+    "networkId": "botanix",
+    "native": {
+      "symbol": "BTC",
+      "name": "Bitcoin",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 1088,
+    "networkId": "metis",
+    "native": {
+      "symbol": "METIS",
+      "name": "Metis",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 570,
+    "networkId": "rollux",
+    "native": {
+      "symbol": "SYS",
+      "name": "Syscoin",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 43111,
+    "networkId": "hemi",
+    "native": {
+      "symbol": "HEMI",
+      "name": "Hemi",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 169,
+    "networkId": "manta",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 13371,
+    "networkId": "immutable-zkevm",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 50104,
+    "networkId": "sophon",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 167000,
+    "networkId": "taiko",
+    "native": {
+      "symbol": "ETH",
+      "name": "Ether",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 1514,
+    "networkId": "story",
+    "native": {
+      "symbol": "STORY",
+      "name": "Story",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 8217,
+    "networkId": "kaia",
+    "native": {
+      "symbol": "KAIA",
+      "name": "Kaia",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  },
+  {
+    "chainId": 143,
+    "networkId": "monad",
+    "native": {
+      "symbol": "MONAD",
+      "name": "Monad",
+      "decimals": 18
+    },
+    "wrapped": null,
+    "status": "verified",
+    "updatedAt": "2026-01-04T01:36:13.429Z"
+  }
+]

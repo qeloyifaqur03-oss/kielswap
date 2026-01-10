@@ -1,0 +1,142 @@
+{
+    "chain_id": "osmosis-1",
+    "bech32_prefix": "osmo",
+    "rpc": [
+      "https://rpc.osmosis.zone",
+      "https://rpc.lavenderfive.com:443/osmosis",
+      "https://rpc-osmosis.ecostake.com",
+      "https://rpc.osmosis.polkachu.com",
+      "https://osmosis.rpc.stakin-nodes.com",
+      "https://osmosis-rpc.publicnode.com:443",
+      "https://community.nuxian-node.ch:6797/osmosis/trpc",
+      "https://osmosis-rpc.stake-town.com",
+      "https://rpc.osmosis.validatus.com",
+      "https://public.stakewolle.com/cosmos/osmosis/rpc",
+      "https://rpc.cros-nest.com/osmosis",
+      "https://rpc.osmosis.goldenratiostaking.net",
+      "https://osmosis-rpc.noders.services",
+      "https://osmosis-rpc.highstakes.ch",
+      "https://rpc.osmosis.citizenweb3.com"
+    ],
+    "rest": [
+      "https://lcd.osmosis.zone",
+      "https://rest.osmosis.goldenratiostaking.net",
+      "https://rest.lavenderfive.com:443/osmosis",
+      "https://rest-osmosis.ecostake.com",
+      "https://osmosis-api.polkachu.com",
+      "https://osmosis.rest.stakin-nodes.com",
+      "https://osmosis-rest.publicnode.com",
+      "https://community.nuxian-node.ch:6797/osmosis/crpc",
+      "https://osmosis-api.stake-town.com",
+      "https://api.osmosis.validatus.com:443",
+      "https://public.stakewolle.com/cosmos/osmosis/rest",
+      "https://rest.cros-nest.com/osmosis",
+      "https://osmosis-api.noders.services",
+      "https://osmosis-api.highstakes.ch",
+      "https://api.osmosis.citizenweb3.com",
+      "https://osmosis.api.pocket.network"
+    ],
+    "grpc": [
+      "osmosis.lavenderfive.com:443",
+      "osmosis.grpc.stakin-nodes.com:443",
+      "grpc-osmosis-01.stakeflow.io:6754",
+      "osmosis-grpc.publicnode.com:443",
+      "osmosis-grpc.stake-town.com:443",
+      "grpc.osmosis.validatus.com:443",
+      "grpc.osmosis.citizenweb3.com:443"
+    ],
+    "explorers": [
+      {
+        "kind": "ezstaking",
+        "url": "https://ezstaking.app/osmosis",
+        "tx_page": "https://ezstaking.app/osmosis/txs/${txHash}",
+        "account_page": "https://ezstaking.app/osmosis/account/${accountAddress}"
+      },
+      {
+        "kind": "mintscan",
+        "url": "https://www.mintscan.io/osmosis",
+        "tx_page": "https://www.mintscan.io/osmosis/transactions/${txHash}",
+        "account_page": "https://www.mintscan.io/osmosis/accounts/${accountAddress}"
+      },
+      {
+        "kind": "ping.pub",
+        "url": "https://ping.pub/osmosis",
+        "tx_page": "https://ping.pub/osmosis/tx/${txHash}"
+      },
+      {
+        "kind": "explorers.guru",
+        "url": "https://osmosis.explorers.guru",
+        "tx_page": "https://osmosis.explorers.guru/transaction/${txHash}",
+        "account_page": "https://osmosis.explorers.guru/account/${accountAddress}"
+      },
+      {
+        "kind": "atomscan",
+        "url": "https://atomscan.com/osmosis",
+        "tx_page": "https://atomscan.com/osmosis/transactions/${txHash}",
+        "account_page": "https://atomscan.com/osmosis/accounts/${accountAddress}"
+      },
+      {
+        "kind": "TC Network",
+        "url": "https://explorer.tcnetwork.io/osmosis",
+        "tx_page": "https://explorer.tcnetwork.io/osmosis/transaction/${txHash}",
+        "account_page": "https://explorer.tcnetwork.io/osmosis/account/${accountAddress}"
+      },
+      {
+        "kind": "staking-explorer.com",
+        "url": "https://staking-explorer.com/explorer/osmosis",
+        "tx_page": "https://staking-explorer.com/transaction.php?chain=osmosis&tx=${txHash}",
+        "account_page": "https://staking-explorer.com/account.php?chain=osmosis&addr=${accountAddress}"
+      },
+      {
+        "kind": "Stakeflow",
+        "url": "https://stakeflow.io/osmosis",
+        "account_page": "https://stakeflow.io/osmosis/accounts/${accountAddress}"
+      },
+      {
+        "kind": "Nodeist Explorer",
+        "url": "https://exp.nodeist.net/osmosis",
+        "tx_page": "https://exp.nodeist.net/osmosis/tx/${txHash}"
+      },
+      {
+        "kind": "L0vd.com ❤️",
+        "url": "https://explorers.l0vd.com/osmosis-mainnet",
+        "tx_page": "https://explorers.l0vd.com/osmosis-mainnet/tx/${txHash}"
+      },
+      {
+        "kind": "Chainscope",
+        "url": "https://chainsco.pe/osmosis",
+        "tx_page": "https://chainsco.pe/osmosis/tx/${txHash}"
+      },
+      {
+        "kind": "WhisperNode 🤐",
+        "url": "https://mainnet.whispernode.com/osmosis",
+        "tx_page": "https://mainnet.whispernode.com/osmosis/tx/${txHash}",
+        "account_page": "https://mainnet.whispernode.com/osmosis/account/${accountAddress}"
+      },
+      {
+        "kind": "Chainroot",
+        "url": "https://explorer.chainroot.io/osmosis",
+        "tx_page": "https://explorer.chainroot.io/osmosis/transactions/${txHash}",
+        "account_page": "https://explorer.chainroot.io/osmosis/accounts/${accountAddress}"
+      },
+      {
+        "kind": "Valopers",
+        "url": "https://osmosis.valopers.com",
+        "tx_page": "https://osmosis.valopers.com/transactions/${txHash}",
+        "account_page": "https://osmosis.valopers.com/account/${accountAddress}"
+      },
+      {
+        "kind": "Validatorinfo",
+        "url": "https://validatorinfo.com/networks/osmosis/overview",
+        "validator_page": "https://validatorinfo.com/networks/osmosis/validators",
+        "proposal_page": "https://validatorinfo.com/networks/osmosis/governance"
+      },
+      {
+        "kind": "moon-runners",
+        "url": "https://moon-runners.net/osmosis/mainnet",
+        "tx_page": "https://moon-runners.net/osmosis/mainnet/finder?search=${txHash}",
+        "account_page": "https://moon-runners.net/osmosis/mainnet/finder?search=${accountAddress}"
+      }
+    ]
+  }
+  

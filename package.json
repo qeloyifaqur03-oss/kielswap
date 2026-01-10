@@ -1,0 +1,26 @@
+{
+  "name": "kielswap-monorepo",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": [
+    "landing",
+    "app",
+    "docs",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "npx concurrently -n \"landing,app,docs\" -c \"cyan,magenta,yellow\" \"pnpm -C landing dev\" \"pnpm -C app dev\" \"pnpm -C docs dev\"",
+    "dev:landing": "pnpm -C landing dev",
+    "dev:app": "pnpm -C app dev",
+    "dev:docs": "pnpm -C docs dev",
+    "build": "pnpm -C landing build && pnpm -C app build",
+    "build:landing": "pnpm -C landing build",
+    "build:app": "pnpm -C app build",
+    "build:docs": "pnpm -C docs build",
+    "clean": "pnpm -C landing clean && pnpm -C app clean",
+    "lint": "pnpm -C landing lint && pnpm -C app lint"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
