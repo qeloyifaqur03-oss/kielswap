@@ -1,7 +1,6 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
 export default function NewHero() {
@@ -71,7 +70,7 @@ export default function NewHero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="pt-8"
           >
-            <Link href="/swap?mode=intent" className="block">
+            <a href="https://app.kielswap.com/swap?mode=intent" target="_blank" rel="noopener noreferrer" className="block">
               <motion.div
                 whileHover={{ y: -2 }}
                 whileTap={{ y: 0 }}
@@ -83,7 +82,7 @@ export default function NewHero() {
                   Try intent swap
                 </Button>
               </motion.div>
-            </Link>
+            </a>
           </motion.div>
         </div>
       </div>

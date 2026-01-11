@@ -68,12 +68,14 @@ export default function Header() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link
-                href="/swap"
+              <a
+                href="https://app.kielswap.com/swap"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-4 py-2 rounded-xl font-light text-white text-sm transition-all duration-300 bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 hover:border-pink-400/50 hover:from-pink-500/40 hover:via-accent/45 hover:to-purple-500/40 shadow-lg shadow-accent/20 hover:shadow-accent/30"
               >
                 Launch app
-              </Link>
+              </a>
             </motion.div>
             </div>
           )}

@@ -8,57 +8,9 @@ export default function Hero() {
   const [isExternal, setIsExternal] = useState(false)
 
   useEffect(() => {
-    if (typeof window === 'undefined') return
-
-    const hostname = window.location.hostname
-    const port = window.location.port
-    const protocol = window.location.protocol
-
-    // If already on app.* subdomain, link to /swap on same host
-    if (hostname.startsWith('app.')) {
-      setAppUrl('/swap')
-      setIsExternal(false)
-      return
-    }
-
-    // Extract base hostname (remove any existing subdomain)
-    // e.g., "kielswap.localhost" -> "kielswap.localhost"
-    // e.g., "www.kielswap.com" -> "kielswap.com"
-    let baseHost = hostname
-    const parts = hostname.split('.')
-    
-    // Handle .localhost domains
-    if (hostname.endsWith('.localhost')) {
-      // Prepend "app." to the base hostname
-      const appHostname = 'app.' + baseHost
-      const portPart = port ? `:${port}` : ''
-      setAppUrl(`${protocol}//${appHostname}${portPart}`)
-      setIsExternal(false) // Same-window navigation for local dev
-      return
-    }
-
-    // Handle localhost or 127.0.0.1 (without .localhost)
-    if (hostname === 'localhost' || hostname === '127.0.0.1') {
-      // Link to /swap on same host
-      setAppUrl('/swap')
-      setIsExternal(false)
-      return
-    }
-
-    // Production: extract base domain (remove www if present)
-    if (parts.length > 2 && parts[0] === 'www') {
-      baseHost = parts.slice(1).join('.')
-    } else if (parts.length >= 2) {
-      // Take the last two parts (e.g., "kielswap.com")
-      baseHost = parts.slice(-2).join('.')
-    }
-
-    // Prepend "app." to base hostname
-    const appHostname = 'app.' + baseHost
-    // In production, typically no port, but preserve if present
-    const portPart = port ? `:${port}` : ''
-    setAppUrl(`${protocol}//${appHostname}${portPart}`)
-    setIsExternal(true) // New tab for production cross-domain
+    // Always link to app.kielswap.com
+    setAppUrl('https://app.kielswap.com/swap')
+    setIsExternal(true)
   }, [])
 
   return (
@@ -110,13 +62,13 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35, ease: [0.4, 0, 0.2, 1] }}
           >
-            <Link href="/swap?mode=intent" className="block">
+            <a href="https://app.kielswap.com/swap?mode=intent" target="_blank" rel="noopener noreferrer" className="block">
               <Button
                 className="px-6 py-3 rounded-xl font-light bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 hover:from-pink-500/40 hover:via-accent/45 hover:to-purple-500/40 hover:border-pink-400/50 shadow-lg shadow-accent/20 hover:shadow-accent/30 text-white transition-all duration-300"
               >
                 Try intent swap
               </Button>
-            </Link>
+            </a>
           </motion.div>
 
           {/* Key Advantages */}
