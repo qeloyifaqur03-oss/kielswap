@@ -47,6 +47,13 @@ dist
 .env
 .env.local
 
+# Recursive patterns (any level)
+**/.next
+**/node_modules
+**/.vercel
+**/.env*
+.env*
+
 
 
 

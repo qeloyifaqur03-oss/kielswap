@@ -1,3 +1,5 @@
-
-
-
+packages:
+  - "landing"
+  - "app"
+  - "docs"
+  - "packages/*"

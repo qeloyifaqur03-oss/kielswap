@@ -2,6 +2,10 @@ node_modules/
 .mintlify/
 dist/
 build/
+.next
+out
+.env*
+.DS_Store
 
 
 

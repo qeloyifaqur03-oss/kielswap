@@ -2,12 +2,7 @@
   "name": "kielswap-monorepo",
   "version": "0.1.0",
   "private": true,
-  "workspaces": [
-    "landing",
-    "app",
-    "docs",
-    "packages/*"
-  ],
+  "packageManager": "pnpm@10.27.0",
   "scripts": {
     "dev": "npx concurrently -n \"landing,app,docs\" -c \"cyan,magenta,yellow\" \"pnpm -C landing dev\" \"pnpm -C app dev\" \"pnpm -C docs dev\"",
     "dev:landing": "pnpm -C landing dev",
@@ -21,6 +16,9 @@
     "lint": "pnpm -C landing lint && pnpm -C app lint"
   },
   "devDependencies": {
-    "concurrently": "^9.2.1"
+    "concurrently": "^9.2.1",
+    "next": "14.2.5",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   }
 }
