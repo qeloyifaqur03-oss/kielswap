@@ -81,9 +81,7 @@ const TOKEN_TO_COINGECKO_ID: Record<string, string> = {
   grt: 'the-graph',
   'matic-erc20': 'matic-network',
   // Ecosystem tokens
-  arb: 'arbitrum',
   gmx: 'gmx',
-  op: 'optimism',
   velo: 'velodrome-finance',
   aero: 'aerodrome-finance',
   cake: 'pancakeswap-token',
