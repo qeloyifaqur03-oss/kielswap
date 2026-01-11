@@ -166,13 +166,13 @@ export default function AccessPage() {
   const isDisabled = !code.trim() || isSubmitting
 
   return (
-    <section className="relative z-10 h-screen flex items-center justify-center px-6 md:px-12 py-8 overflow-hidden">
-      <div className="max-w-md mx-auto w-full">
+    <section className="relative z-10 h-screen flex items-center justify-center px-6 md:px-12 py-0 overflow-hidden">
+      <div className="max-w-xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="access-card-glass relative rounded-2xl p-6 md:p-8 overflow-hidden"
+          className="access-card-glass relative rounded-2xl p-8 md:p-12 overflow-hidden"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}

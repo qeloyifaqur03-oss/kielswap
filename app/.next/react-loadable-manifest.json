@@ -1,9 +1,7 @@
 {
   "..\\node_modules\\.pnpm\\viem@2.44.1_bufferutil@4.1._c1d2a78a965503258428bde2306568f0\\node_modules\\viem\\_esm\\actions\\public\\call.js -> ../../utils/ccip.js": {
     "id": "..\\node_modules\\.pnpm\\viem@2.44.1_bufferutil@4.1._c1d2a78a965503258428bde2306568f0\\node_modules\\viem\\_esm\\actions\\public\\call.js -> ../../utils/ccip.js",
-    "files": [
-      "static/chunks/vendors.js"
-    ]
+    "files": []
   },
   "..\\node_modules\\.pnpm\\viem@2.44.1_bufferutil@4.1._c1d2a78a965503258428bde2306568f0\\node_modules\\viem\\_esm\\utils\\rpc\\webSocket.js -> isows": {
     "id": "..\\node_modules\\.pnpm\\viem@2.44.1_bufferutil@4.1._c1d2a78a965503258428bde2306568f0\\node_modules\\viem\\_esm\\utils\\rpc\\webSocket.js -> isows",

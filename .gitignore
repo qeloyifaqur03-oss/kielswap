@@ -38,6 +38,15 @@ chain_registry.private.json
 # access codes
 scripts/access-codes.txt
 
+# Additional entries
+node_modules
+.next
+out
+dist
+.vercel
+.env
+.env.local
+
 
 
 

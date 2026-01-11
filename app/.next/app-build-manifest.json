@@ -1,11 +1,16 @@
 {
   "pages": {
-    "/(app)/swap/page": [
+    "/(app)/access/page": [
       "static/chunks/runtime.js",
       "static/chunks/vendors.js",
       "static/chunks/main-app.js",
-      "static/chunks/_app-pages-browser_components_ui_button_tsx.js",
-      "static/chunks/app/(app)/swap/page.js"
+      "static/chunks/app/(app)/access/page.js"
+    ],
+    "/(app)/access/layout": [
+      "static/chunks/runtime.js",
+      "static/chunks/vendors.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/(app)/access/layout.js"
     ],
     "/(app)/layout": [
       "static/chunks/runtime.js",
@@ -19,19 +24,6 @@
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
-    ],
-    "/(app)/access/page": [
-      "static/chunks/runtime.js",
-      "static/chunks/vendors.js",
-      "static/chunks/main-app.js",
-      "static/chunks/_app-pages-browser_components_ui_button_tsx.js",
-      "static/chunks/app/(app)/access/page.js"
-    ],
-    "/(app)/access/layout": [
-      "static/chunks/runtime.js",
-      "static/chunks/vendors.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/(app)/access/layout.js"
     ]
   }
 }

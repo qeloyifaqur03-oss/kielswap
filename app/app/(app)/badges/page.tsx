@@ -14,3 +14,4 @@ export default function BadgesPage() {
   return <BadgesPreview key={hardResetKey} onHardReset={handleHardReset} />
 }
 
+
