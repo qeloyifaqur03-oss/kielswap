@@ -1,4 +1,0 @@
-{
-  "/api/token-price/route": "app/api/token-price/route.js",
-  "/(landing)/page": "app/(landing)/page.js"
-}
