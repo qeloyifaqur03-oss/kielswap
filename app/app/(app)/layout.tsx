@@ -30,7 +30,7 @@ export default function AppLayout({
       <NewYearAnimation />
       
       {/* Navigation */}
-      <nav className={`relative z-20 border-b border-white/10 backdrop-blur-sm ${isAccessPage ? 'bg-white/5' : 'bg-background/80'}`}>
+      <nav className={`relative z-20 border-b border-white/10 backdrop-blur-xl bg-[rgba(255,255,255,0.03)]`}>
         <div className="max-w-7xl mx-auto px-6 md:px-12">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
