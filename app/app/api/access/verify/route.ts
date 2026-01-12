@@ -4,7 +4,8 @@ import { normalizeCode, hashCode } from "@/lib/access";
 
 // Edge runtime for better performance
 export const runtime = "edge";
-export const preferredRegion = ["ams1", "fra1", "dub1"];
+// ams1 is no longer available on Vercel, using fra1 and dub1 instead
+export const preferredRegion = ["fra1", "dub1"];
 
 export async function POST(request: NextRequest) {
   const t0 = Date.now();
