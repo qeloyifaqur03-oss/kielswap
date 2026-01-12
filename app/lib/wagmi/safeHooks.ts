@@ -139,9 +139,9 @@ export function useSafeChains() {
 /**
  * Safe useBalance hook
  */
-export function useSafeBalance(params?: { address?: string }) {
+export function useSafeBalance(params?: { address?: `0x${string}` }) {
   try {
-    return wagmiUseBalance(params)
+    return wagmiUseBalance(params as any)
   } catch (error) {
     console.warn('[useSafeBalance] Failed to access balance:', error)
     return {

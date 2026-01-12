@@ -123,7 +123,7 @@ export function getWagmiConfig() {
       }
 
       wagmiConfigInstance = createConfig({
-        chains: supportedChains,
+        chains: supportedChains as any,
         connectors: [
           ...(injectedConnector ? [injectedConnector] : []), // Only add if successfully created
           // WalletConnect (coming soon) - disabled to avoid build errors

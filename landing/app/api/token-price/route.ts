@@ -221,6 +221,14 @@ export async function GET(request: NextRequest) {
     const cachedPrices: Record<string, number> = {}
     const uncachedIds: string[] = []
     
+    // Check if we're in build phase - skip network calls during build
+    // Multiple checks for reliability: NEXT_PHASE, VERCEL, CI, and explicit flag
+    const isBuildTime = 
+      process.env.NEXT_PHASE === 'phase-production-build' ||
+      process.env.VERCEL === '1' ||
+      process.env.CI === 'true' ||
+      process.env.DISABLE_BUILD_TIME_FETCH === '1'
+    
     // Check in-memory cache first (fastest)
     for (const id of tokenIds) {
       const cacheKey = id.toLowerCase()
@@ -263,7 +271,8 @@ export async function GET(request: NextRequest) {
         }
       } catch (error) {
         // Redis unavailable, continue with API fetch
-        if (process.env.NODE_ENV === 'development') {
+        // During build, skip Redis silently
+        if (!isBuildTime && process.env.NODE_ENV === 'development') {
           console.warn('[token-price] Redis unavailable, using in-memory cache only')
         }
       }
@@ -294,7 +303,8 @@ export async function GET(request: NextRequest) {
       const pricePromises: Promise<void>[] = []
       
       // 1. CoinGecko (fastest, free)
-      if (uncachedCoingeckoIds.length > 0) {
+      // Skip network calls during build
+      if (uncachedCoingeckoIds.length > 0 && !isBuildTime) {
         const idsParam = uncachedCoingeckoIds.join(',')
         const url = `https://api.coingecko.com/api/v3/simple/price?ids=${idsParam}&vs_currencies=usd`
         
@@ -357,8 +367,9 @@ export async function GET(request: NextRequest) {
       }
       
       // 2. CoinMarketCap (parallel, if API key available)
+      // Skip network calls during build
       const cmcApiKey = process.env.COINMARKETCAP_API_KEY
-      if (cmcApiKey && uncachedIds.length > 0) {
+      if (cmcApiKey && uncachedIds.length > 0 && !isBuildTime) {
         const cmcSymbols = uncachedIds
           .map(id => TOKEN_TO_CMC_SYMBOL[id] || id.toUpperCase())
           .filter(Boolean)
@@ -409,7 +420,8 @@ export async function GET(request: NextRequest) {
       }
       
       // 3. CryptoCompare (parallel, free)
-      if (uncachedIds.length > 0) {
+      // Skip network calls during build
+      if (uncachedIds.length > 0 && !isBuildTime) {
         const ccSymbols = uncachedIds
           .map(id => TOKEN_TO_CRYPTOCOMPARE_SYMBOL[id] || id.toUpperCase())
           .filter(Boolean)
@@ -493,7 +505,22 @@ export async function GET(request: NextRequest) {
       },
     })
   } catch (error) {
-    // Always log errors, but sanitize in production
+    // During build, return empty prices instead of error to prevent build failures
+    const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || !process.env.UPSTASH_REDIS_REST_URL
+    
+    if (isBuildTime) {
+      // Build-time: return empty prices gracefully, log warning only
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('[token-price] Build-time: returning empty prices (network unavailable)')
+      }
+      return NextResponse.json({ prices: {} }, {
+        headers: {
+          'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60',
+        },
+      })
+    }
+    
+    // Runtime: log errors, but sanitize in production
     if (process.env.NODE_ENV === 'development') {
       console.error('[token-price] Error:', error)
     } else {

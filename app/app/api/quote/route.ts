@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getTokenInfo, getTokenAddress, getChainId, toBaseUnits, fromBaseUnits, getTokenDecimals, CHAIN_IDS } from '@/lib/tokens'
+import { getTokenInfo, getTokenAddress, getChainId, toBaseUnits, fromBaseUnits, getTokenDecimals } from '@/lib/tokens'
 import { getEnvWithDefault } from '@/lib/env'
 import { getChainInfo, isEVM } from '@/lib/chainRegistry'
 import { getEnabledProviders, quoteFromProvider, type ProviderId } from '@/lib/providers'
@@ -196,6 +196,7 @@ interface QuoteResponse {
   estimatedTime?: string
   isIndicative?: boolean // true if placeholder address was used
   debug?: any // Debug info when all providers fail
+  requestId?: string // Request ID for tracking
   // Fee breakdown fields (EVM-only)
   estimatedGasUSD?: string | null // Estimated network gas cost in USD
   providerFeeUSD?: string | null // Provider fee in USD
@@ -520,7 +521,7 @@ function validateQuoteSanity(
     // This handles cases where price ratios are incorrectly applied
     const maxExpectedOutput = inAmount * 1.01 // Maximum 1% more (should never happen in reality)
     if (outAmount > maxExpectedOutput) {
-      if (isDev || DEBUG_QUOTES) {
+      if (isDev || process.env.NEXT_PUBLIC_DEBUG_QUOTES === '1') {
         console.error('[quote] REJECTING suspiciously high same-token swap:', {
           fromTokenSymbol,
           toTokenSymbol,
@@ -534,8 +535,8 @@ function validateQuoteSanity(
       return {
         valid: false,
         error: 'Quote output is suspiciously high for same-token swap',
-        errorCode: 'SUSPICIOUS_QUOTE_HIGH_OUTPUT',
         debug: {
+          errorCode: 'SUSPICIOUS_QUOTE_HIGH_OUTPUT',
           fromTokenSymbol,
           toTokenSymbol,
           inAmount,
@@ -641,7 +642,6 @@ function convertProviderQuoteToResponse(
     bridgeFeeUSD,
     totalFeeUSD,
     estimatedTime: providerResult.routeSteps[0]?.estimatedTime?.toString(),
-    requestId,
   }
 }
 
@@ -680,7 +680,6 @@ function validateAndProcessQuote(
         error: decimalsCheck.error || 'Decimals mismatch suspected',
         errorCode: 'DECIMALS_MISMATCH_SUSPECTED',
         debug: decimalsCheck.debug,
-        requestId,
       },
     }
   }

@@ -9,11 +9,17 @@
     "dev:app": "pnpm -C app dev",
     "dev:docs": "pnpm -C docs dev",
     "build": "pnpm -C landing build && pnpm -C app build",
+    "build:all": "pnpm -C landing build && pnpm -C app build && pnpm -C docs build",
     "build:landing": "pnpm -C landing build",
     "build:app": "pnpm -C app build",
     "build:docs": "pnpm -C docs build",
     "clean": "pnpm -C landing clean && pnpm -C app clean",
     "lint": "pnpm -C landing lint && pnpm -C app lint"
+  },
+  "pnpm": {
+    "overrides": {
+      "viem": "2.44.1"
+    }
   },
   "devDependencies": {
     "concurrently": "^9.2.1",

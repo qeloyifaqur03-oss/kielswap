@@ -1,13 +1,13 @@
 'use client'
 
-import { useState, useEffect, FormEvent, ChangeEvent } from 'react'
+import { useState, useEffect, FormEvent, ChangeEvent, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-export default function AccessPage() {
+function AccessPageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [code, setCode] = useState('')
@@ -275,3 +275,22 @@ export default function AccessPage() {
   )
 }
 
+export default function AccessPage() {
+  return (
+    <Suspense fallback={
+      <section className="relative z-10 min-h-screen flex items-center justify-center px-6 md:px-12 py-32">
+        <div className="max-w-md mx-auto w-full">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="glass rounded-2xl p-8 md:p-12 border border-white/10 text-center"
+          >
+            <p className="text-gray-400 font-light">Loading...</p>
+          </motion.div>
+        </div>
+      </section>
+    }>
+      <AccessPageContent />
+    </Suspense>
+  )
+}

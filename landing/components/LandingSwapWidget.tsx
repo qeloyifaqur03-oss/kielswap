@@ -85,7 +85,8 @@ export function LandingSwapWidget({
 
   // Calculate exchange rate - return null if prices not loaded yet
   const exchangeRate = useMemo(() => {
-    if (!ethPrice || !usdtPrice) return null
+    // Guard against missing or zero prices to prevent division by zero
+    if (!ethPrice || !usdtPrice || ethPrice <= 0 || usdtPrice <= 0) return null
     return ethPrice / usdtPrice
   }, [ethPrice, usdtPrice])
 

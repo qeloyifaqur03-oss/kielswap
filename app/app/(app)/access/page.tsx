@@ -1,12 +1,12 @@
 'use client'
 
-import { useState, useEffect, FormEvent, ChangeEvent } from 'react'
+import { useState, useEffect, FormEvent, ChangeEvent, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
-export default function AccessPage() {
+function AccessPageContent() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const [code, setCode] = useState('')
@@ -247,5 +247,13 @@ export default function AccessPage() {
         </motion.div>
       </div>
     </section>
+  )
+}
+
+export default function AccessPage() {
+  return (
+    <Suspense fallback={null}>
+      <AccessPageContent />
+    </Suspense>
   )
 }

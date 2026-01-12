@@ -1,0 +1,14 @@
+{
+  "name": "@kielswap/lib",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./lib/index.ts",
+  "types": "./lib/index.ts",
+  "dependencies": {
+    "@upstash/redis": "^1.36.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.4.0",
+    "wagmi": "^2.19.5",
+    "viem": "^2.44.1"
+  }
+}

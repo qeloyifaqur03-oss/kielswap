@@ -9,7 +9,7 @@ const queryClient = new QueryClient()
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
-  const [config, setConfig] = useState<ReturnType<typeof getWagmiConfig> | null>(null)
+  const [config, setConfig] = useState<any>(null)
 
   // Only initialize wagmi config after component mounts (client-side only)
   useEffect(() => {
@@ -59,7 +59,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }
 
   return (
-    <WagmiProvider config={config}>
+    <WagmiProvider config={config as any}>
       <QueryClientProvider client={queryClient}>
         {children}
       </QueryClientProvider>

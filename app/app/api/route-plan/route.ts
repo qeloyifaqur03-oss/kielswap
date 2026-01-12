@@ -389,7 +389,7 @@ async function postDisabled(request: NextRequest) {
       const fromToken = getTokenInfo(fromTokenId)
       const toToken = getTokenInfo(toTokenId)
 
-      routePlan = {
+      const routePlan = {
         requestId: generateRequestId(),
         from: {
           networkId: body.fromNetworkId,
@@ -406,7 +406,7 @@ async function postDisabled(request: NextRequest) {
         steps: [
           {
             stepId: generateStepId(0),
-            kind: 'SWAP',
+            kind: 'SWAP' as const,
             family: 'EVM',
             provider: 'relay|lifi|0x', // Uses existing EVM quote providers
             from: {
@@ -421,12 +421,12 @@ async function postDisabled(request: NextRequest) {
               estimatedAmountBase: '0', // Will be filled by quote
               decimals: toToken?.decimals || 18,
             },
-            requiresWallet: 'evm',
+            requiresWallet: 'evm' as const,
             notes: 'Use /api/quote endpoint for EVM↔EVM swaps (Relay/LiFi/0x)',
           },
         ],
         requires: {
-          wallets: ['evm'],
+          wallets: ['evm' as const],
           approvals: [],
         },
       }

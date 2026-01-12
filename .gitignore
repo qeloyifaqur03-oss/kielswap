@@ -54,6 +54,9 @@ dist
 **/.env*
 .env*
 
+# Turborepo
+.turbo
+
 
 
 

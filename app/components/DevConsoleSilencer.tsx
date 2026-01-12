@@ -269,7 +269,8 @@ export function DevConsoleSilencer() {
               
               // Also check child elements
               const errorElements = element.querySelectorAll?.('[data-nextjs-dialog], [data-nextjs-toast], [class*="nextjs-error"], [id*="nextjs"]')
-              errorElements?.forEach((el: HTMLElement) => {
+              errorElements?.forEach((el) => {
+                if (!(el instanceof HTMLElement)) return
                 const text = el.textContent || el.innerText || ''
                 if (
                   isMetaMaskError(null, text) ||

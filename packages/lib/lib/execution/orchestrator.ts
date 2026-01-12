@@ -45,7 +45,7 @@ async function buildUnsignedTx(
   step: RouteStep,
   wallets: WalletContext
 ): Promise<{ unsignedTx: any; requiresSignature: boolean }> {
-  switch (step.family) {
+  switch ((step as any).family) {
     case 'EVM': {
       // EVM: Build transaction from provider quote
       const quote = step.quote
@@ -180,7 +180,7 @@ async function buildUnsignedTx(
     }
 
     default:
-      throw new Error(`Unsupported family: ${step.family}`)
+      throw new Error(`Unsupported family: ${(step as any).family}`)
   }
 }
 
