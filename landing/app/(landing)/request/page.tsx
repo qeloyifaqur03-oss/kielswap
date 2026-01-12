@@ -14,6 +14,7 @@ export default function RequestPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [walletError, setWalletError] = useState<string | null>(null)
+  const [requestId, setRequestId] = useState<string | null>(null)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -49,12 +50,16 @@ export default function RequestPage() {
 
       const data = await response.json()
 
-      if (!response.ok) {
+      if (!response.ok || response.status !== 200) {
         if (response.status === 429) {
           // Rate limit - show user-friendly message
           setWalletError('Please try again in a moment.')
         } else if (data.error === 'WALLET_REQUIRED') {
           setWalletError('Wallet is required.')
+        } else if (data.error === 'TELEGRAM_FAILED') {
+          setWalletError('Failed to send notification. Please try again or contact support.')
+        } else if (data.error === 'ENV_MISSING') {
+          setWalletError('Service configuration error. Please contact support.')
         } else {
           setWalletError('Failed to submit request. Please try again.')
         }
@@ -63,6 +68,13 @@ export default function RequestPage() {
 
       // Success - show success state immediately
       setIsSubmitted(true)
+      setRequestId(data.requestId || null)
+      
+      // Debug mode: log Telegram response details to console (if debug info is present)
+      if (data.debug) {
+        console.warn('[Early Access] Telegram debug info:', data.debug)
+      }
+      
       setTwitterHandle('')
       setWalletAddress('')
       setInterest('')
@@ -89,6 +101,11 @@ export default function RequestPage() {
             <p className="text-gray-400 text-lg">
               We review requests and reach out on X when access opens.
             </p>
+            {requestId && (
+              <p className="text-gray-500 text-xs mt-2">
+                Request ID: {requestId}
+              </p>
+            )}
           </motion.div>
         ) : (
           <motion.div
