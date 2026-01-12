@@ -1,0 +1,26 @@
+{
+  "id": "fallback",
+  "title": "Fallback execution logic",
+  "description": "Optional fallback paths when intents cannot fill.",
+  "source": "@site/docs/fallback.mdx",
+  "sourceDirName": ".",
+  "slug": "/fallback",
+  "permalink": "/fallback",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Fallback execution logic",
+    "description": "Optional fallback paths when intents cannot fill."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Private execution and MEV exposure",
+    "permalink": "/mev"
+  },
+  "next": {
+    "title": "Execution tracking and observability",
+    "permalink": "/tracking"
+  }
+}

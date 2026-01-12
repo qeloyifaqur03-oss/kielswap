@@ -1,0 +1,21 @@
+---
+title: "Execution lifecycle"
+description: "How intents progress from acceptance to completion."
+---
+
+Each intent progresses through a defined lifecycle:
+
+### 1. Intent accepted
+The system validates constraints and registers the intent.
+
+### 2. Route evaluation
+Potential execution paths are evaluated across supported networks and liquidity sources.
+
+### 3. Execution attempt
+The system attempts execution that satisfies all constraints.
+
+### 4. Completion or expiry
+- If execution succeeds → the intent is fulfilled.
+- If the deadline is reached → the intent expires without execution.
+
+At no point does execution continue beyond the defined constraints.

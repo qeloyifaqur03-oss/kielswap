@@ -1,0 +1,26 @@
+{
+  "id": "mev",
+  "title": "Private execution and MEV exposure",
+  "description": "Reducing MEV exposure where possible.",
+  "source": "@site/docs/mev.mdx",
+  "sourceDirName": ".",
+  "slug": "/mev",
+  "permalink": "/mev",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Private execution and MEV exposure",
+    "description": "Reducing MEV exposure where possible."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Execution quality vs speed",
+    "permalink": "/execution-quality"
+  },
+  "next": {
+    "title": "Fallback execution logic",
+    "permalink": "/fallback"
+  }
+}

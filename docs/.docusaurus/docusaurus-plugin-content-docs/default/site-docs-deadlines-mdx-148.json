@@ -1,0 +1,26 @@
+{
+  "id": "deadlines",
+  "title": "Deadlines and execution boundaries",
+  "description": "Deadlines are a hard boundary.",
+  "source": "@site/docs/deadlines.mdx",
+  "sourceDirName": ".",
+  "slug": "/deadlines",
+  "permalink": "/deadlines",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Deadlines and execution boundaries",
+    "description": "Deadlines are a hard boundary."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Execution lifecycle",
+    "permalink": "/execution-lifecycle"
+  },
+  "next": {
+    "title": "Pricing, estimation, and slippage",
+    "permalink": "/pricing"
+  }
+}

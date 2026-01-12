@@ -1,0 +1,26 @@
+{
+  "id": "badges",
+  "title": "Badges and participation signals",
+  "description": "Badges represent meaningful interaction.",
+  "source": "@site/docs/badges.mdx",
+  "sourceDirName": ".",
+  "slug": "/badges",
+  "permalink": "/badges",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Badges and participation signals",
+    "description": "Badges represent meaningful interaction."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Access control and Early Access",
+    "permalink": "/access-control"
+  },
+  "next": {
+    "title": "Security model and assumptions",
+    "permalink": "/security"
+  }
+}

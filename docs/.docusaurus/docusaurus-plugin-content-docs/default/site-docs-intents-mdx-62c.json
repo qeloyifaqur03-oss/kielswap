@@ -1,0 +1,26 @@
+{
+  "id": "intents",
+  "title": "Intents as signed constraints",
+  "description": "A signed declaration of constraints, not a route.",
+  "source": "@site/docs/intents.mdx",
+  "sourceDirName": ".",
+  "slug": "/intents",
+  "permalink": "/intents",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Intents as signed constraints",
+    "description": "A signed declaration of constraints, not a route."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Outcome-first execution model",
+    "permalink": "/outcome-first"
+  },
+  "next": {
+    "title": "Execution lifecycle",
+    "permalink": "/execution-lifecycle"
+  }
+}

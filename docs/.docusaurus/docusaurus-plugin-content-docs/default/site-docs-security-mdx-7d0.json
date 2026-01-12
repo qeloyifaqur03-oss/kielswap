@@ -1,0 +1,26 @@
+{
+  "id": "security",
+  "title": "Security model and assumptions",
+  "description": "Non-custodial by design, bounded by signed constraints.",
+  "source": "@site/docs/security.mdx",
+  "sourceDirName": ".",
+  "slug": "/security",
+  "permalink": "/security",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Security model and assumptions",
+    "description": "Non-custodial by design, bounded by signed constraints."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Badges and participation signals",
+    "permalink": "/badges"
+  },
+  "next": {
+    "title": "Failure modes and edge cases",
+    "permalink": "/failure-modes"
+  }
+}

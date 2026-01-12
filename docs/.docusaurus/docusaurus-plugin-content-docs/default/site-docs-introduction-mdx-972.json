@@ -1,0 +1,22 @@
+{
+  "id": "introduction",
+  "title": "Kielswap documentation",
+  "description": "Execution model, guarantees, and design principles behind Kielswap.",
+  "source": "@site/docs/introduction.mdx",
+  "sourceDirName": ".",
+  "slug": "/introduction",
+  "permalink": "/introduction",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Kielswap documentation",
+    "description": "Execution model, guarantees, and design principles behind Kielswap."
+  },
+  "sidebar": "tutorialSidebar",
+  "next": {
+    "title": "Design philosophy",
+    "permalink": "/design-philosophy"
+  }
+}

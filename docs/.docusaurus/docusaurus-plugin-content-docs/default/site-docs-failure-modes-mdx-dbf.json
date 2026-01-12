@@ -1,0 +1,26 @@
+{
+  "id": "failure-modes",
+  "title": "Failure modes and edge cases",
+  "description": "What can happen when an intent is not fulfilled.",
+  "source": "@site/docs/failure-modes.mdx",
+  "sourceDirName": ".",
+  "slug": "/failure-modes",
+  "permalink": "/failure-modes",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Failure modes and edge cases",
+    "description": "What can happen when an intent is not fulfilled."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Security model and assumptions",
+    "permalink": "/security"
+  },
+  "next": {
+    "title": "Roadmap philosophy",
+    "permalink": "/roadmap"
+  }
+}

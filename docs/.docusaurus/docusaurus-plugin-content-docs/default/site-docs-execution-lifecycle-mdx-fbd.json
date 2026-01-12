@@ -1,0 +1,26 @@
+{
+  "id": "execution-lifecycle",
+  "title": "Execution lifecycle",
+  "description": "How intents progress from acceptance to completion.",
+  "source": "@site/docs/execution-lifecycle.mdx",
+  "sourceDirName": ".",
+  "slug": "/execution-lifecycle",
+  "permalink": "/execution-lifecycle",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Execution lifecycle",
+    "description": "How intents progress from acceptance to completion."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Intents as signed constraints",
+    "permalink": "/intents"
+  },
+  "next": {
+    "title": "Deadlines and execution boundaries",
+    "permalink": "/deadlines"
+  }
+}

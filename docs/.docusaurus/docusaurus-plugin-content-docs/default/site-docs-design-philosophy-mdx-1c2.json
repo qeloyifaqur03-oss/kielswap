@@ -1,0 +1,26 @@
+{
+  "id": "design-philosophy",
+  "title": "Design philosophy",
+  "description": "Why Kielswap hides execution mechanics and centers outcomes.",
+  "source": "@site/docs/design-philosophy.mdx",
+  "sourceDirName": ".",
+  "slug": "/design-philosophy",
+  "permalink": "/design-philosophy",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Design philosophy",
+    "description": "Why Kielswap hides execution mechanics and centers outcomes."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Kielswap documentation",
+    "permalink": "/introduction"
+  },
+  "next": {
+    "title": "Outcome-first execution model",
+    "permalink": "/outcome-first"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "tracking",
+  "title": "Execution tracking and observability",
+  "description": "Tracking is high-level by design.",
+  "source": "@site/docs/tracking.mdx",
+  "sourceDirName": ".",
+  "slug": "/tracking",
+  "permalink": "/tracking",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Execution tracking and observability",
+    "description": "Tracking is high-level by design."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Fallback execution logic",
+    "permalink": "/fallback"
+  },
+  "next": {
+    "title": "Access control and Early Access",
+    "permalink": "/access-control"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "pricing",
+  "title": "Pricing, estimation, and slippage",
+  "description": "How estimates and guaranteed minimums are used.",
+  "source": "@site/docs/pricing.mdx",
+  "sourceDirName": ".",
+  "slug": "/pricing",
+  "permalink": "/pricing",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Pricing, estimation, and slippage",
+    "description": "How estimates and guaranteed minimums are used."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Deadlines and execution boundaries",
+    "permalink": "/deadlines"
+  },
+  "next": {
+    "title": "Execution quality vs speed",
+    "permalink": "/execution-quality"
+  }
+}

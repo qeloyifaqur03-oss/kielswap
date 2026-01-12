@@ -1,0 +1,118 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/",
+          "mainDocId": "introduction",
+          "docs": [
+            {
+              "id": "access-control",
+              "path": "/access-control",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "badges",
+              "path": "/badges",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "changelog",
+              "path": "/changelog",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "deadlines",
+              "path": "/deadlines",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "design-philosophy",
+              "path": "/design-philosophy",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "execution-lifecycle",
+              "path": "/execution-lifecycle",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "execution-quality",
+              "path": "/execution-quality",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "failure-modes",
+              "path": "/failure-modes",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "fallback",
+              "path": "/fallback",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "faq",
+              "path": "/faq",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "intents",
+              "path": "/intents",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "introduction",
+              "path": "/introduction",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "mev",
+              "path": "/mev",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "outcome-first",
+              "path": "/outcome-first",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "pricing",
+              "path": "/pricing",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "roadmap",
+              "path": "/roadmap",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "security",
+              "path": "/security",
+              "sidebar": "tutorialSidebar"
+            },
+            {
+              "id": "tracking",
+              "path": "/tracking",
+              "sidebar": "tutorialSidebar"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "tutorialSidebar": {
+              "link": {
+                "path": "/introduction",
+                "label": "introduction"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "roadmap",
+  "title": "Roadmap philosophy",
+  "description": "Execution evolves, interface remains stable.",
+  "source": "@site/docs/roadmap.mdx",
+  "sourceDirName": ".",
+  "slug": "/roadmap",
+  "permalink": "/roadmap",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Roadmap philosophy",
+    "description": "Execution evolves, interface remains stable."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Failure modes and edge cases",
+    "permalink": "/failure-modes"
+  },
+  "next": {
+    "title": "FAQ (technical)",
+    "permalink": "/faq"
+  }
+}

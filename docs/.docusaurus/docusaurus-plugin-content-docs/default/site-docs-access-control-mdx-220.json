@@ -1,0 +1,26 @@
+{
+  "id": "access-control",
+  "title": "Access control and Early Access",
+  "description": "Why access codes exist and how Early Access works.",
+  "source": "@site/docs/access-control.mdx",
+  "sourceDirName": ".",
+  "slug": "/access-control",
+  "permalink": "/access-control",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "title": "Access control and Early Access",
+    "description": "Why access codes exist and how Early Access works."
+  },
+  "sidebar": "tutorialSidebar",
+  "previous": {
+    "title": "Execution tracking and observability",
+    "permalink": "/tracking"
+  },
+  "next": {
+    "title": "Badges and participation signals",
+    "permalink": "/badges"
+  }
+}
