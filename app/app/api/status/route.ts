@@ -8,6 +8,8 @@ import { getTransactionStatus } from '@/lib/providers/changenow'
 
 const isDev = process.env.NODE_ENV === 'development'
 
+export const dynamic = 'force-dynamic' // This route uses searchParams, must be dynamic
+
 interface StatusRequest {
   provider: 'changenow'
   txId: string

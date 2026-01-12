@@ -26,7 +26,13 @@ export function useSafeAccount() {
     }
   } catch (error) {
     // If wagmi hook fails (e.g., due to broken extension), return safe defaults
-    console.warn('[useSafeAccount] Failed to access account:', error)
+    // Suppress warnings during build-time static generation (WagmiProvider not available)
+    const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
+                       process.env.VERCEL === '1' || 
+                       process.env.CI === 'true'
+    if (!isBuildTime) {
+      console.warn('[useSafeAccount] Failed to access account:', error)
+    }
     return {
       address: undefined,
       isConnected: false,
@@ -82,7 +88,13 @@ export function useSafeConnect() {
       connect: safeConnect,
     }
   } catch (error) {
-    console.warn('[useSafeConnect] Failed to access connect:', error)
+    // Suppress warnings during build-time static generation (WagmiProvider not available)
+    const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
+                       process.env.VERCEL === '1' || 
+                       process.env.CI === 'true'
+    if (!isBuildTime) {
+      console.warn('[useSafeConnect] Failed to access connect:', error)
+    }
     return {
       connect: () => {},
       connectors: [],
@@ -101,7 +113,13 @@ export function useSafeDisconnect() {
   try {
     return wagmiUseDisconnect()
   } catch (error) {
-    console.warn('[useSafeDisconnect] Failed to access disconnect:', error)
+    // Suppress warnings during build-time static generation
+    const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
+                       process.env.VERCEL === '1' || 
+                       process.env.CI === 'true'
+    if (!isBuildTime) {
+      console.warn('[useSafeDisconnect] Failed to access disconnect:', error)
+    }
     return {
       disconnect: () => {},
       disconnectAsync: async () => {},
@@ -119,7 +137,13 @@ export function useSafeChainId() {
   try {
     return wagmiUseChainId()
   } catch (error) {
-    console.warn('[useSafeChainId] Failed to access chainId:', error)
+    // Suppress warnings during build-time static generation
+    const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
+                       process.env.VERCEL === '1' || 
+                       process.env.CI === 'true'
+    if (!isBuildTime) {
+      console.warn('[useSafeChainId] Failed to access chainId:', error)
+    }
     return 1 // Default to mainnet
   }
 }
@@ -131,7 +155,13 @@ export function useSafeChains() {
   try {
     return wagmiUseChains()
   } catch (error) {
-    console.warn('[useSafeChains] Failed to access chains:', error)
+    // Suppress warnings during build-time static generation
+    const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
+                       process.env.VERCEL === '1' || 
+                       process.env.CI === 'true'
+    if (!isBuildTime) {
+      console.warn('[useSafeChains] Failed to access chains:', error)
+    }
     return []
   }
 }
@@ -143,7 +173,13 @@ export function useSafeBalance(params?: { address?: `0x${string}` }) {
   try {
     return wagmiUseBalance(params as any)
   } catch (error) {
-    console.warn('[useSafeBalance] Failed to access balance:', error)
+    // Suppress warnings during build-time static generation
+    const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
+                       process.env.VERCEL === '1' || 
+                       process.env.CI === 'true'
+    if (!isBuildTime) {
+      console.warn('[useSafeBalance] Failed to access balance:', error)
+    }
     return {
       data: undefined,
       error: null,

@@ -38,7 +38,20 @@
 - **`app/app/api/token-price/route.ts`**:
   - Same robust build-time detection as landing version
 
-### 4. UI Protection Against Empty Prices
+### 4. Build-Time Log Suppression
+- **`app/lib/wagmi/safeHooks.ts`**:
+  - Added build-time detection to suppress WagmiProvider warnings during static generation
+  - All `console.warn` calls for Wagmi hooks now check for build-time before logging
+  - Prevents noisy logs during build while preserving runtime error visibility
+
+- **API Routes (Dynamic Server Usage)**:
+  - **`app/app/api/chains/route.ts`**: Added `export const dynamic = 'force-dynamic'`
+  - **`app/app/api/status/route.ts`**: Added `export const dynamic = 'force-dynamic'`
+  - **`app/app/api/execution/status/route.ts`**: Added `export const dynamic = 'force-dynamic'`
+  - Prevents Next.js from attempting static generation for routes that use `searchParams`
+  - Eliminates "Dynamic server usage" errors from build logs
+
+### 5. UI Protection Against Empty Prices
 - **`landing/components/LandingSwapWidget.tsx`**:
   - Added guard against zero prices: `ethPrice <= 0 || usdtPrice <= 0`
   - Prevents division by zero in exchange rate calculation

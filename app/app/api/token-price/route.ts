@@ -217,17 +217,29 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    const now = Date.now()
-    const cachedPrices: Record<string, number> = {}
-    const uncachedIds: string[] = []
-    
-    // Check if we're in build phase - skip network calls during build
+    // Check if we're in build phase - EARLY RETURN before any fetch/redis operations
     // Multiple checks for reliability: NEXT_PHASE, VERCEL, CI, and explicit flag
     const isBuildTime = 
       process.env.NEXT_PHASE === 'phase-production-build' ||
       process.env.VERCEL === '1' ||
       process.env.CI === 'true' ||
       process.env.DISABLE_BUILD_TIME_FETCH === '1'
+    
+    // Early return during build - skip all network/cache operations
+    if (isBuildTime) {
+      if (process.env.NODE_ENV === 'development') {
+        console.warn('[token-price] Build-time: returning empty prices (network unavailable)')
+      }
+      return NextResponse.json({ prices: {} }, {
+        headers: {
+          'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60',
+        },
+      })
+    }
+
+    const now = Date.now()
+    const cachedPrices: Record<string, number> = {}
+    const uncachedIds: string[] = []
     
     // Check in-memory cache first (fastest)
     for (const id of tokenIds) {
@@ -506,7 +518,12 @@ export async function GET(request: NextRequest) {
     })
   } catch (error) {
     // During build, return empty prices instead of error to prevent build failures
-    const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || !process.env.UPSTASH_REDIS_REST_URL
+    // Use same build-time detection as early return
+    const isBuildTime = 
+      process.env.NEXT_PHASE === 'phase-production-build' ||
+      process.env.VERCEL === '1' ||
+      process.env.CI === 'true' ||
+      process.env.DISABLE_BUILD_TIME_FETCH === '1'
     
     if (isBuildTime) {
       // Build-time: return empty prices gracefully, log warning only

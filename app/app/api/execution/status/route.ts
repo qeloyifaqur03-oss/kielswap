@@ -5,6 +5,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getExecution, pollExecutionStatus, updateStepState } from '@/lib/execution/orchestrator'
 
+export const dynamic = 'force-dynamic' // This route uses searchParams, must be dynamic
+
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams
