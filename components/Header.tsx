@@ -19,7 +19,7 @@ export default function Header() {
         className="glass w-full h-full border-b border-white/10 shadow-lg"
       >
         {/* Inner container - full width with minimal padding */}
-        <div className="w-full h-full flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="w-full h-full flex items-center justify-between px-2 sm:px-4 md:px-6">
           {/* Logo - у левого края */}
           <Link href="/" className="flex items-center h-full">
             <Image
