@@ -1,8 +1,8 @@
 /**
  * Token price API endpoint with optimized caching
- * - Fresh cache: 60 seconds (fast response <200ms)
+ * - Fresh cache: 3 seconds (fast response <200ms)
  * - Stale cache: 10 minutes (fallback if CoinGecko fails)
- * - Stale-while-revalidate pattern
+ * - Stale-while-revalidate pattern: returns stale cache immediately, refreshes in background
  */
 
 import { NextRequest, NextResponse } from 'next/server'
@@ -94,9 +94,9 @@ const TOKEN_TO_COINGECKO_ID: Record<string, string> = {
 export const runtime = 'nodejs'
 
 // Cache TTL constants
-const FRESH_CACHE_TTL_MS = 60_000 // 60 seconds - fresh cache
+const FRESH_CACHE_TTL_MS = 3_000 // 3 seconds - fresh cache
 const STALE_CACHE_TTL_MS = 600_000 // 10 minutes - stale cache
-const FRESH_CACHE_TTL_SEC = 60
+const FRESH_CACHE_TTL_SEC = 3
 const STALE_CACHE_TTL_SEC = 600
 const COINGECKO_TIMEOUT_MS = 2000 // 2 seconds max wait for CoinGecko
 
@@ -104,6 +104,9 @@ interface CacheEntry {
   price: number
   timestamp: number
 }
+
+// In-flight refresh deduplication (module-scope Map)
+const inFlightRefresh = new Map<string, Promise<void>>()
 
 async function fetchFromCoinGecko(tokenIds: string[]): Promise<Record<string, number>> {
   const coingeckoIdsSet = new Set<string>()
@@ -166,7 +169,7 @@ export async function GET(request: NextRequest) {
         { 
           status: 429,
           headers: {
-            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+            'Cache-Control': 'public, s-maxage=3, stale-while-revalidate=60',
           },
         }
       )
@@ -187,7 +190,7 @@ export async function GET(request: NextRequest) {
         { 
           status: 400,
           headers: {
-            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+            'Cache-Control': 'public, s-maxage=3, stale-while-revalidate=60',
           },
         }
       )
@@ -195,30 +198,31 @@ export async function GET(request: NextRequest) {
 
     const tokenIds = validation.data.ids.split(',').filter(Boolean)
 
-    // Build-time check - EARLY RETURN
+    // Build-time check - EARLY RETURN (only during actual build, not runtime)
     const isBuildTime = 
       process.env.NEXT_PHASE === 'phase-production-build' ||
-      process.env.VERCEL === '1' ||
       process.env.CI === 'true' ||
       process.env.DISABLE_BUILD_TIME_FETCH === '1'
     
     if (isBuildTime) {
       return NextResponse.json({ prices: {}, ok: false, source: 'empty' }, {
         headers: {
-          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+          'Cache-Control': 'public, s-maxage=3, stale-while-revalidate=60',
           'Content-Type': 'application/json',
         },
       })
     }
 
     const now = Date.now()
-    const normalizedIds = tokenIds.map(id => id.toLowerCase())
+    const normalizedIds = tokenIds.map(id => id.toLowerCase()).sort()
+    const idsKey = normalizedIds.join(',')
     const cacheKeys = normalizedIds.map(id => `token-price:v1:${id}`)
     
     let prices: Record<string, number> = {}
     let source: 'cache_fresh' | 'cache_stale' | 'coingecko' | 'empty' = 'empty'
     let hasFreshCache = false
     let hasStaleCache = false
+    let needsBackgroundRefresh = false
     
     // Try Redis cache
     if (process.env.UPSTASH_REDIS_REST_URL) {
@@ -226,8 +230,6 @@ export async function GET(request: NextRequest) {
         const cacheEntries = await Promise.allSettled(
           cacheKeys.map(key => redis.get(key))
         )
-        
-        const staleEntries: Array<{ key: string; value: CacheEntry }> = []
         
         for (let i = 0; i < normalizedIds.length; i++) {
           const result = cacheEntries[i]
@@ -242,10 +244,10 @@ export async function GET(request: NextRequest) {
                 prices[normalizedIds[i]] = entry.price
                 hasFreshCache = true
               } else if (entry.price > 0 && age < STALE_CACHE_TTL_MS) {
-                // Stale cache
-                staleEntries.push({ key: cacheKeys[i], value: entry })
+                // Stale cache - return immediately, refresh in background
                 prices[normalizedIds[i]] = entry.price
                 hasStaleCache = true
+                needsBackgroundRefresh = true
               }
             } catch {
               // Invalid cache entry, ignore
@@ -260,29 +262,46 @@ export async function GET(request: NextRequest) {
           source = 'cache_stale'
         }
       } catch (error) {
-        // Redis unavailable, continue to CoinGecko
+        // Redis unavailable, will try CoinGecko synchronously
         if (process.env.NODE_ENV === 'development') {
           console.warn('[token-price] Redis unavailable:', error)
         }
       }
     }
     
-    // If we have all prices from cache, return immediately
+    // Stale-while-revalidate: if we have cache (even stale), return immediately and refresh in background
     if (Object.keys(prices).length === normalizedIds.length) {
-      const latencyMs = Date.now() - startTime
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`[token-price] ${source} latency: ${latencyMs}ms`)
+      // Trigger background refresh if cache is stale
+      if (needsBackgroundRefresh && !inFlightRefresh.has(idsKey)) {
+        const refreshPromise = (async () => {
+          try {
+            const refreshPrices = await fetchFromCoinGecko(normalizedIds)
+            if (Object.keys(refreshPrices).length > 0 && process.env.UPSTASH_REDIS_REST_URL) {
+              const updatePromises = Object.entries(refreshPrices).map(([id, price]) => {
+                const key = `token-price:v1:${id}`
+                const entry: CacheEntry = { price, timestamp: Date.now() }
+                return redis.setex(key, STALE_CACHE_TTL_SEC, JSON.stringify(entry)).catch(() => {})
+              })
+              await Promise.all(updatePromises)
+            }
+          } catch (error) {
+            // Silent fail - background refresh shouldn't block
+          } finally {
+            inFlightRefresh.delete(idsKey)
+          }
+        })()
+        inFlightRefresh.set(idsKey, refreshPromise)
       }
       
       return NextResponse.json({ prices, ok: true, source }, {
         headers: {
-          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+          'Cache-Control': 'public, s-maxage=3, stale-while-revalidate=60',
           'Content-Type': 'application/json',
         },
       })
     }
     
-    // Missing prices - try CoinGecko
+    // No cache available - fetch from CoinGecko synchronously
     const missingIds = normalizedIds.filter(id => !prices[id])
     let coingeckoPrices: Record<string, number> = {}
     
@@ -303,14 +322,9 @@ export async function GET(request: NextRequest) {
       // Merge prices
       prices = { ...prices, ...coingeckoPrices }
       
-      const latencyMs = Date.now() - startTime
-      if (process.env.NODE_ENV === 'development') {
-        console.log(`[token-price] ${source} latency: ${latencyMs}ms`)
-      }
-      
       return NextResponse.json({ prices, ok: Object.keys(prices).length > 0, source }, {
         headers: {
-          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+          'Cache-Control': 'public, s-maxage=3, stale-while-revalidate=60',
           'Content-Type': 'application/json',
         },
       })
@@ -318,42 +332,29 @@ export async function GET(request: NextRequest) {
       // CoinGecko failed - return stale cache if available, otherwise empty
       if (hasStaleCache && Object.keys(prices).length > 0) {
         source = 'cache_stale'
-        const latencyMs = Date.now() - startTime
-        if (process.env.NODE_ENV === 'development') {
-          console.warn(`[token-price] CoinGecko failed, using stale cache. latency: ${latencyMs}ms`, error)
-        }
-        
         return NextResponse.json({ prices, ok: true, source }, {
           headers: {
-            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+            'Cache-Control': 'public, s-maxage=3, stale-while-revalidate=60',
             'Content-Type': 'application/json',
           },
         })
       }
       
       // No cache available - return empty
-      const latencyMs = Date.now() - startTime
-      if (process.env.NODE_ENV === 'development') {
-        console.error(`[token-price] CoinGecko failed, no cache. latency: ${latencyMs}ms`, error)
-      }
-      
       return NextResponse.json({ prices: {}, ok: false, source: 'empty' }, {
         headers: {
-          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+          'Cache-Control': 'public, s-maxage=3, stale-while-revalidate=60',
           'Content-Type': 'application/json',
         },
       })
     }
   } catch (error) {
     // Build-time or other error
-    const latencyMs = Date.now() - startTime
-    if (process.env.NODE_ENV === 'development') {
-      console.error(`[token-price] Error. latency: ${latencyMs}ms`, error)
-    }
+    console.error(`[token-price] [${requestId}] Error:`, error)
     
     return NextResponse.json({ prices: {}, ok: false, source: 'empty' }, {
       headers: {
-        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+        'Cache-Control': 'public, s-maxage=3, stale-while-revalidate=60',
         'Content-Type': 'application/json',
       },
     })
