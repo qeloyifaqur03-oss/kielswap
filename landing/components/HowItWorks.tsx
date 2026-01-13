@@ -3,6 +3,7 @@
 import { motion } from 'framer-motion'
 import { useState, useEffect, useMemo, useCallback } from 'react'
 import { LandingSwapWidget } from './LandingSwapWidget'
+import { useTokenPrices } from '@/hooks/useTokenPrices'
 import { Input } from '@/components/ui/input'
 import { Check } from 'lucide-react'
 import { calculateGuaranteedMinimum } from '@/lib/quoteFairness'
@@ -186,27 +187,12 @@ export default function HowItWorks() {
   const [fromToken, setFromToken] = useState<'ETH' | 'USDT'>('ETH')
   const [toToken, setToToken] = useState<'ETH' | 'USDT'>('USDT')
   const [fromAmount, setFromAmount] = useState<string>('1')
-  const [ethPrice, setEthPrice] = useState<number | null>(null)
-  const [usdtPrice, setUsdtPrice] = useState<number | null>(null)
   const [deadline, setDeadline] = useState<'5m' | '15m' | '30m' | 'custom'>('15m')
 
-  // Fetch prices
-  useEffect(() => {
-    const fetchPrices = async () => {
-      try {
-        const response = await fetch('/api/token-price?ids=eth,usdt')
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
-        const data = await response.json()
-        if (data.prices?.eth) setEthPrice(data.prices.eth)
-        if (data.prices?.usdt) setUsdtPrice(data.prices.usdt)
-      } catch (error) {
-        console.error('Failed to fetch prices:', error)
-      }
-    }
-    fetchPrices()
-    const interval = setInterval(fetchPrices, 30000)
-    return () => clearInterval(interval)
-  }, [])
+  // Use React Query for optimized caching
+  const { data: priceData } = useTokenPrices(['eth', 'usdt'])
+  const ethPrice = priceData?.prices?.eth ?? null
+  const usdtPrice = priceData?.prices?.usdt ?? null
 
   // Calculate exchange rate
   const exchangeRate = useMemo(() => {

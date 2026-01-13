@@ -19,7 +19,7 @@ export default function Header() {
         className="glass w-full h-full border-b border-white/10 shadow-lg"
       >
         {/* Inner container for content alignment */}
-        <div className="max-w-7xl mx-auto h-full px-6 flex items-center justify-between">
+        <div className="container mx-auto max-w-7xl h-full px-4 sm:px-6 flex items-center justify-between gap-4">
           {/* Logo */}
           <Link href="/" className="flex items-center h-full">
             <Image
@@ -34,7 +34,7 @@ export default function Header() {
 
           {/* Right side: Social links + Launch App button - hidden on /access */}
           {!isAccessPage && (
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
             {/* Twitter */}
             <motion.a
               href="https://twitter.com/kielswap"

@@ -6,6 +6,7 @@ import { ArrowUpDown, ArrowDownUp } from 'lucide-react'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { getTokenInfo } from '@/lib/tokens'
+import { useTokenPrices } from '@/hooks/useTokenPrices'
 
 interface SwapWidgetProps {
   className?: string
@@ -40,48 +41,11 @@ export function LandingSwapWidget({
   const fromAmount = controlled ? (controlledFromAmount ?? '1') : internalFromAmount
   
   const [isAnimating, setIsAnimating] = useState(false)
-  const [ethPrice, setEthPrice] = useState<number | null>(null)
-  const [usdtPrice, setUsdtPrice] = useState<number | null>(null)
-  const [isLoadingPrices, setIsLoadingPrices] = useState(true)
-
-  // Fetch prices from CoinGecko immediately on mount
-  useEffect(() => {
-    let retryCount = 0
-    const maxRetries = 3
-    
-    const fetchPrices = async () => {
-      try {
-        setIsLoadingPrices(true)
-        const response = await fetch('/api/token-price?ids=eth,usdt')
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`)
-        }
-        const data = await response.json()
-        if (data.prices?.eth) setEthPrice(data.prices.eth)
-        if (data.prices?.usdt) setUsdtPrice(data.prices.usdt)
-        setIsLoadingPrices(false)
-        retryCount = 0 // Reset retry count on success
-      } catch (error) {
-        console.error('Failed to fetch prices:', error)
-        setIsLoadingPrices(false)
-        
-        // Retry logic: retry up to maxRetries times with exponential backoff
-        if (retryCount < maxRetries) {
-          retryCount++
-          const delay = Math.min(1000 * Math.pow(2, retryCount - 1), 5000) // Exponential backoff, max 5s
-          setTimeout(() => {
-            fetchPrices()
-          }, delay)
-        }
-      }
-    }
-    
-    // Fetch immediately, no delay
-    fetchPrices()
-    // Refresh prices every 30 seconds
-    const interval = setInterval(fetchPrices, 30000)
-    return () => clearInterval(interval)
-  }, [])
+  
+  // Use React Query for optimized caching
+  const { data: priceData, isLoading: isLoadingPrices } = useTokenPrices(['eth', 'usdt'])
+  const ethPrice = priceData?.prices?.eth ?? null
+  const usdtPrice = priceData?.prices?.usdt ?? null
 
   // Calculate exchange rate - return null if prices not loaded yet
   const exchangeRate = useMemo(() => {

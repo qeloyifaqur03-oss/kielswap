@@ -194,35 +194,35 @@ function AccessPageContent() {
               {/* Inner input surface - dark glass background, covers inner area, gradient only visible as border */}
               <div className="access-input-surface">
                 <input
-                  type="text"
-                  value={code}
-                  onChange={handleInputChange}
-                  onKeyDown={handleKeyDown}
-                  placeholder="XXXXXX"
+                    type="text"
+                    value={code}
+                    onChange={handleInputChange}
+                    onKeyDown={handleKeyDown}
+                    placeholder="XXXXXX"
                   className="w-full h-12 text-center font-mono text-lg tracking-widest uppercase border-0 outline-none ring-0 focus:ring-0 focus:outline-none px-4 py-3 transition-colors duration-200 ease-out text-white bg-transparent placeholder:text-gray-500 disabled:opacity-50 disabled:cursor-not-allowed"
-                  style={{ 
+                    style={{ 
                     color: '#ffffff',
                     backgroundColor: 'transparent',
-                  }}
-                  autoFocus
-                  autoComplete="off"
-                  autoCapitalize="characters"
-                  maxLength={6}
-                  pattern="[A-Z0-9]{0,6}"
-                  disabled={isSubmitting}
-                />
+                    }}
+                    autoFocus
+                    autoComplete="off"
+                    autoCapitalize="characters"
+                    maxLength={6}
+                    pattern="[A-Z0-9]{0,6}"
+                    disabled={isSubmitting}
+                  />
+                </div>
               </div>
-            </div>
               
-            {error && (
-              <motion.p
-                initial={{ opacity: 0, y: -4 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="mt-3 text-sm text-gray-400 font-light text-center"
-              >
-                {error}
-              </motion.p>
-            )}
+              {error && (
+                <motion.p
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="mt-3 text-sm text-gray-400 font-light text-center"
+                >
+                  {error}
+                </motion.p>
+              )}
 
             <Button
               type="submit"

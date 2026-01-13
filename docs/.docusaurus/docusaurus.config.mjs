@@ -63,8 +63,8 @@ export default {
           "label": "Docs"
         },
         {
-          "href": "https://github.com/kielswap/kielswap",
-          "label": "GitHub",
+          "href": "https://app.kielswap.com",
+          "label": "App",
           "position": "right"
         }
       ],

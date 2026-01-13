@@ -1,10 +1,8 @@
 /**
- * Token price API endpoint
- * Fetches token prices from multiple sources:
- * 1. CoinGecko API (primary, free, no API key required)
- * 2. CoinMarketCap API (fallback, requires API key)
- * 3. CryptoCompare API (additional source)
- * Used as fallback for calculating exchange rates when providers don't work
+ * Token price API endpoint with optimized caching
+ * - Fresh cache: 60 seconds (fast response <200ms)
+ * - Stale cache: 10 minutes (fallback if CoinGecko fails)
+ * - Stale-while-revalidate pattern
  */
 
 import { NextRequest, NextResponse } from 'next/server'
@@ -12,7 +10,6 @@ import { redis } from '@/lib/redis'
 
 // Token ID to CoinGecko ID mapping
 const TOKEN_TO_COINGECKO_ID: Record<string, string> = {
-  // Native tokens
   eth: 'ethereum',
   bnb: 'binancecoin',
   matic: 'matic-network',
@@ -80,7 +77,6 @@ const TOKEN_TO_COINGECKO_ID: Record<string, string> = {
   ldo: 'lido-dao',
   grt: 'the-graph',
   'matic-erc20': 'matic-network',
-  // Ecosystem tokens
   gmx: 'gmx',
   velo: 'velodrome-finance',
   aero: 'aerodrome-finance',
@@ -92,120 +88,69 @@ const TOKEN_TO_COINGECKO_ID: Record<string, string> = {
   'mnt-token': 'mantle',
 }
 
-// Token ID to CoinMarketCap symbol mapping
-const TOKEN_TO_CMC_SYMBOL: Record<string, string> = {
-  eth: 'ETH',
-  bnb: 'BNB',
-  matic: 'MATIC',
-  pol: 'POL',
-  avax: 'AVAX',
-  cro: 'CRO',
-  celo: 'CELO',
-  s: 'S',
-  pls: 'PLS',
-  ron: 'RON',
-  mnt: 'MNT',
-  bera: 'BERA',
-  core: 'CORE',
-  xdai: 'XDAI',
-  rbtc: 'RBTC',
-  xpl: 'XPL',
-  plume: 'PLUME',
-  kava: 'KAVA',
-  btc: 'BTC',
-  op: 'OP',
-  arb: 'ARB',
-  usdc: 'USDC',
-  usdt: 'USDT',
-  dai: 'DAI',
-  weth: 'WETH',
-  wbtc: 'WBTC',
-  link: 'LINK',
-  uni: 'UNI',
-  aave: 'AAVE',
-  crv: 'CRV',
-  mkr: 'MKR',
-  snx: 'SNX',
-  comp: 'COMP',
-  sushi: 'SUSHI',
-  '1inch': '1INCH',
-  frax: 'FRAX',
-  fxs: 'FXS',
-  ldo: 'LDO',
-  grt: 'GRT',
-  gmx: 'GMX',
-  velo: 'VELO',
-  aero: 'AERO',
-  cake: 'CAKE',
-  xvs: 'XVS',
-  joe: 'JOE',
-  qi: 'QI',
-  quick: 'QUICK',
-  'mnt-token': 'MNT',
-  'matic-erc20': 'MATIC',
-}
-
-// Token ID to CryptoCompare symbol mapping (for CryptoCompare API)
-const TOKEN_TO_CRYPTOCOMPARE_SYMBOL: Record<string, string> = {
-  eth: 'ETH',
-  bnb: 'BNB',
-  matic: 'MATIC',
-  avax: 'AVAX',
-  op: 'OP',
-  arb: 'ARB',
-  base: 'BASE',
-  celo: 'CELO',
-  cro: 'CRO',
-  kava: 'KAVA',
-  btc: 'BTC',
-  s: 'S',
-  pls: 'PLS',
-  ron: 'RON',
-  mnt: 'MNT',
-  bera: 'BERA',
-  core: 'CORE',
-  xdai: 'XDAI',
-  rbtc: 'RBTC',
-  xpl: 'XPL',
-  plume: 'PLUME',
-  usdc: 'USDC',
-  usdt: 'USDT',
-  dai: 'DAI',
-  weth: 'WETH',
-  wbtc: 'WBTC',
-  link: 'LINK',
-  uni: 'UNI',
-  aave: 'AAVE',
-  crv: 'CRV',
-  mkr: 'MKR',
-  snx: 'SNX',
-  comp: 'COMP',
-  sushi: 'SUSHI',
-  '1inch': '1INCH',
-  frax: 'FRAX',
-  fxs: 'FXS',
-  ldo: 'LDO',
-  grt: 'GRT',
-  gmx: 'GMX',
-  velo: 'VELO',
-  aero: 'AERO',
-  cake: 'CAKE',
-  xvs: 'XVS',
-  joe: 'JOE',
-  qi: 'QI',
-  quick: 'QUICK',
-  'mnt-token': 'MNT',
-  'matic-erc20': 'MATIC',
-}
-
 export const runtime = 'nodejs'
 
-// In-memory cache as fallback (faster for frequent requests)
-const memoryCache = new Map<string, { price: number; expiresAt: number }>()
-const CACHE_TTL_MS = 60000 // 60 seconds
-const REDIS_CACHE_TTL_SEC = 60 // Redis TTL in seconds
+// Cache TTL constants
+const FRESH_CACHE_TTL_MS = 60_000 // 60 seconds - fresh cache
+const STALE_CACHE_TTL_MS = 600_000 // 10 minutes - stale cache
+const FRESH_CACHE_TTL_SEC = 60
+const STALE_CACHE_TTL_SEC = 600
+const COINGECKO_TIMEOUT_MS = 2000 // 2 seconds max wait for CoinGecko
+
+interface CacheEntry {
+  price: number
+  timestamp: number
+}
+
+async function fetchFromCoinGecko(tokenIds: string[]): Promise<Record<string, number>> {
+  const coingeckoIdsSet = new Set<string>()
+  const tokenIdToCoingeckoMap: Record<string, string> = {}
+  
+  for (const id of tokenIds) {
+    const coingeckoId = TOKEN_TO_COINGECKO_ID[id] || TOKEN_TO_COINGECKO_ID[id.toLowerCase()]
+    if (coingeckoId) {
+      coingeckoIdsSet.add(coingeckoId)
+      tokenIdToCoingeckoMap[id.toLowerCase()] = coingeckoId
+    }
+  }
+  
+  if (coingeckoIdsSet.size === 0) {
+    return {}
+  }
+  
+  const idsParam = Array.from(coingeckoIdsSet).join(',')
+  const url = `https://api.coingecko.com/api/v3/simple/price?ids=${idsParam}&vs_currencies=usd`
+  
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), COINGECKO_TIMEOUT_MS)
+  
+  try {
+    const response = await fetch(url, { signal: controller.signal })
+    clearTimeout(timeoutId)
+    
+    if (!response.ok) {
+      return {}
+    }
+    
+    const data = await response.json() as Record<string, { usd: number }>
+    const prices: Record<string, number> = {}
+    
+    for (const [originalId, coingeckoId] of Object.entries(tokenIdToCoingeckoMap)) {
+      if (data[coingeckoId]?.usd && typeof data[coingeckoId].usd === 'number' && data[coingeckoId].usd > 0) {
+        prices[originalId] = data[coingeckoId].usd
+      }
+    }
+    
+    return prices
+  } catch (error) {
+    clearTimeout(timeoutId)
+    throw error
+  }
+}
 
 export async function GET(request: NextRequest) {
+  const startTime = Date.now()
+  
   try {
     const searchParams = request.nextUrl.searchParams
     const tokenIds = searchParams.get('ids')?.split(',').filter(Boolean) || []
@@ -217,338 +162,167 @@ export async function GET(request: NextRequest) {
       )
     }
 
-    // Check if we're in build phase - EARLY RETURN before any fetch/redis operations
-    // Multiple checks for reliability: NEXT_PHASE, VERCEL, CI, and explicit flag
+    // Build-time check - EARLY RETURN
     const isBuildTime = 
       process.env.NEXT_PHASE === 'phase-production-build' ||
       process.env.VERCEL === '1' ||
       process.env.CI === 'true' ||
       process.env.DISABLE_BUILD_TIME_FETCH === '1'
     
-    // Early return during build - skip all network/cache operations
     if (isBuildTime) {
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('[token-price] Build-time: returning empty prices (network unavailable)')
-      }
-      return NextResponse.json({ prices: {} }, {
+      return NextResponse.json({ prices: {}, ok: false, source: 'empty' }, {
         headers: {
-          'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60',
+          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+          'Content-Type': 'application/json',
         },
       })
     }
 
     const now = Date.now()
-    const cachedPrices: Record<string, number> = {}
-    const uncachedIds: string[] = []
+    const normalizedIds = tokenIds.map(id => id.toLowerCase())
+    const cacheKeys = normalizedIds.map(id => `token-price:v1:${id}`)
     
-    // Check in-memory cache first (fastest)
-    for (const id of tokenIds) {
-      const cacheKey = id.toLowerCase()
-      const cached = memoryCache.get(cacheKey)
-      if (cached && cached.expiresAt > now) {
-        cachedPrices[cacheKey] = cached.price
-      } else {
-        uncachedIds.push(cacheKey)
-      }
-    }
+    let prices: Record<string, number> = {}
+    let source: 'cache_fresh' | 'cache_stale' | 'coingecko' | 'empty' = 'empty'
+    let hasFreshCache = false
+    let hasStaleCache = false
     
-    // Check Redis cache for uncached items (if Redis is available)
-    if (uncachedIds.length > 0 && process.env.UPSTASH_REDIS_REST_URL) {
+    // Try Redis cache
+    if (process.env.UPSTASH_REDIS_REST_URL) {
       try {
-        const redisKeys = uncachedIds.map(id => `price:${id}`)
-        const redisValues = await Promise.allSettled(
-          redisKeys.map(key => redis.get(key))
+        const cacheEntries = await Promise.allSettled(
+          cacheKeys.map(key => redis.get(key))
         )
         
-        for (let i = 0; i < uncachedIds.length; i++) {
-          const result = redisValues[i]
+        const staleEntries: Array<{ key: string; value: CacheEntry }> = []
+        
+        for (let i = 0; i < normalizedIds.length; i++) {
+          const result = cacheEntries[i]
           if (result.status === 'fulfilled' && result.value) {
             try {
               const value = typeof result.value === 'string' ? result.value : String(result.value)
-              const parsed = JSON.parse(value) as { price: number; timestamp: number }
-              // Use if cached within last 60 seconds
-              if (parsed.price > 0 && (now - parsed.timestamp) < CACHE_TTL_MS) {
-                const id = uncachedIds[i]
-                cachedPrices[id] = parsed.price
-                // Update in-memory cache
-                memoryCache.set(id, {
-                  price: parsed.price,
-                  expiresAt: now + CACHE_TTL_MS,
-                })
+              const entry = JSON.parse(value) as CacheEntry
+              const age = now - entry.timestamp
+              
+              if (entry.price > 0 && age < FRESH_CACHE_TTL_MS) {
+                // Fresh cache
+                prices[normalizedIds[i]] = entry.price
+                hasFreshCache = true
+              } else if (entry.price > 0 && age < STALE_CACHE_TTL_MS) {
+                // Stale cache
+                staleEntries.push({ key: cacheKeys[i], value: entry })
+                prices[normalizedIds[i]] = entry.price
+                hasStaleCache = true
               }
             } catch {
               // Invalid cache entry, ignore
             }
           }
         }
+        
+        // Determine source
+        if (hasFreshCache && Object.keys(prices).length === normalizedIds.length) {
+          source = 'cache_fresh'
+        } else if (hasStaleCache && Object.keys(prices).length === normalizedIds.length) {
+          source = 'cache_stale'
+        }
       } catch (error) {
-        // Redis unavailable, continue with API fetch
-        // During build, skip Redis silently
-        if (!isBuildTime && process.env.NODE_ENV === 'development') {
-          console.warn('[token-price] Redis unavailable, using in-memory cache only')
-        }
-      }
-      
-      // Filter out cached items
-      const remainingUncached = uncachedIds.filter(id => !cachedPrices[id])
-      uncachedIds.length = 0
-      uncachedIds.push(...remainingUncached)
-    }
-
-    let fetchedPrices: Record<string, number> = {}
-    if (uncachedIds.length > 0) {
-      // Prepare mappings for all providers
-      const uncachedCoingeckoIdsSet = new Set<string>()
-      const tokenIdToCoingeckoMap: Record<string, string> = {}
-      
-      for (const id of uncachedIds) {
-        const coingeckoId = TOKEN_TO_COINGECKO_ID[id] || TOKEN_TO_COINGECKO_ID[id.toLowerCase()]
-        if (coingeckoId) {
-          uncachedCoingeckoIdsSet.add(coingeckoId)
-          tokenIdToCoingeckoMap[id] = coingeckoId
-        }
-      }
-      
-      const uncachedCoingeckoIds = Array.from(uncachedCoingeckoIdsSet)
-      
-      // Parallel fetching from all sources for maximum speed
-      const pricePromises: Promise<void>[] = []
-      
-      // 1. CoinGecko (fastest, free)
-      // Skip network calls during build
-      if (uncachedCoingeckoIds.length > 0 && !isBuildTime) {
-        const idsParam = uncachedCoingeckoIds.join(',')
-        const url = `https://api.coingecko.com/api/v3/simple/price?ids=${idsParam}&vs_currencies=usd`
-        
-        pricePromises.push(
-          fetch(url, { signal: AbortSignal.timeout(1000) })
-            .then(async (response) => {
-              if (response.ok) {
-                const data = await response.json()
-                
-                // Map CoinGecko IDs back to original token IDs
-                for (const [originalId, coingeckoId] of Object.entries(tokenIdToCoingeckoMap)) {
-                  if (data[coingeckoId] && typeof data[coingeckoId] === 'object' && 'usd' in data[coingeckoId]) {
-                    const price = (data[coingeckoId] as any).usd
-                    if (typeof price === 'number' && price > 0) {
-                      const originalIdLower = originalId.toLowerCase()
-                      if (!fetchedPrices[originalIdLower]) {
-                        fetchedPrices[originalIdLower] = price
-                        const cacheKey = originalId.toLowerCase()
-                        // Update in-memory cache
-                        memoryCache.set(cacheKey, {
-                          price,
-                          expiresAt: now + CACHE_TTL_MS,
-                        })
-                        // Update Redis cache (async, don't wait) - only if Redis is configured
-                        if (process.env.UPSTASH_REDIS_REST_URL) {
-                          redis.setex(`price:${cacheKey}`, REDIS_CACHE_TTL_SEC, JSON.stringify({ price, timestamp: now })).catch(() => {})
-                        }
-                      }
-                    }
-                  }
-                }
-                
-                // Map all variations for backward compatibility
-                for (const [tokenId, coingeckoId] of Object.entries(TOKEN_TO_COINGECKO_ID)) {
-                  if (uncachedCoingeckoIdsSet.has(coingeckoId) && data[coingeckoId] && typeof data[coingeckoId] === 'object' && 'usd' in data[coingeckoId]) {
-                    const price = (data[coingeckoId] as any).usd
-                    if (typeof price === 'number' && price > 0) {
-                      const tokenIdLower = tokenId.toLowerCase()
-                      if (!fetchedPrices[tokenIdLower]) {
-                        fetchedPrices[tokenIdLower] = price
-                        // Update in-memory cache
-                        memoryCache.set(tokenIdLower, {
-                          price,
-                          expiresAt: now + CACHE_TTL_MS,
-                        })
-                        // Update Redis cache (async, don't wait) - only if Redis is configured
-                        if (process.env.UPSTASH_REDIS_REST_URL) {
-                          redis.setex(`price:${tokenIdLower}`, REDIS_CACHE_TTL_SEC, JSON.stringify({ price, timestamp: now })).catch(() => {})
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            })
-            .catch(() => {
-              // Silently fail - will use other sources
-            })
-        )
-      }
-      
-      // 2. CoinMarketCap (parallel, if API key available)
-      // Skip network calls during build
-      const cmcApiKey = process.env.COINMARKETCAP_API_KEY
-      if (cmcApiKey && uncachedIds.length > 0 && !isBuildTime) {
-        const cmcSymbols = uncachedIds
-          .map(id => TOKEN_TO_CMC_SYMBOL[id] || id.toUpperCase())
-          .filter(Boolean)
-          .join(',')
-        
-        if (cmcSymbols) {
-          pricePromises.push(
-            fetch(`https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol=${cmcSymbols}&convert=USD`, {
-              headers: { 'X-CMC_PRO_API_KEY': cmcApiKey },
-              signal: AbortSignal.timeout(1000),
-            })
-              .then(async (response) => {
-                if (response.ok) {
-                  const cmcData = await response.json() as any
-                  
-                  if (cmcData.data) {
-                    for (const [symbol, coins] of Object.entries(cmcData.data)) {
-                      if (coins && Array.isArray(coins) && coins.length > 0 && coins[0].quote?.USD?.price) {
-                        const price = coins[0].quote.USD.price
-                        const symbolLower = symbol.toLowerCase()
-                        
-                        for (const tokenId of uncachedIds) {
-                          const cmcSymbol = TOKEN_TO_CMC_SYMBOL[tokenId] || tokenId.toUpperCase()
-                          if ((cmcSymbol === symbol || symbolLower === tokenId) && !fetchedPrices[tokenId]) {
-                            fetchedPrices[tokenId] = price
-                            // Update in-memory cache
-                            memoryCache.set(tokenId, {
-                              price,
-                              expiresAt: now + CACHE_TTL_MS,
-                            })
-                            // Update Redis cache (async, don't wait) - only if Redis is configured
-                            if (process.env.UPSTASH_REDIS_REST_URL) {
-                              redis.setex(`price:${tokenId}`, REDIS_CACHE_TTL_SEC, JSON.stringify({ price, timestamp: now })).catch(() => {})
-                            }
-                            break
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              })
-              .catch(() => {
-                // Silently fail
-              })
-          )
-        }
-      }
-      
-      // 3. CryptoCompare (parallel, free)
-      // Skip network calls during build
-      if (uncachedIds.length > 0 && !isBuildTime) {
-        const ccSymbols = uncachedIds
-          .map(id => TOKEN_TO_CRYPTOCOMPARE_SYMBOL[id] || id.toUpperCase())
-          .filter(Boolean)
-          .join(',')
-        
-        if (ccSymbols) {
-          pricePromises.push(
-            fetch(`https://min-api.cryptocompare.com/data/pricemulti?fsyms=${ccSymbols}&tsyms=USD`, {
-              signal: AbortSignal.timeout(1000),
-            })
-              .then(async (response) => {
-                if (response.ok) {
-                  const ccData = await response.json() as Record<string, { USD?: number }>
-                  
-                  for (const [symbol, priceData] of Object.entries(ccData)) {
-                    if (priceData?.USD && typeof priceData.USD === 'number' && priceData.USD > 0) {
-                      const symbolLower = symbol.toLowerCase()
-                      
-                      for (const tokenId of uncachedIds) {
-                        const ccSymbol = TOKEN_TO_CRYPTOCOMPARE_SYMBOL[tokenId] || tokenId.toUpperCase()
-                        if ((ccSymbol === symbol || symbolLower === tokenId) && !fetchedPrices[tokenId]) {
-                          fetchedPrices[tokenId] = priceData.USD
-                          // Update in-memory cache
-                          memoryCache.set(tokenId, {
-                            price: priceData.USD,
-                            expiresAt: now + CACHE_TTL_MS,
-                          })
-                          // Update Redis cache (async, don't wait) - only if Redis is configured
-                          if (process.env.UPSTASH_REDIS_REST_URL) {
-                            redis.setex(`price:${tokenId}`, REDIS_CACHE_TTL_SEC, JSON.stringify({ price: priceData.USD, timestamp: now })).catch(() => {})
-                          }
-                          break
-                        }
-                      }
-                    }
-                  }
-                }
-              })
-              .catch(() => {
-                // Silently fail
-              })
-          )
-        }
-      }
-      
-      // Wait for all requests with a race condition - return as soon as we have all requested prices
-      // This optimizes response time
-      const settledResults = await Promise.allSettled(pricePromises)
-      
-      // Check if we have all prices we need
-      const hasAllPrices = uncachedIds.every(id => fetchedPrices[id.toLowerCase()])
-      
-      // Logging only in development
-      if (process.env.NODE_ENV === 'development') {
-        if (hasAllPrices) {
-          console.log('[token-price] All prices found, returning early for speed')
-        } else {
-          const missing = uncachedIds.filter(id => !fetchedPrices[id.toLowerCase()])
-          if (missing.length > 0) {
-            console.log('[token-price] Still missing prices:', missing)
-          }
+        // Redis unavailable, continue to CoinGecko
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('[token-price] Redis unavailable:', error)
         }
       }
     }
-
-    const prices = { ...cachedPrices, ...fetchedPrices }
     
-    // Logging only in development
-    if (process.env.NODE_ENV === 'development') {
-      console.log('[token-price] Final prices response:', {
-        requestedIds: tokenIds,
-        foundPrices: Object.keys(prices),
-      })
-    }
-
-    // Return response with cache headers
-    // Cache for 30 seconds - prices update frequently but not too fast
-    return NextResponse.json({ prices }, {
-      headers: {
-        'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60',
-      },
-    })
-  } catch (error) {
-    // During build, return empty prices instead of error to prevent build failures
-    // Use same build-time detection as early return
-    const isBuildTime = 
-      process.env.NEXT_PHASE === 'phase-production-build' ||
-      process.env.VERCEL === '1' ||
-      process.env.CI === 'true' ||
-      process.env.DISABLE_BUILD_TIME_FETCH === '1'
-    
-    if (isBuildTime) {
-      // Build-time: return empty prices gracefully, log warning only
+    // If we have all prices from cache, return immediately
+    if (Object.keys(prices).length === normalizedIds.length) {
+      const latencyMs = Date.now() - startTime
       if (process.env.NODE_ENV === 'development') {
-        console.warn('[token-price] Build-time: returning empty prices (network unavailable)')
+        console.log(`[token-price] ${source} latency: ${latencyMs}ms`)
       }
-      return NextResponse.json({ prices: {} }, {
+      
+      return NextResponse.json({ prices, ok: true, source }, {
         headers: {
-          'Cache-Control': 'public, s-maxage=30, stale-while-revalidate=60',
+          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+          'Content-Type': 'application/json',
         },
       })
     }
     
-    // Runtime: log errors, but sanitize in production
-    if (process.env.NODE_ENV === 'development') {
-      console.error('[token-price] Error:', error)
-    } else {
-      console.error('[token-price] Error fetching prices')
+    // Missing prices - try CoinGecko
+    const missingIds = normalizedIds.filter(id => !prices[id])
+    let coingeckoPrices: Record<string, number> = {}
+    
+    try {
+      coingeckoPrices = await fetchFromCoinGecko(missingIds)
+      source = Object.keys(prices).length > 0 ? 'cache_stale' : 'coingecko'
+      
+      // Update Redis cache (async, don't wait)
+      if (process.env.UPSTASH_REDIS_REST_URL && Object.keys(coingeckoPrices).length > 0) {
+        const updatePromises = Object.entries(coingeckoPrices).map(([id, price]) => {
+          const key = `token-price:v1:${id}`
+          const entry: CacheEntry = { price, timestamp: now }
+          return redis.setex(key, STALE_CACHE_TTL_SEC, JSON.stringify(entry)).catch(() => {})
+        })
+        Promise.all(updatePromises).catch(() => {})
+      }
+      
+      // Merge prices
+      prices = { ...prices, ...coingeckoPrices }
+      
+      const latencyMs = Date.now() - startTime
+      if (process.env.NODE_ENV === 'development') {
+        console.log(`[token-price] ${source} latency: ${latencyMs}ms`)
+      }
+      
+      return NextResponse.json({ prices, ok: Object.keys(prices).length > 0, source }, {
+        headers: {
+          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+          'Content-Type': 'application/json',
+        },
+      })
+    } catch (error) {
+      // CoinGecko failed - return stale cache if available, otherwise empty
+      if (hasStaleCache && Object.keys(prices).length > 0) {
+        source = 'cache_stale'
+        const latencyMs = Date.now() - startTime
+        if (process.env.NODE_ENV === 'development') {
+          console.warn(`[token-price] CoinGecko failed, using stale cache. latency: ${latencyMs}ms`, error)
+        }
+        
+        return NextResponse.json({ prices, ok: true, source }, {
+          headers: {
+            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+            'Content-Type': 'application/json',
+          },
+        })
+      }
+      
+      // No cache available - return empty
+      const latencyMs = Date.now() - startTime
+      if (process.env.NODE_ENV === 'development') {
+        console.error(`[token-price] CoinGecko failed, no cache. latency: ${latencyMs}ms`, error)
+      }
+      
+      return NextResponse.json({ prices: {}, ok: false, source: 'empty' }, {
+        headers: {
+          'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+          'Content-Type': 'application/json',
+        },
+      })
     }
-    return NextResponse.json(
-      { error: 'Failed to fetch prices' },
-      { status: 500 }
-    )
+  } catch (error) {
+    // Build-time or other error
+    const latencyMs = Date.now() - startTime
+    if (process.env.NODE_ENV === 'development') {
+      console.error(`[token-price] Error. latency: ${latencyMs}ms`, error)
+    }
+    
+    return NextResponse.json({ prices: {}, ok: false, source: 'empty' }, {
+      headers: {
+        'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+        'Content-Type': 'application/json',
+      },
+    })
   }
 }
-
-
-

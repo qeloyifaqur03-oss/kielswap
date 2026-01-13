@@ -5,7 +5,18 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { getWagmiConfig } from '@/lib/wagmi/config'
 import { useState, useEffect } from 'react'
 
-const queryClient = new QueryClient()
+// Configure React Query for optimal caching
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 60_000, // 60 seconds - data is fresh for 60s
+      gcTime: 600_000, // 10 minutes - cache time (formerly cacheTime)
+      refetchOnWindowFocus: false, // Don't refetch on window focus
+      refetchOnMount: false, // Don't refetch on mount if data exists
+      retry: 1, // Retry once on failure
+    },
+  },
+})
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [mounted, setMounted] = useState(false)
@@ -66,13 +77,3 @@ export function Providers({ children }: { children: React.ReactNode }) {
     </WagmiProvider>
   )
 }
-
-
-
-
-
-
-
-
-
-
