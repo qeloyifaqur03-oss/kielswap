@@ -1,61 +1,38 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendTelegramMessage } from '@/lib/telegram'
 import { buildFeedbackMessage } from '@/lib/telegramMessages'
-import { checkRateLimit, getClientIP } from '@/lib/rateLimit'
+import { checkRateLimit, getClientIP } from '@/lib/api/rateLimit'
+import { validateBody, routeSchemas } from '@/lib/api/validate'
+import { randomUUID } from 'crypto'
 
 export async function POST(request: NextRequest) {
+  const requestId = randomUUID()
+  
   try {
     // Rate limiting
     const ip = getClientIP(request)
-    const allowed = await checkRateLimit(ip)
+    const rateLimitResult = await checkRateLimit('feedback', ip)
     
-    if (!allowed) {
+    if (!rateLimitResult.allowed) {
       return NextResponse.json(
-        { ok: false, error: 'RATE_LIMIT' },
+        { ok: false, error: 'RATE_LIMITED', retryAfter: rateLimitResult.retryAfter, requestId },
         { status: 429 }
       )
     }
 
     const body = await request.json()
-    const { message, contact, walletAddress, page } = body
 
-    // Validation
-    if (!message || typeof message !== 'string' || !message.trim()) {
+    // Validate body with Zod
+    const validation = validateBody(routeSchemas['feedback'], body, requestId)
+    if (!validation.success) {
+      console.error(`[Feedback API] [${requestId}] Validation failed:`, validation.details)
       return NextResponse.json(
-        { ok: false, error: 'Message is required' },
+        { ok: false, error: validation.error, details: validation.details, requestId },
         { status: 400 }
       )
     }
 
-    // Length validation
-    if (message.length > 2000) {
-      return NextResponse.json(
-        { ok: false, error: 'Message too long' },
-        { status: 400 }
-      )
-    }
-
-    // Contact is now required
-    if (!contact || typeof contact !== 'string' || !contact.trim()) {
-      return NextResponse.json(
-        { ok: false, error: 'CONTACT_REQUIRED' },
-        { status: 400 }
-      )
-    }
-
-    if (contact.length > 100) {
-      return NextResponse.json(
-        { ok: false, error: 'Contact field too long' },
-        { status: 400 }
-      )
-    }
-
-    if (walletAddress && typeof walletAddress === 'string' && walletAddress.length > 100) {
-      return NextResponse.json(
-        { ok: false, error: 'Wallet address too long' },
-        { status: 400 }
-      )
-    }
+    const { message, contact, walletAddress, page } = validation.data
 
     // Build and send Telegram message (non-blocking)
     const telegramMessage = buildFeedbackMessage({
@@ -66,16 +43,18 @@ export async function POST(request: NextRequest) {
     })
 
     // Send notification (don't await - fire and forget)
-    sendTelegramMessage(telegramMessage).catch((error) => {
+    sendTelegramMessage(telegramMessage, requestId).catch((error) => {
       // Log error but don't fail the request
-      console.error('[Feedback API] Failed to send Telegram notification:', error)
+      console.error(`[Feedback API] [${requestId}] Failed to send Telegram notification:`, error)
     })
 
-    return NextResponse.json({ ok: true }, { status: 200 })
+    return NextResponse.json({ ok: true, requestId }, { status: 200 })
   } catch (error) {
-    console.error('[Feedback API Error]', error)
-    // Return success even on error to not break UX
-    return NextResponse.json({ ok: true }, { status: 200 })
+    console.error(`[Feedback API] [${requestId}] Internal error:`, error)
+    return NextResponse.json(
+      { ok: false, error: 'INTERNAL', requestId },
+      { status: 500 }
+    )
   }
 }
 

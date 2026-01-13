@@ -9,6 +9,8 @@ import { resolveTokenForFamily } from '@/lib/tokenResolver'
 import { getTokenInfo, toBaseUnits, getTokenRef } from '@/lib/tokens'
 import { resolveChangeNowAsset } from '@/lib/providers/changenowMap'
 import { getExchangeAmount } from '@/lib/providers/changenow'
+import { checkRateLimit, getClientIP } from '@/lib/api/rateLimit'
+import { randomUUID } from 'crypto'
 
 const isDev = process.env.NODE_ENV === 'development'
 const DEBUG_QUOTES = process.env.DEBUG_QUOTES === '1'
@@ -332,15 +334,41 @@ setInterval(() => {
 }, 5000) // Cleanup every 5 seconds
 
 export async function POST(request: NextRequest) {
-  // EVM-only mode: route-plan endpoint disabled
-  return NextResponse.json(
-    {
+  const requestId = randomUUID()
+  
+  try {
+    // Rate limiting
+    const ip = getClientIP(request)
+    const rateLimitResult = await checkRateLimit('route-plan', ip)
+    
+    if (!rateLimitResult.allowed) {
+      return NextResponse.json({
+        ok: false,
+        error: 'RATE_LIMITED',
+        retryAfter: rateLimitResult.retryAfter,
+        requestId,
+      } as RoutePlanResponse, { status: 429 })
+    }
+    
+    // EVM-only mode: route-plan endpoint disabled
+    return NextResponse.json(
+      {
+        ok: false,
+        error: 'EVM-only mode enabled. Cross-family routing is not available.',
+        errorCode: 'EVM_ONLY_MODE',
+        requestId,
+      },
+      { status: 404 }
+    )
+  } catch (error) {
+    console.error(`[route-plan] [${requestId}] Error:`, error)
+    return NextResponse.json({
       ok: false,
-      error: 'EVM-only mode enabled. Cross-family routing is not available.',
-      errorCode: 'EVM_ONLY_MODE',
-    },
-    { status: 404 }
-  )
+      error: error instanceof Error ? error.message : 'Unknown error',
+      errorCode: 'API_ERROR',
+      requestId,
+    } as RoutePlanResponse, { status: 500 })
+  }
 }
 
 // Disabled implementation (kept for reference, not exported to avoid TypeScript errors)

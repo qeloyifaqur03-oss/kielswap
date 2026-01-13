@@ -8,6 +8,9 @@ import { getNetworkFamily } from '@/lib/chainRegistry'
 import { resolveChangeNowAsset } from '@/lib/providers/changenowMap'
 import { createTransaction } from '@/lib/providers/changenow'
 import { getTokenInfo } from '@/lib/tokens'
+import { checkRateLimit, getClientIP } from '@/lib/api/rateLimit'
+import { validateBody, routeSchemas } from '@/lib/api/validate'
+import { randomUUID } from 'crypto'
 
 const isDev = process.env.NODE_ENV === 'development'
 
@@ -47,47 +50,61 @@ interface ExecuteResponse {
 }
 
 export async function POST(request: NextRequest) {
+  const requestId = randomUUID()
+  
   try {
-    const body: ExecuteRequest = await request.json()
-
-    if (body.provider !== 'changenow') {
+    // Rate limiting
+    const ip = getClientIP(request)
+    const rateLimitResult = await checkRateLimit('execute', ip)
+    
+    if (!rateLimitResult.allowed) {
       return NextResponse.json({
         ok: false,
-        error: 'Only ChangeNOW provider is currently supported',
-        errorCode: 'UNSUPPORTED_PROVIDER',
+        error: 'RATE_LIMITED',
+        retryAfter: rateLimitResult.retryAfter,
+        requestId,
+      } as ExecuteResponse, { status: 429 })
+    }
+
+    const body = await request.json()
+
+    // Validate body with Zod
+    const validation = validateBody(routeSchemas['execute'], body, requestId)
+    if (!validation.success) {
+      console.error(`[execute] [${requestId}] Validation failed:`, validation.details)
+      return NextResponse.json({
+        ok: false,
+        error: validation.error,
+        errorCode: 'BAD_REQUEST',
+        details: validation.details,
+        requestId,
       } as ExecuteResponse, { status: 400 })
     }
 
-    // Validate required fields
-    if (!body.fromNetworkId || !body.toNetworkId || !body.fromTokenSymbol || !body.toTokenSymbol || !body.amountHuman) {
-      return NextResponse.json({
-        ok: false,
-        error: 'Missing required fields',
-        errorCode: 'INVALID_REQUEST',
-      } as ExecuteResponse, { status: 400 })
-    }
+    const bodyValidated = validation.data
 
     // Determine payout address based on destination family
-    const toFamily = getNetworkFamily(body.toNetworkId)
+    const toFamily = getNetworkFamily(bodyValidated.toNetworkId)
     let payoutAddress: string | undefined
 
     switch (toFamily) {
       case 'TRON':
-        payoutAddress = body.user.tronAddress
+        payoutAddress = bodyValidated.user.tronAddress
         break
       case 'TON':
-        payoutAddress = body.user.tonAddress
+        payoutAddress = bodyValidated.user.tonAddress
         break
       case 'EVM':
-        payoutAddress = body.user.evmAddress
+        payoutAddress = bodyValidated.user.evmAddress
         break
       default:
         return NextResponse.json({
           ok: false,
-          error: `Destination network ${body.toNetworkId} requires wallet address`,
+          error: `Destination network ${bodyValidated.toNetworkId} requires wallet address`,
           errorCode: 'MISSING_WALLET_ADDRESS',
+          requestId,
           debug: {
-            toNetworkId: body.toNetworkId,
+            toNetworkId: bodyValidated.toNetworkId,
             toFamily,
             requiredWallet: toFamily.toLowerCase(),
           },
@@ -97,10 +114,11 @@ export async function POST(request: NextRequest) {
     if (!payoutAddress) {
       return NextResponse.json({
         ok: false,
-        error: `Missing wallet address for destination network ${body.toNetworkId}`,
+        error: `Missing wallet address for destination network ${bodyValidated.toNetworkId}`,
         errorCode: 'MISSING_WALLET_ADDRESS',
+        requestId,
         debug: {
-          toNetworkId: body.toNetworkId,
+          toNetworkId: bodyValidated.toNetworkId,
           toFamily,
           requiredWallet: toFamily.toLowerCase(),
         },
@@ -108,20 +126,21 @@ export async function POST(request: NextRequest) {
     }
 
     // Resolve ChangeNOW asset codes
-    const fromAsset = resolveChangeNowAsset(body.fromNetworkId, body.fromTokenSymbol)
-    const evmNetworkId = body.toNetworkId === 'base' ? 'ethereum' : body.toNetworkId
-    const toAsset = resolveChangeNowAsset(evmNetworkId, body.toTokenSymbol)
+    const fromAsset = resolveChangeNowAsset(bodyValidated.fromNetworkId, bodyValidated.fromTokenSymbol)
+    const evmNetworkId = bodyValidated.toNetworkId === 'base' ? 'ethereum' : bodyValidated.toNetworkId
+    const toAsset = resolveChangeNowAsset(evmNetworkId, bodyValidated.toTokenSymbol)
 
     if (!fromAsset || !toAsset) {
       return NextResponse.json({
         ok: false,
         error: 'Unsupported asset pair for ChangeNOW',
         errorCode: 'UNSUPPORTED_ASSET',
+        requestId,
         debug: {
-          fromNetworkId: body.fromNetworkId,
-          fromTokenSymbol: body.fromTokenSymbol,
-          toNetworkId: body.toNetworkId,
-          toTokenSymbol: body.toTokenSymbol,
+          fromNetworkId: bodyValidated.fromNetworkId,
+          fromTokenSymbol: bodyValidated.fromTokenSymbol,
+          toNetworkId: bodyValidated.toNetworkId,
+          toTokenSymbol: bodyValidated.toTokenSymbol,
         },
       } as ExecuteResponse, { status: 400 })
     }
@@ -133,7 +152,7 @@ export async function POST(request: NextRequest) {
     const txResult = await createTransaction(
       fromAsset.ticker,
       toAsset.ticker,
-      body.amountHuman,
+      bodyValidated.amountHuman,
       payoutAddress,
       fromAsset.network,
       toAsset.network
@@ -144,15 +163,16 @@ export async function POST(request: NextRequest) {
         ok: false,
         error: txResult.error || 'Failed to create transaction',
         errorCode: 'TRANSACTION_CREATE_FAILED',
+        requestId,
       } as ExecuteResponse, { status: 500 })
     }
 
     // Get token info for estimated amount conversion
-    const toToken = getTokenInfo(body.toTokenSymbol.toLowerCase())
+    const toToken = getTokenInfo(bodyValidated.toTokenSymbol.toLowerCase())
     const estimatedAmountHuman = txResult.tx.toAmount || '0'
 
     if (isDev) {
-      console.log('[execute] Transaction created:', {
+      console.log(`[execute] [${requestId}] Transaction created:`, {
         txId: txResult.tx.id,
         payinAddress: txResult.tx.payinAddress,
         payoutAddress: txResult.tx.payoutAddress,
@@ -167,29 +187,31 @@ export async function POST(request: NextRequest) {
         payinAddress: txResult.tx.payinAddress,
         payoutAddress: txResult.tx.payoutAddress,
         from: {
-          networkId: body.fromNetworkId,
-          tokenSymbol: body.fromTokenSymbol,
-          amountHuman: body.amountHuman,
+          networkId: bodyValidated.fromNetworkId,
+          tokenSymbol: bodyValidated.fromTokenSymbol,
+          amountHuman: bodyValidated.amountHuman,
         },
         to: {
-          networkId: body.toNetworkId,
-          tokenSymbol: body.toTokenSymbol,
+          networkId: bodyValidated.toNetworkId,
+          tokenSymbol: bodyValidated.toTokenSymbol,
           estimatedAmountHuman,
         },
         nextAction: {
           kind: 'USER_TRANSFER',
-          networkId: body.fromNetworkId,
-          tokenSymbol: body.fromTokenSymbol,
+          networkId: bodyValidated.fromNetworkId,
+          tokenSymbol: bodyValidated.fromTokenSymbol,
           toAddress: txResult.tx.payinAddress,
         },
       },
+      requestId,
     } as ExecuteResponse)
   } catch (error) {
-    console.error('[execute] Error:', error)
+    console.error(`[execute] [${requestId}] Error:`, error)
     return NextResponse.json({
       ok: false,
       error: error instanceof Error ? error.message : 'Unknown error',
       errorCode: 'EXECUTION_ERROR',
+      requestId,
     } as ExecuteResponse, { status: 500 })
   }
 }

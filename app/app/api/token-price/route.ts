@@ -9,6 +9,9 @@
 
 import { NextRequest, NextResponse } from 'next/server'
 import { redis } from '@/lib/redis'
+import { checkRateLimit, getClientIP } from '@/lib/api/rateLimit'
+import { validateQuery, routeSchemas } from '@/lib/api/validate'
+import { randomUUID } from 'crypto'
 
 // Token ID to CoinGecko ID mapping
 const TOKEN_TO_COINGECKO_ID: Record<string, string> = {
@@ -206,16 +209,47 @@ const CACHE_TTL_MS = 60000 // 60 seconds
 const REDIS_CACHE_TTL_SEC = 60 // Redis TTL in seconds
 
 export async function GET(request: NextRequest) {
+  const requestId = randomUUID()
+  
   try {
-    const searchParams = request.nextUrl.searchParams
-    const tokenIds = searchParams.get('ids')?.split(',').filter(Boolean) || []
+    // Rate limiting
+    const ip = getClientIP(request)
+    const rateLimitResult = await checkRateLimit('token-price', ip)
     
-    if (tokenIds.length === 0) {
+    if (!rateLimitResult.allowed) {
       return NextResponse.json(
-        { error: 'Missing ids parameter' },
-        { status: 400 }
+        { prices: {}, ok: false, error: 'RATE_LIMITED', retryAfter: rateLimitResult.retryAfter, requestId },
+        { 
+          status: 429,
+          headers: {
+            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+          },
+        }
       )
     }
+
+    // Validate query parameters
+    const searchParams = request.nextUrl.searchParams
+    const queryObj: Record<string, string> = {}
+    for (const [key, value] of searchParams.entries()) {
+      queryObj[key] = value
+    }
+    
+    const validation = validateQuery(routeSchemas['token-price'], queryObj, requestId)
+    if (!validation.success) {
+      console.error(`[token-price] [${requestId}] Validation failed:`, validation.details)
+      return NextResponse.json(
+        { prices: {}, ok: false, error: validation.error, details: validation.details, requestId },
+        { 
+          status: 400,
+          headers: {
+            'Cache-Control': 'public, s-maxage=60, stale-while-revalidate=300',
+          },
+        }
+      )
+    }
+
+    const tokenIds = validation.data.ids.split(',').filter(Boolean)
 
     // Check if we're in build phase - EARLY RETURN before any fetch/redis operations
     // Multiple checks for reliability: NEXT_PHASE, VERCEL, CI, and explicit flag

@@ -4,6 +4,9 @@ import { getEnvWithDefault } from '@/lib/env'
 import { getChainInfo, isEVM } from '@/lib/chainRegistry'
 import { getEnabledProviders, quoteFromProvider, type ProviderId } from '@/lib/providers'
 import type { QuoteResult as ProviderQuoteResult } from '@/lib/providers/types'
+import { checkRateLimit, getClientIP } from '@/lib/api/rateLimit'
+import { validateBody, routeSchemas } from '@/lib/api/validate'
+import { randomUUID } from 'crypto'
 
 // EVM-only mode: non-EVM providers removed
 
@@ -1335,40 +1338,57 @@ async function tryTonQuote(
 }
 
 export async function POST(request: NextRequest) {
-  // Guard request.json() to prevent "Unexpected end of JSON input" crashes
-  let body: QuoteRequest
-  try {
-    body = await request.json()
-  } catch (error) {
-    return NextResponse.json({
-      ok: false,
-      error: 'Invalid request body (JSON parse failed)',
-      errorCode: 'INVALID_BODY',
-    } as QuoteResponse, { status: 400 })
-  }
+  const requestId = randomUUID()
   
   try {
+    // Rate limiting
+    const ip = getClientIP(request)
+    const rateLimitResult = await checkRateLimit('quote', ip)
+    
+    if (!rateLimitResult.allowed) {
+      return NextResponse.json({
+        ok: false,
+        error: 'RATE_LIMITED',
+        retryAfter: rateLimitResult.retryAfter,
+        requestId,
+      } as QuoteResponse, { status: 429 })
+    }
+
+    // Guard request.json() to prevent "Unexpected end of JSON input" crashes
+    let rawBody: unknown
+    try {
+      rawBody = await request.json()
+    } catch (error) {
+      return NextResponse.json({
+        ok: false,
+        error: 'Invalid request body (JSON parse failed)',
+        errorCode: 'INVALID_BODY',
+        requestId,
+      } as QuoteResponse, { status: 400 })
+    }
+
+    // Validate body with Zod
+    const validation = validateBody(routeSchemas['quote'], rawBody, requestId)
+    if (!validation.success) {
+      console.error(`[quote] [${requestId}] Validation failed:`, validation.details)
+      return NextResponse.json({
+        ok: false,
+        error: validation.error,
+        errorCode: 'BAD_REQUEST',
+        details: validation.details,
+        requestId,
+      } as QuoteResponse, { status: 400 })
+    }
+
+    const body = validation.data as QuoteRequest
 
     // Get user address and determine if indicative quote
     let userAddress = PLACEHOLDER_EOA
     if (body.userAddress) {
-      // Basic EVM address validation
-      if (/^0x[a-fA-F0-9]{40}$/.test(body.userAddress)) {
-        userAddress = body.userAddress
-      } else if (isDev) {
-        console.warn('[quote] Invalid userAddress format, using placeholder:', body.userAddress)
-      }
+      // Already validated by Zod schema
+      userAddress = body.userAddress
     }
     const isIndicative = userAddress === PLACEHOLDER_EOA
-
-    // Validation
-    if (!body.amount || parseFloat(body.amount) <= 0) {
-      return NextResponse.json({
-        ok: false,
-        error: 'Invalid amount',
-        errorCode: 'INVALID_AMOUNT',
-      } as QuoteResponse)
-    }
 
     // EVM-only mode: enforce EVM chains only
     const fromChainId = getChainId(body.fromNetworkId)

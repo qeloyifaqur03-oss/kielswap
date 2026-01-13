@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { sendTelegramMessage } from '@/lib/telegram'
 import { buildEarlyAccessMessage } from '@/lib/telegramMessages'
-import { checkRateLimit, getClientIP } from '@/lib/rateLimit'
+import { checkRateLimit, getClientIP } from '@/lib/api/rateLimit'
+import { validateBody, routeSchemas } from '@/lib/api/validate'
 import { randomUUID } from 'crypto'
 
 export async function POST(request: NextRequest) {
@@ -10,76 +11,28 @@ export async function POST(request: NextRequest) {
   try {
     // Rate limiting
     const ip = getClientIP(request)
-    const allowed = await checkRateLimit(ip)
+    const rateLimitResult = await checkRateLimit('early-access', ip)
     
-    if (!allowed) {
+    if (!rateLimitResult.allowed) {
       return NextResponse.json(
-        { ok: false, error: 'RATE_LIMIT' },
+        { ok: false, error: 'RATE_LIMITED', retryAfter: rateLimitResult.retryAfter, requestId },
         { status: 429 }
       )
     }
 
     const body = await request.json()
-    const { twitterHandle, walletAddress, interest, consent } = body
 
-    // Validation
-    if (!twitterHandle || typeof twitterHandle !== 'string' || !twitterHandle.trim()) {
+    // Validate body with Zod
+    const validation = validateBody(routeSchemas['early-access'], body, requestId)
+    if (!validation.success) {
+      console.error(`[Early Access API] [${requestId}] Validation failed:`, validation.details)
       return NextResponse.json(
-        { ok: false, error: 'Twitter handle is required' },
+        { ok: false, error: validation.error, details: validation.details, requestId },
         { status: 400 }
       )
     }
 
-    // Length validation
-    if (twitterHandle.length > 50) {
-      return NextResponse.json(
-        { ok: false, error: 'Twitter handle too long' },
-        { status: 400 }
-      )
-    }
-
-    // Wallet address is now required
-    if (!walletAddress || typeof walletAddress !== 'string' || !walletAddress.trim()) {
-      return NextResponse.json(
-        { ok: false, error: 'WALLET_REQUIRED' },
-        { status: 400 }
-      )
-    }
-
-    if (walletAddress.trim().length < 10) {
-      return NextResponse.json(
-        { ok: false, error: 'WALLET_REQUIRED' },
-        { status: 400 }
-      )
-    }
-
-    if (walletAddress.length > 100) {
-      return NextResponse.json(
-        { ok: false, error: 'Wallet address too long' },
-        { status: 400 }
-      )
-    }
-
-    if (!interest || typeof interest !== 'string' || !interest.trim()) {
-      return NextResponse.json(
-        { ok: false, error: 'Interest field is required' },
-        { status: 400 }
-      )
-    }
-
-    if (interest.length > 2000) {
-      return NextResponse.json(
-        { ok: false, error: 'Interest field too long' },
-        { status: 400 }
-      )
-    }
-
-    if (!consent || consent !== true) {
-      return NextResponse.json(
-        { ok: false, error: 'Consent is required' },
-        { status: 400 }
-      )
-    }
+    const { twitterHandle, walletAddress, interest, consent } = validation.data
 
     // Check required environment variables
     const missingEnv: string[] = []
