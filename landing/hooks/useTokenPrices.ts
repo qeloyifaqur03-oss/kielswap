@@ -12,28 +12,21 @@ async function fetchTokenPrices(tokenIds: string[]): Promise<TokenPricesResponse
   const idsParam = tokenIds.join(',')
   const response = await fetch(`/api/token-price?ids=${idsParam}`)
   
+  if (!response.ok) {
+    return {
+      prices: {},
+      ok: false,
+      source: 'empty',
+    }
+  }
+  
   const data = await response.json() as TokenPricesResponse
-  
-  // If response is not ok or prices are empty/incomplete, throw error
-  // This prevents React Query from replacing good data with empty data
-  if (!response.ok || !data.ok || !data.prices || Object.keys(data.prices).length === 0) {
-    throw new Error('PRICE_UNAVAILABLE')
-  }
-  
-  // Verify we have prices for all requested tokens
-  const normalizedIds = tokenIds.map(id => id.toLowerCase())
-  const hasAllPrices = normalizedIds.every(id => data.prices[id] && data.prices[id] > 0)
-  
-  if (!hasAllPrices) {
-    throw new Error('PRICE_UNAVAILABLE')
-  }
-  
   return data
 }
 
 /**
- * Hook to fetch token prices with optimized caching
- * Uses React Query for client-side caching with 3-second polling
+ * Hook to fetch token prices with 3-second polling
+ * Simplified: no retry, no throw on error, relies on Next.js fetch cache
  */
 export function useTokenPrices(tokenIds: string[]) {
   const normalizedIds = tokenIds.map(id => id.toLowerCase())
@@ -42,13 +35,12 @@ export function useTokenPrices(tokenIds: string[]) {
   return useQuery<TokenPricesResponse>({
     queryKey: ['token-prices', idsKey],
     queryFn: () => fetchTokenPrices(normalizedIds),
-    staleTime: 0, // Always consider stale to allow refetch
-    gcTime: 600_000, // 10 minutes - cache time
     refetchInterval: 3000, // Poll every 3 seconds
-    refetchIntervalInBackground: false, // Don't poll in background to reduce load
     refetchOnWindowFocus: false,
-    retry: 3, // Retry up to 3 times
-    retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 5000), // Exponential backoff
+    refetchOnMount: false,
+    retry: false, // No retry to prevent request storms
+    staleTime: 3000, // Consider data fresh for 3 seconds
+    gcTime: 600_000, // Keep in cache for 10 minutes
     placeholderData: (previousData) => previousData, // Keep previous data on error
   })
 }
