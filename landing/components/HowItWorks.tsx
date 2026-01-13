@@ -42,9 +42,6 @@ function OutcomeSection({
               </div>
             </div>
           </div>
-          <div className="text-xs text-gray-500 font-light">
-            Minimum received after fees.
-          </div>
         </div>
 
         {/* Deadline */}

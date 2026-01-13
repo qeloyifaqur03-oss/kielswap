@@ -18,9 +18,9 @@ export default function Header() {
         transition={{ duration: 0.6 }}
         className="glass w-full h-full border-b border-white/10 shadow-lg"
       >
-        {/* Inner container for content alignment */}
-        <div className="container mx-auto max-w-7xl h-full px-4 sm:px-6 flex items-center justify-between gap-4">
-          {/* Logo */}
+        {/* Inner container - full width with minimal padding */}
+        <div className="w-full h-full flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8">
+          {/* Logo - у левого края */}
           <Link href="/" className="flex items-center h-full">
             <Image
               src="/kielswaplogo.png"
@@ -32,9 +32,9 @@ export default function Header() {
             />
           </Link>
 
-          {/* Right side: Social links + Launch App button - hidden on /access */}
+          {/* Right side: Social links + Launch App button - hidden on /access - у правого края */}
           {!isAccessPage && (
-            <div className="flex items-center gap-2 sm:gap-4 flex-shrink-0">
+            <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-shrink-0">
             {/* Twitter */}
             <motion.a
               href="https://twitter.com/kielswap"
