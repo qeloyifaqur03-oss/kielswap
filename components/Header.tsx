@@ -21,7 +21,7 @@ export default function Header() {
         {/* Inner container - full width with minimal padding */}
         <div className="w-full h-full flex items-center justify-between">
           {/* Logo - у левого края с минимальным отступом */}
-          <Link href="/" className="flex items-center h-full pl-1 sm:pl-2 md:pl-4">
+          <Link href="/" className="flex items-center h-full pl-0.5 sm:pl-1 md:pl-3">
             <Image
               src="/kielswaplogo.png"
               alt="Kielswap"
@@ -34,7 +34,7 @@ export default function Header() {
 
           {/* Right side: Social links + Launch App button - hidden on /access - у правого края с минимальным отступом */}
           {!isAccessPage && (
-            <div className="flex items-center gap-3 sm:gap-4 pr-1 sm:pr-2 md:pr-4">
+            <div className="flex items-center gap-3 sm:gap-4 pr-0.5 sm:pr-1 md:pr-3">
             {/* Twitter */}
             <motion.a
               href="https://twitter.com/kielswap"
