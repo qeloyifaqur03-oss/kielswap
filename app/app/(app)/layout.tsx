@@ -31,10 +31,10 @@ export default function AppLayout({
       
       {/* Navigation */}
       <nav className={`relative z-20 border-b border-white/10 backdrop-blur-xl bg-[rgba(255,255,255,0.03)]`}>
-        <div className="max-w-7xl mx-auto px-6 md:px-12">
+        <div className="w-full">
           <div className="flex items-center justify-between h-16">
-            {/* Logo */}
-            <Link href={isAccessPage ? "/" : "/swap"} className="flex items-center h-full -ml-4 md:-ml-6">
+            {/* Logo - у левого края с минимальным отступом */}
+            <Link href={isAccessPage ? "/" : "/swap"} className="flex items-center h-full pl-0.5 sm:pl-1 md:pl-3">
               <Image
                 src="/kielswaplogo.png"
                 alt="Kielswap"
@@ -45,9 +45,9 @@ export default function AppLayout({
               />
             </Link>
             
-            {/* Navigation Items - hidden on /access */}
+            {/* Navigation Items - hidden on /access - у правого края с минимальным отступом */}
             {!isAccessPage && (
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 pr-0.5 sm:pr-1 md:pr-3">
                 {navItems.map((item) => {
                   const isActive = pathname === item.href || (item.href === '/swap' && pathname === '/')
                   return (

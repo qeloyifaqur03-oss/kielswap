@@ -34,7 +34,7 @@ export default function Header() {
 
           {/* Right side: Social links + Launch App button - hidden on /access - у правого края с минимальным отступом */}
           {!isAccessPage && (
-            <div className="flex items-center gap-3 sm:gap-4 pr-0.5 sm:pr-1 md:pr-3">
+            <div className="flex items-center gap-2 sm:gap-3 md:gap-4 flex-shrink-0 pr-0.5 sm:pr-1 md:pr-3">
             {/* Twitter */}
             <motion.a
               href="https://twitter.com/kielswap"
