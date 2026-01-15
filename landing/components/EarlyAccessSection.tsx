@@ -22,7 +22,7 @@ export default function EarlyAccessSection() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-3xl md:text-4xl lg:text-5xl font-light"
           >
-            Ready to try outcome-first execution?
+            Ready to try intent-based execution?
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -31,7 +31,7 @@ export default function EarlyAccessSection() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto"
           >
-            Request access to the early program and help shape how intent-based swaps feel in practice.
+            Request access to the early program and help shape how cross-chain swaps should work.
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 20 }}

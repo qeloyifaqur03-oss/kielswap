@@ -1,5 +1,6 @@
 'use client'
 
+// @ts-ignore
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
@@ -31,7 +32,7 @@ export default function NewHero() {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="text-5xl md:text-6xl lg:text-7xl font-light leading-tight"
             >
-              Outcome-first cross-chain execution
+              Cross-chain execution, guided by your constraints.
             </motion.h1>
             
             <motion.p

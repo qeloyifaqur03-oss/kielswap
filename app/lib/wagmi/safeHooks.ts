@@ -25,12 +25,13 @@ export function useSafeAccount() {
       isConnected: mounted ? account.isConnected : false,
     }
   } catch (error) {
-    // If wagmi hook fails (e.g., due to broken extension), return safe defaults
-    // Suppress warnings during build-time static generation (WagmiProvider not available)
+    // If wagmi hook fails (e.g., due to broken extension or SSR), return safe defaults
+    // Suppress warnings during build-time static generation and SSR (WagmiProvider not available)
     const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
                        process.env.VERCEL === '1' || 
                        process.env.CI === 'true'
-    if (!isBuildTime) {
+    const isSSR = typeof window === 'undefined'
+    if (!isBuildTime && !isSSR) {
       console.warn('[useSafeAccount] Failed to access account:', error)
     }
     return {
@@ -88,11 +89,12 @@ export function useSafeConnect() {
       connect: safeConnect,
     }
   } catch (error) {
-    // Suppress warnings during build-time static generation (WagmiProvider not available)
+    // Suppress warnings during build-time static generation and SSR (WagmiProvider not available)
     const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
                        process.env.VERCEL === '1' || 
                        process.env.CI === 'true'
-    if (!isBuildTime) {
+    const isSSR = typeof window === 'undefined'
+    if (!isBuildTime && !isSSR) {
       console.warn('[useSafeConnect] Failed to access connect:', error)
     }
     return {
@@ -113,11 +115,12 @@ export function useSafeDisconnect() {
   try {
     return wagmiUseDisconnect()
   } catch (error) {
-    // Suppress warnings during build-time static generation
+    // Suppress warnings during build-time static generation and SSR
     const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
                        process.env.VERCEL === '1' || 
                        process.env.CI === 'true'
-    if (!isBuildTime) {
+    const isSSR = typeof window === 'undefined'
+    if (!isBuildTime && !isSSR) {
       console.warn('[useSafeDisconnect] Failed to access disconnect:', error)
     }
     return {
@@ -137,11 +140,12 @@ export function useSafeChainId() {
   try {
     return wagmiUseChainId()
   } catch (error) {
-    // Suppress warnings during build-time static generation
+    // Suppress warnings during build-time static generation and SSR
     const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
                        process.env.VERCEL === '1' || 
                        process.env.CI === 'true'
-    if (!isBuildTime) {
+    const isSSR = typeof window === 'undefined'
+    if (!isBuildTime && !isSSR) {
       console.warn('[useSafeChainId] Failed to access chainId:', error)
     }
     return 1 // Default to mainnet
@@ -155,11 +159,12 @@ export function useSafeChains() {
   try {
     return wagmiUseChains()
   } catch (error) {
-    // Suppress warnings during build-time static generation
+    // Suppress warnings during build-time static generation and SSR
     const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
                        process.env.VERCEL === '1' || 
                        process.env.CI === 'true'
-    if (!isBuildTime) {
+    const isSSR = typeof window === 'undefined'
+    if (!isBuildTime && !isSSR) {
       console.warn('[useSafeChains] Failed to access chains:', error)
     }
     return []
@@ -173,11 +178,12 @@ export function useSafeBalance(params?: { address?: `0x${string}` }) {
   try {
     return wagmiUseBalance(params as any)
   } catch (error) {
-    // Suppress warnings during build-time static generation
+    // Suppress warnings during build-time static generation and SSR
     const isBuildTime = process.env.NEXT_PHASE === 'phase-production-build' || 
                        process.env.VERCEL === '1' || 
                        process.env.CI === 'true'
-    if (!isBuildTime) {
+    const isSSR = typeof window === 'undefined'
+    if (!isBuildTime && !isSSR) {
       console.warn('[useSafeBalance] Failed to access balance:', error)
     }
     return {

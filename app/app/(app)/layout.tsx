@@ -28,6 +28,10 @@ export default function AppLayout({
     <div className="relative min-h-screen">
       <Background />
       <NewYearAnimation />
+      {/* Dark overlay - только для страниц кроме /access */}
+      {!isAccessPage && (
+        <div className="fixed inset-0 z-[1] bg-black/20 pointer-events-none" />
+      )}
       
       {/* Navigation */}
       <nav className={`relative z-20 border-b border-white/10 backdrop-blur-xl bg-[rgba(255,255,255,0.03)]`}>

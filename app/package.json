@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start -p 3001",
     "lint": "next lint",
-    "clean": "rm -rf .next node_modules/.cache"
+    "clean": "node -e \"const fs=require('fs');const path=require('path');function rm(p){try{fs.existsSync(p)&&fs.rmSync(p,{recursive:true,force:true});}catch(e){}}rm('.next');rm('node_modules/.cache');\""
   },
   "dependencies": {
     "@radix-ui/react-popover": "^1.1.15",

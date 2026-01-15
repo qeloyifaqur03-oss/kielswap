@@ -1,7 +1,11 @@
 'use client'
 
+// @ts-ignore
 import { motion } from 'framer-motion'
+// @ts-ignore
 import { useState, useEffect } from 'react'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
 
 export default function Hero() {
   const [appUrl, setAppUrl] = useState<string>('#')

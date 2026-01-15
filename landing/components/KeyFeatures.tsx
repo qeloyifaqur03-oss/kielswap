@@ -185,43 +185,43 @@ const colorVariants = [
 const features = [
   {
     icon: OutcomeIcon,
-    title: 'Outcome-first Execution',
-    description: 'Set your minimum and time limit. Execution is optimized around your outcome.',
+    title: 'Result-First Execution',
+    description: 'Set a guaranteed minimum and a time limit. Execution optimizes to meet your terms, or doesn’t execute.',
     color: colorVariants[0].gradient,
     iconColor: colorVariants[0].icon,
   },
   {
     icon: PrivateIcon,
     title: 'Private by Default',
-    description: 'Orders are routed privately whenever possible to preserve execution quality.',
+    description: 'Orders are routed privately to preserve execution quality.',
     color: colorVariants[1].gradient,
     iconColor: colorVariants[1].icon,
   },
   {
     icon: CostIcon,
     title: 'Best Total Cost',
-    description: 'Execution estimates include all fees and costs, shown upfront.',
+    description: 'Estimates include network fees, bridge costs, and execution overhead, shown upfront.',
     color: colorVariants[2].gradient,
     iconColor: colorVariants[2].icon,
   },
   {
     icon: TrackingIcon,
     title: 'End-to-End Tracking',
-    description: 'Follow execution from source to destination as it unfolds.',
+    description: 'Follow each step from source to destination as it happens.',
     color: colorVariants[3].gradient,
     iconColor: colorVariants[3].icon,
   },
   {
     icon: FallbackIcon,
-    title: 'Smart Fallback',
-    description: 'Execution adapts when conditions change, without interrupting the flow.',
+    title: 'Adaptive fallbacks',
+    description: 'If conditions change, execution can switch paths to still meet your constraints, without restarting the flow.',
     color: colorVariants[4].gradient,
     iconColor: colorVariants[4].icon,
   },
   {
     icon: NonCustodialIcon,
     title: 'Non-Custodial',
-    description: 'Funds move strictly according to your signed intent — control remains yours.',
+    description: 'Funds move only according to your signed instruction. Control remains yours.',
     color: colorVariants[5].gradient,
     iconColor: colorVariants[5].icon,
   },
@@ -243,7 +243,7 @@ export default function KeyFeatures() {
             Key Features
           </h2>
           <p className="text-gray-400 text-lg max-w-2xl mx-auto">
-            Designed for outcome-first cross-chain execution.
+          Built for constraint-led cross-chain execution.
           </p>
         </motion.div>
 

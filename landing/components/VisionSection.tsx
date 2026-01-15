@@ -66,7 +66,7 @@ export default function VisionSection() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="text-lg md:text-xl text-gray-400 font-light leading-relaxed max-w-3xl mx-auto"
           >
-            Kielswap turns complex cross-chain execution into a single, outcome-first flow across 30+ networks, with predictable execution and full visibility at every step.
+            Kielswap turns cross-chain complexity into a single flow across 30+ networks, with predictable outcomes and end-to-end tracking.
           </motion.p>
 
           {/* Decorative Elements */}

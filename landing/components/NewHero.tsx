@@ -30,7 +30,7 @@ export default function NewHero() {
               transition={{ duration: 0.8, delay: 0.1 }}
               className="text-5xl md:text-6xl lg:text-7xl font-light leading-tight"
             >
-              Outcome-first cross-chain execution
+              Cross-chain execution, guided by your constraints.
             </motion.h1>
             
             <motion.p
@@ -50,15 +50,15 @@ export default function NewHero() {
             >
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-br from-pink-400/80 via-accent/80 to-purple-400/80"></div>
-                <span>Outcome-first execution</span>
-              </div>
-              <div className="flex items-center gap-2 text-sm text-gray-500">
-                <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-br from-pink-400/80 via-accent/80 to-purple-400/80"></div>
                 <span>Private orderflow</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-gray-500">
                 <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-br from-pink-400/80 via-accent/80 to-purple-400/80"></div>
                 <span>Fees shown upfront</span>
+              </div>
+              <div className="flex items-center gap-2 text-sm text-gray-500">
+                <div className="w-1.5 h-1.5 rounded-full bg-gradient-to-br from-pink-400/80 via-accent/80 to-purple-400/80"></div>
+                <span>Track execution end to end</span>
               </div>
             </motion.div>
           </motion.div>

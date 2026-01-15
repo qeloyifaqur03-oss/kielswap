@@ -1,5 +1,6 @@
 'use client'
 
+// @ts-ignore
 import { motion } from 'framer-motion'
 
 // Custom unique SVG icons

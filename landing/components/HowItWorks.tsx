@@ -239,7 +239,7 @@ export default function HowItWorks() {
     },
     {
       number: '2',
-      title: 'Define your outcome',
+      title: 'Set your constraints',
       description: 'Set the minimum you want to receive and the time window for execution.',
       component: (
         <OutcomeSection 
@@ -252,8 +252,8 @@ export default function HowItWorks() {
     },
     {
       number: '3',
-      title: 'Sign once. Track execution end to end.',
-      description: 'Place an intent with a single signature and follow execution across chains.',
+      title: 'Sign once, then track',
+      description: 'One signature creates the instruction. You can follow the timeline across chains until settlement.',
       component: <TrackingSection />,
     },
   ]
