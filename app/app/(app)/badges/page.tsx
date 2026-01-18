@@ -11,7 +11,7 @@ export default function BadgesPage() {
   const [badges, setBadges] = useState<Badge[]>([])
   const [hasEligibleBadge, setHasEligibleBadge] = useState(false)
 
-  // Initialize badges on mount
+  // Initialize badges on mount and when address changes
   useEffect(() => {
     const initBadges = () => {
       const loadedBadges = BADGE_ORDER.map((badgeId) => {
@@ -34,12 +34,20 @@ export default function BadgesPage() {
       setBadges(loadedBadges)
       
       // Check if any badge is eligible
-      const hasEligible = loadedBadges.some(b => b.isUnlocked && !b.isClaimed)
+      // Early Intent User is available even without wallet
+      const hasEligible = loadedBadges.some(b => {
+        if (b.id === BADGE_IDS.BETA_PARTICIPANT) {
+          // Early Intent User doesn't require wallet
+          return b.isUnlocked && !b.isClaimed
+        }
+        // Other badges require wallet
+        return isConnected && b.isUnlocked && !b.isClaimed
+      })
       setHasEligibleBadge(hasEligible)
     }
 
     initBadges()
-  }, [address]) // Reload badges when wallet address changes
+  }, [address, isConnected]) // Reload badges when wallet address or connection status changes
 
   // Check if a badge is claimed for current wallet address
   const isClaimedBadge = (badgeId: string): boolean => {
@@ -76,17 +84,21 @@ export default function BadgesPage() {
         return hasAccess
       }
 
-      // Product Contributor - at least 1 feedback
+      // Product Contributor - at least 1 feedback (check per-address)
       if (badgeId === BADGE_IDS.FEEDBACK_CONTRIBUTOR) {
-        const feedbackCount = localStorage.getItem('feedback_count')
-        return parseInt(feedbackCount || '0', 10) >= 1
+        if (!address) return false
+        const addressKey = address.toLowerCase()
+        const feedbackCount = localStorage.getItem(`feedback_count_${addressKey}`) || '0'
+        return parseInt(feedbackCount, 10) >= 1
       }
 
-      // Explorer - 3 conditions (simplified check - in real app would be on-chain)
+      // Explorer - 3 conditions (check per-address)
       if (badgeId === BADGE_IDS.EXPLORER) {
-        const swapCount = localStorage.getItem('total_swaps') || '0'
-        const bridgeCount = localStorage.getItem('bridge_count') || '0'
-        const volume = parseFloat(localStorage.getItem('total_volume') || '0')
+        if (!address) return false
+        const addressKey = address.toLowerCase()
+        const swapCount = localStorage.getItem(`total_swaps_${addressKey}`) || '0'
+        const bridgeCount = localStorage.getItem(`bridge_count_${addressKey}`) || '0'
+        const volume = parseFloat(localStorage.getItem(`total_volume_${addressKey}`) || '0')
         
         const hasIntentSwap = parseInt(swapCount, 10) >= 1
         const hasBridge = parseInt(bridgeCount, 10) >= 1
@@ -95,10 +107,12 @@ export default function BadgesPage() {
         return hasIntentSwap && hasBridge && hasVolume
       }
 
-      // Connector - 1 referral + referral did 1 swap
+      // Connector - 1 referral + referral did 1 swap (check per-address)
       if (badgeId === BADGE_IDS.REFERRAL) {
-        const referralsCount = localStorage.getItem('referrals_count') || '0'
-        const referralSwaps = localStorage.getItem('referral_swaps') || '0'
+        if (!address) return false
+        const addressKey = address.toLowerCase()
+        const referralsCount = localStorage.getItem(`referrals_count_${addressKey}`) || '0'
+        const referralSwaps = localStorage.getItem(`referral_swaps_${addressKey}`) || '0'
         
         return parseInt(referralsCount, 10) >= 1 && parseInt(referralSwaps, 10) >= 1
       }

@@ -40,10 +40,10 @@ function hasEarnedBadges(address?: string): boolean {
 }
 
 // Check if user has any eligible badges that are NOT yet claimed for a specific address
+// Note: Early Intent User badge is available even without wallet connection (but can only be claimed after connecting)
 function hasEligibleBadges(address?: string): boolean {
-  if (!address) return false
   try {
-    // Get list of claimed badges for this address
+    // Get list of claimed badges for this address (if address provided)
     const claimedStr = localStorage.getItem('earned_badges')
     let claimed: string[] = []
     
@@ -51,29 +51,42 @@ function hasEligibleBadges(address?: string): boolean {
       const badgesByAddress = JSON.parse(claimedStr)
       // Support both old format (array) and new format (object with addresses)
       if (Array.isArray(badgesByAddress)) {
-        claimed = badgesByAddress // Old format - use all claimed badges
+        // Old format - if no address, check if any badge is claimed globally
+        // If address provided, use all claimed badges (old format doesn't support per-address)
+        claimed = badgesByAddress
       } else if (badgesByAddress && typeof badgesByAddress === 'object') {
-        claimed = badgesByAddress[address.toLowerCase()] || []
+        // New format - get claimed badges for this address
+        if (address) {
+          claimed = badgesByAddress[address.toLowerCase()] || []
+        } else {
+          // No address - check if Early Intent User is claimed globally (for old format migration)
+          // We can't know which address claimed it, so we check if it exists in any address
+          const allClaimed = Object.values(badgesByAddress).flat() as string[]
+          claimed = allClaimed
+        }
       }
     }
 
-    // Early Intent User - available immediately after access code
+    // Early Intent User - available immediately after access code (even without wallet)
     const hasAccess = localStorage.getItem('access_granted') === 'true'
     if (hasAccess && !claimed.includes('beta-participant')) return true
 
-    // Product Contributor - at least 1 feedback
-    const feedbackCount = parseInt(localStorage.getItem('feedback_count') || '0', 10)
+    // For other badges, we need address to check per-address achievements
+    if (!address) return false
+
+    // Product Contributor - at least 1 feedback (check per-address)
+    const feedbackCount = parseInt(localStorage.getItem(`feedback_count_${address.toLowerCase()}`) || '0', 10)
     if (feedbackCount >= 1 && !claimed.includes('feedback-contributor')) return true
 
-    // Explorer - 3 conditions
-    const swapCount = parseInt(localStorage.getItem('total_swaps') || '0', 10)
-    const bridgeCount = parseInt(localStorage.getItem('bridge_count') || '0', 10)
-    const volume = parseFloat(localStorage.getItem('total_volume') || '0')
+    // Explorer - 3 conditions (check per-address)
+    const swapCount = parseInt(localStorage.getItem(`total_swaps_${address.toLowerCase()}`) || '0', 10)
+    const bridgeCount = parseInt(localStorage.getItem(`bridge_count_${address.toLowerCase()}`) || '0', 10)
+    const volume = parseFloat(localStorage.getItem(`total_volume_${address.toLowerCase()}`) || '0')
     if (swapCount >= 1 && bridgeCount >= 1 && volume >= 100 && !claimed.includes('explorer')) return true
 
-    // Connector - 1 referral + referral did 1 swap
-    const referralsCount = parseInt(localStorage.getItem('referrals_count') || '0', 10)
-    const referralSwaps = parseInt(localStorage.getItem('referral_swaps') || '0', 10)
+    // Connector - 1 referral + referral did 1 swap (check per-address)
+    const referralsCount = parseInt(localStorage.getItem(`referrals_count_${address.toLowerCase()}`) || '0', 10)
+    const referralSwaps = parseInt(localStorage.getItem(`referral_swaps_${address.toLowerCase()}`) || '0', 10)
     if (referralsCount >= 1 && referralSwaps >= 1 && !claimed.includes('referral')) return true
   } catch (error) {
     // Ignore errors
@@ -103,7 +116,7 @@ export default function AppLayout({
   const [isWalletDropdownOpen, setIsWalletDropdownOpen] = useState(false)
   const [hasBadges, setHasBadges] = useState(false)
 
-  // Check for eligible badges - reactive to localStorage changes
+  // Check for eligible badges - reactive to localStorage changes and wallet connection
   useEffect(() => {
     // Set access_granted flag when user has access (already on /swap page means access granted)
     if (!isAccessPage) {
@@ -111,6 +124,8 @@ export default function AppLayout({
     }
     
     const checkBadges = () => {
+      // Check badges even without wallet (Early Intent User is available)
+      // But for other badges, we need address
       setHasBadges(hasEligibleBadges(address || undefined))
     }
     
@@ -119,7 +134,10 @@ export default function AppLayout({
     
     // Listen for storage changes (when badges become eligible or earned)
     const handleStorageChange = (e: StorageEvent) => {
-      if (e.key === 'earned_badges' || e.key === 'access_granted' || e.key === 'feedback_count' || e.key === 'total_swaps' || e.key === 'bridge_count' || e.key === 'total_volume' || e.key === 'referrals_count' || e.key === 'referral_swaps') {
+      // Check if it's a relevant key (including per-address keys)
+      const relevantKeys = ['earned_badges', 'access_granted', 'feedback_count', 'total_swaps', 'bridge_count', 'total_volume', 'referrals_count', 'referral_swaps']
+      const isRelevant = relevantKeys.some(key => e.key?.startsWith(key) || e.key === key)
+      if (isRelevant) {
         checkBadges()
       }
     }
@@ -134,7 +152,7 @@ export default function AppLayout({
       window.removeEventListener('storage', handleStorageChange)
       window.removeEventListener('focus', handleFocus)
     }
-  }, [address]) // Re-check when address changes
+  }, [address, isConnected]) // Re-check when address or connection status changes
 
   const handleConnectWallet = () => {
     if (connectors && connectors.length > 0) {

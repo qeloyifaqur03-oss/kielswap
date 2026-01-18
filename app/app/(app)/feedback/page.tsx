@@ -6,8 +6,10 @@ import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
 import { Send, Check } from 'lucide-react'
+import { useSafeAccount } from '@/lib/wagmi/safeHooks'
 
 export default function FeedbackPage() {
+  const { address, isConnected } = useSafeAccount()
   const [feedback, setFeedback] = useState('')
   const [contact, setContact] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -32,18 +34,21 @@ export default function FeedbackPage() {
       })
 
       if (response.ok) {
-        // Увеличить счётчик feedback и инициировать обновление UI
-        const currentCount = parseInt(localStorage.getItem('feedback_count') || '0', 10)
-        localStorage.setItem('feedback_count', String(currentCount + 1))
-        
-        // Инициировать storage event для обновления других вкладок и компонентов
-        window.dispatchEvent(new StorageEvent('storage', {
-          key: 'feedback_count',
-          newValue: String(currentCount + 1),
-          oldValue: String(currentCount),
-          storageArea: localStorage,
-          url: window.location.href,
-        }))
+        // Увеличить счётчик feedback для текущего адреса кошелька
+        if (isConnected && address) {
+          const addressKey = address.toLowerCase()
+          const currentCount = parseInt(localStorage.getItem(`feedback_count_${addressKey}`) || '0', 10)
+          localStorage.setItem(`feedback_count_${addressKey}`, String(currentCount + 1))
+          
+          // Инициировать storage event для обновления других вкладок и компонентов
+          window.dispatchEvent(new StorageEvent('storage', {
+            key: `feedback_count_${addressKey}`,
+            newValue: String(currentCount + 1),
+            oldValue: String(currentCount),
+            storageArea: localStorage,
+            url: window.location.href,
+          }))
+        }
         
         setSubmitted(true)
         setFeedback('')
@@ -81,8 +86,10 @@ export default function FeedbackPage() {
               animate={{ opacity: 1, scale: 1 }}
               className="text-center py-8"
             >
-              <div className="w-16 h-16 rounded-full bg-green-400/20 border border-green-400/30 flex items-center justify-center mx-auto mb-4">
-                <Check className="w-8 h-8 text-green-400" />
+              <div className="w-16 h-16 rounded-full bg-gradient-to-br from-pink-500/20 via-accent/25 to-purple-500/20 border border-pink-400/30 flex items-center justify-center mx-auto mb-4">
+                <div className="w-8 h-8 bg-gradient-to-br from-pink-400 via-accent to-purple-400 rounded-full flex items-center justify-center">
+                  <Check className="w-6 h-6 text-white" />
+                </div>
               </div>
               <p className="text-sm text-gray-300 font-light">
                 Thank you for your feedback!
