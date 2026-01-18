@@ -22,11 +22,12 @@ export function WalletModal({ open, onClose }: WalletModalProps) {
   }, [open, onClose])
 
   return (
-    <AnimatePresence>
+    <AnimatePresence mode="wait">
       {open && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
+        <div key="wallet-modal" className="fixed inset-0 z-50 flex items-center justify-center pointer-events-none">
           {/* Overlay */}
           <motion.div
+            key="overlay"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -39,6 +40,7 @@ export function WalletModal({ open, onClose }: WalletModalProps) {
           />
           {/* Modal content */}
           <motion.div
+            key="modal"
             initial={{ opacity: 0, y: -8, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -8, scale: 0.98 }}

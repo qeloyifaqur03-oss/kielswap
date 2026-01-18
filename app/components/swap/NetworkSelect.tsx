@@ -17,8 +17,8 @@ import {
   CommandList,
 } from '@/components/ui/command'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { AnimatePresence, motion } from 'framer-motion'
-import Image from 'next/image'
+import { motion } from 'framer-motion'
+import { TokenIcon } from '@/components/TokenIcon'
 import { DROPDOWN_ANIMATION } from '@/lib/animations'
 
 interface Network {
@@ -102,7 +102,7 @@ export function NetworkSelect({
         >
           <div className="flex items-center gap-3">
             {selectedNetwork?.icon && (
-              <Image
+              <TokenIcon
                 src={selectedNetwork.icon}
                 alt={selectedNetwork.name}
                 width={20}
@@ -115,30 +115,29 @@ export function NetworkSelect({
           <ChevronDown className="h-4 w-4 opacity-50" />
         </Button>
       </PopoverTrigger>
-      <AnimatePresence>
-        {open && (
-          <PopoverContent
-            className="w-[var(--radix-popover-trigger-width)] p-0 overflow-hidden rounded-2xl"
-            align="start"
-            onOpenAutoFocus={(e) => {
-              e.preventDefault()
-            }}
-            onCloseAutoFocus={(e) => {
-              e.preventDefault()
-            }}
-            onPointerDownOutside={handlePointerDownOutside}
-            onEscapeKeyDown={(e) => {
-              e.preventDefault()
-              setOpen(false)
-            }}
-            asChild
+      {open && (
+        <PopoverContent
+          className="w-[var(--radix-popover-trigger-width)] p-0 overflow-hidden rounded-2xl"
+          align="start"
+          onOpenAutoFocus={(e) => {
+            e.preventDefault()
+          }}
+          onCloseAutoFocus={(e) => {
+            e.preventDefault()
+          }}
+          onPointerDownOutside={handlePointerDownOutside}
+          onEscapeKeyDown={(e) => {
+            e.preventDefault()
+            setOpen(false)
+          }}
+          asChild
+        >
+          <motion.div
+            initial={DROPDOWN_ANIMATION.initial}
+            animate={DROPDOWN_ANIMATION.animate}
+            exit={DROPDOWN_ANIMATION.exit}
+            transition={DROPDOWN_ANIMATION.transition}
           >
-            <motion.div
-              initial={DROPDOWN_ANIMATION.initial}
-              animate={DROPDOWN_ANIMATION.animate}
-              exit={DROPDOWN_ANIMATION.exit}
-              transition={DROPDOWN_ANIMATION.transition}
-            >
               <Command>
                 <CommandInput
                   placeholder="Search networks..."
@@ -162,7 +161,7 @@ export function NetworkSelect({
                         >
                           <div className="flex items-center gap-3 w-full">
                             {network.icon && (
-                              <Image
+                              <TokenIcon
                                 src={network.icon}
                                 alt={network.name}
                                 width={20}
@@ -180,8 +179,7 @@ export function NetworkSelect({
               </Command>
             </motion.div>
           </PopoverContent>
-        )}
-      </AnimatePresence>
+      )}
     </Popover>
   )
 }

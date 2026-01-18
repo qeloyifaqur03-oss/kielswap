@@ -47,9 +47,9 @@ export const BADGE_DEFINITIONS: Record<string, { title: string; description: str
 
 // Explorer badge unlock conditions for popover
 export const EXPLORER_UNLOCK_CONDITIONS = [
-  'Place an intent-based order',
-  'Complete an instant swap',
-  'Complete an intent order within a custom deadline',
+  'Successfully complete 1 swap in intent/instant/limit mode',
+  'Successfully bridge between two networks',
+  'Reach at least $100 total volume',
 ]
 
 /**

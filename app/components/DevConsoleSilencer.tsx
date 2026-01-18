@@ -18,6 +18,35 @@ import { useEffect } from 'react'
 export function DevConsoleSilencer() {
   useEffect(() => {
     // Suppress MetaMask errors in all environments
+    
+    // CRITICAL: Set up unhandledrejection handler FIRST, before anything else
+    // This ensures we catch promise rejections from MetaMask as early as possible
+    const handleUnhandledRejectionEarly = (event: PromiseRejectionEvent) => {
+      const reason = event.reason || event
+      const reasonMessage = reason?.message || reason?.reason?.message || String(reason || '')
+      const reasonStack = reason?.stack || reason?.reason?.stack || ''
+      
+      // Check if it's a MetaMask error
+      if (
+        reasonMessage.includes('Failed to connect to MetaMask') ||
+        reasonMessage.match(/^i:\s*Failed/i) ||
+        reasonMessage.match(/i:\s*Failed.*MetaMask/i) ||
+        reasonStack.includes('nkbihfbeogaeaoehlefnkodbefgpgknn') ||
+        reasonStack.includes('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn') ||
+        reasonStack.includes('inpage.js') ||
+        reasonStack.includes('Object.connect') ||
+        reasonStack.includes('async s')
+      ) {
+        event.preventDefault()
+        event.stopImmediatePropagation()
+        event.stopPropagation()
+        return true
+      }
+      return false
+    }
+    
+    // Register handler immediately with highest priority
+    window.addEventListener('unhandledrejection', handleUnhandledRejectionEarly, { capture: true, passive: false })
 
     // Check if error is from MetaMask extension
     const isMetaMaskError = (error: any, message?: string, source?: string): boolean => {
@@ -99,7 +128,23 @@ export function DevConsoleSilencer() {
 
     // Suppress unhandled promise rejections from MetaMask
     const handleUnhandledRejection = (event: PromiseRejectionEvent) => {
-      if (isMetaMaskError(event.reason || event)) {
+      const reason = event.reason || event
+      const reasonMessage = reason?.message || reason?.reason?.message || String(reason || '')
+      const reasonStack = reason?.stack || reason?.reason?.stack || ''
+      
+      // Check if it's a MetaMask error
+      const isMetaMaskError_ = 
+        isMetaMaskError(reason, reasonMessage, '') ||
+        reasonMessage.includes('Failed to connect to MetaMask') ||
+        reasonMessage.match(/^i:\s*Failed/i) ||
+        reasonMessage.match(/i:\s*Failed.*MetaMask/i) ||
+        reasonStack.includes('nkbihfbeogaeaoehlefnkodbefgpgknn') ||
+        reasonStack.includes('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn') ||
+        reasonStack.includes('inpage.js') ||
+        reasonStack.includes('Object.connect') ||
+        reasonStack.includes('async s')
+      
+      if (isMetaMaskError_) {
         event.preventDefault()
         event.stopImmediatePropagation()
         event.stopPropagation()
@@ -466,6 +511,7 @@ export function DevConsoleSilencer() {
     // Cleanup
     return () => {
       window.removeEventListener('error', handleError, true)
+      window.removeEventListener('unhandledrejection', handleUnhandledRejectionEarly, true)
       window.removeEventListener('unhandledrejection', handleUnhandledRejection, true)
       window.onerror = originalOnError
       console.error = originalConsoleError

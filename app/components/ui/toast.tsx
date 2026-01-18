@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { createPortal } from 'react-dom'
+import { useState, useEffect } from 'react'
 
 interface ToastProps {
   message: string
@@ -10,12 +11,21 @@ interface ToastProps {
 }
 
 export function Toast({ message, open, onClose }: ToastProps) {
-  if (typeof window === 'undefined') return null
+  const [mounted, setMounted] = useState(false)
 
-  return createPortal(
-    <AnimatePresence>
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (typeof window === 'undefined' || !mounted || !document.body) {
+    return null
+  }
+
+  const content = (
+    <AnimatePresence mode="wait">
       {open && (
         <motion.div
+          key="toast"
           initial={{ opacity: 0, y: 18, scale: 0.98, x: '-50%' }}
           animate={{ opacity: 1, y: 0, scale: 1, x: '-50%' }}
           exit={{ opacity: 0, y: 28, scale: 0.98, x: '-50%' }}
@@ -36,7 +46,8 @@ export function Toast({ message, open, onClose }: ToastProps) {
           <div className="text-center text-white/90">{message}</div>
         </motion.div>
       )}
-    </AnimatePresence>,
-    document.body
+    </AnimatePresence>
   )
+
+  return createPortal(content, document.body)
 }

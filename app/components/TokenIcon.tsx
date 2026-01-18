@@ -1,6 +1,6 @@
 'use client'
 
-import Image from 'next/image'
+import { useState, useEffect } from 'react'
 
 interface TokenIconProps {
   src?: string
@@ -10,66 +10,81 @@ interface TokenIconProps {
   className?: string
 }
 
-export function TokenIcon({ src, alt, width = 18, height = 18, className = '' }: TokenIconProps) {
-  if (!src) return null
-
-  // Use unoptimized for external URLs to avoid 403 errors
-  const isExternal = src.startsWith('http://') || src.startsWith('https://')
+// Generate deterministic placeholder based on symbol/name
+function getPlaceholder(symbol: string, width: number, height: number): string {
+  const text = symbol.slice(0, 2).toUpperCase()
+  const size = Math.max(width, height)
+  const fontSize = Math.floor(size * 0.5)
   
-  if (isExternal) {
-    return (
-      <img
-        src={src}
-        alt={alt}
-        width={width}
-        height={height}
-        className={className}
-        style={{ pointerEvents: 'none' }}
-        onError={(e) => {
-          // Try alternative URL formats if CoinGecko fails
-          const src = e.currentTarget.src
-          if (src.includes('coingecko.com')) {
-            // Try different formats
-            if (src.includes('/large/')) {
-              // Try without query params first
-              const cleanUrl = src.split('?')[0]
-              e.currentTarget.src = cleanUrl
-              return
-            }
-            if (src.includes('/thumb/')) {
-              // Try large version
-              const largeUrl = src.replace('/thumb/', '/large/')
-              e.currentTarget.src = largeUrl
-              return
-            }
-          }
-          // Try using token symbol as fallback
-          const symbol = alt.toUpperCase()
-          if (symbol === 'AAVE' || symbol.includes('AAVE')) {
-            e.currentTarget.src = 'https://cryptologos.cc/logos/aave-aave-logo.png'
-            return
-          }
-          if (symbol === 'SUSHI' || symbol.includes('SUSHI')) {
-            e.currentTarget.src = 'https://cryptologos.cc/logos/sushiswap-sushi-logo.png'
-            return
-          }
-          // Hide broken image if all attempts fail
-          e.currentTarget.style.display = 'none'
-        }}
-        loading="lazy"
-        referrerPolicy="no-referrer"
-      />
-    )
-  }
+  // Create SVG data URL with circle and text
+  const svg = `
+    <svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="${width / 2}" cy="${height / 2}" r="${size / 2 - 1}" fill="rgba(255,255,255,0.1)" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+      <text x="${width / 2}" y="${height / 2}" font-family="system-ui, -apple-system" font-size="${fontSize}" font-weight="500" fill="rgba(255,255,255,0.6)" text-anchor="middle" dominant-baseline="central">${text}</text>
+    </svg>
+  `.trim()
+  
+  return `data:image/svg+xml;base64,${btoa(svg)}`
+}
 
+export function TokenIcon({ src, alt, width = 18, height = 18, className = '' }: TokenIconProps) {
+  const [currentSrc, setCurrentSrc] = useState<string | undefined>(src)
+  const [hasError, setHasError] = useState(false)
+  
+  // Extract symbol from alt text for fallback
+  const symbol = alt.split(' ')[0] || alt.slice(0, 2).toUpperCase()
+  const placeholderSrc = getPlaceholder(symbol, width, height)
+  
+  // Update src when prop changes
+  useEffect(() => {
+    if (src !== currentSrc) {
+      setCurrentSrc(src)
+      setHasError(false)
+    }
+  }, [src, currentSrc])
+  
+  // Log icon URL for debugging
+  if (process.env.NODE_ENV === 'development' && src) {
+    console.log(`[TokenIcon] Loading icon for ${alt}:`, src)
+  }
+  
+  // If no src or error occurred, show placeholder
+  const displaySrc = (hasError || !currentSrc) ? placeholderSrc : currentSrc
+  
+  // Use regular img (not next/image) for all URLs to avoid Next.js validation
   return (
-    <Image
-      src={src}
+    <img
+      src={displaySrc}
       alt={alt}
       width={width}
       height={height}
       className={className}
-      unoptimized={isExternal}
+      style={{ pointerEvents: 'none' }}
+      onError={(e) => {
+        // Prevent infinite retries - set error flag once and use placeholder
+        if (!hasError && displaySrc !== placeholderSrc) {
+          setHasError(true)
+          if (process.env.NODE_ENV === 'development') {
+            console.warn(`[TokenIcon] Failed to load image: ${displaySrc}, using placeholder for ${alt}`)
+          }
+          // Immediately switch to placeholder to prevent retry
+          const target = e.currentTarget as HTMLImageElement
+          target.onerror = null // Prevent infinite loop
+          target.src = placeholderSrc
+        }
+      }}
+      onLoad={() => {
+        // Image loaded successfully
+        if (hasError) {
+          setHasError(false)
+        }
+        if (process.env.NODE_ENV === 'development' && displaySrc !== placeholderSrc) {
+          console.log(`[TokenIcon] Successfully loaded icon for ${alt}`)
+        }
+      }}
+      loading="lazy"
+      decoding="async"
+      referrerPolicy="no-referrer"
     />
   )
 }

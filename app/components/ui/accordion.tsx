@@ -19,24 +19,37 @@ export function Accordion({ title, children, defaultOpen = false }: AccordionPro
 
   // Measure content height using a hidden copy that's always rendered
   useEffect(() => {
-    if (measureRef.current) {
-      const measure = () => {
-        if (measureRef.current) {
-          setHeight(measureRef.current.scrollHeight)
-        }
+    if (!measureRef.current) return
+
+    const measure = () => {
+      if (measureRef.current) {
+        setHeight(measureRef.current.scrollHeight)
       }
-      
-      // Initial measurement - use requestAnimationFrame to ensure DOM is ready
-      requestAnimationFrame(() => {
+    }
+    
+    // Initial measurement - use requestAnimationFrame to ensure DOM is ready
+    let rafId: number | null = null
+    rafId = requestAnimationFrame(() => {
+      if (measureRef.current) {
         measure()
-      })
-      
-      const resizeObserver = new ResizeObserver(() => {
+      }
+    })
+    
+    const resizeObserver = new ResizeObserver(() => {
+      if (measureRef.current) {
         measure()
-      })
+      }
+    })
+    
+    if (measureRef.current) {
       resizeObserver.observe(measureRef.current)
-      
-      return () => resizeObserver.disconnect()
+    }
+    
+    return () => {
+      if (rafId !== null) {
+        cancelAnimationFrame(rafId)
+      }
+      resizeObserver.disconnect()
     }
   }, [children])
 
@@ -73,7 +86,7 @@ export function Accordion({ title, children, defaultOpen = false }: AccordionPro
       </div>
 
       {/* Animated content with proper enter/exit */}
-      <AnimatePresence initial={false}>
+      <AnimatePresence initial={false} mode="wait">
         {isOpen && (
           <motion.div
             key="accordion-content"
@@ -96,6 +109,7 @@ export function Accordion({ title, children, defaultOpen = false }: AccordionPro
             className="overflow-hidden"
           >
             <motion.div
+              key="accordion-inner"
               initial={ACCORDION_CONTENT_ANIMATION.initial}
               animate={ACCORDION_CONTENT_ANIMATION.animate}
               exit={ACCORDION_CONTENT_ANIMATION.exit}

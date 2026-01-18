@@ -1622,18 +1622,18 @@ export async function POST(request: NextRequest) {
       type ProviderPromiseWithMeta = Promise<{ result: QuoteResponse | null; error?: ProviderError; isIndicative?: boolean; provider: string }>
       const providerPromises: { promise: ProviderPromiseWithMeta; priority: number; provider: string }[] = []
 
-      // Relay provider (priority 1 - highest)
-      const relayPromise = tryRelay(fromChainId, toChainId, relayFromToken, relayToToken, amountBase, userAddress, body.fromTokenId, body.toTokenId)
-      .then((result) => ({ ...result, provider: 'relay' }))
-      .catch((error) => {
-        if (error instanceof Error && !error.message.startsWith('WETH_NOT_AVAILABLE:')) {
-          if (DEBUG_QUOTES) {
-            console.warn('[quote] Relay promise rejected:', error.message)
-          }
-        }
-        return { result: null, error: { provider: 'relay', error: error instanceof Error ? error.message : String(error) }, provider: 'relay' }
-      })
-    providerPromises.push({ promise: relayPromise, priority: 1, provider: 'relay' })
+      // Relay provider (DISABLED - using CoinGecko/CMC estimate only)
+      // const relayPromise = tryRelay(fromChainId, toChainId, relayFromToken, relayToToken, amountBase, userAddress, body.fromTokenId, body.toTokenId)
+      // .then((result) => ({ ...result, provider: 'relay' }))
+      // .catch((error) => {
+      //   if (error instanceof Error && !error.message.startsWith('WETH_NOT_AVAILABLE:')) {
+      //     if (DEBUG_QUOTES) {
+      //       console.warn('[quote] Relay promise rejected:', error.message)
+      //     }
+      //   }
+      //   return { result: null, error: { provider: 'relay', error: error instanceof Error ? error.message : String(error) }, provider: 'relay' }
+      // })
+      // providerPromises.push({ promise: relayPromise, priority: 1, provider: 'relay' })
 
       // LiFi provider (priority 2)
       // Skip LiFi if chains are not supported by LiFi API
@@ -1672,24 +1672,24 @@ export async function POST(request: NextRequest) {
         }
       }
 
-    // 0x provider (same-chain only, priority 3)
-    if (fromChainId === toChainId) {
-      const oxFromToken = getProviderTokenAddress(body.fromTokenId, fromChainId, '0x')
-      const oxToToken = getProviderTokenAddress(body.toTokenId, toChainId, '0x')
-      const oxPromise = try0x(fromChainId, toChainId, oxFromToken, oxToToken, amountBase)
-        .then((result) => ({ ...result, provider: '0x' }))
-        .catch((error) => {
-          if (error instanceof Error && error.message.startsWith('WETH_NOT_AVAILABLE:')) {
-            if (DEBUG_QUOTES) {
-              console.log(`[quote] Skipping 0x - WETH not available on chain ${fromChainId}`)
-            }
-          } else if (DEBUG_QUOTES) {
-            console.warn('[quote] 0x promise rejected:', error.message)
-          }
-          return { result: null, error: { provider: '0x', error: error instanceof Error ? error.message : String(error) }, provider: '0x' }
-        })
-      providerPromises.push({ promise: oxPromise, priority: 3, provider: '0x' })
-      }
+    // 0x provider (DISABLED - using CoinGecko/CMC only for estimate)
+    // if (fromChainId === toChainId) {
+    //   const oxFromToken = getProviderTokenAddress(body.fromTokenId, fromChainId, '0x')
+    //   const oxToToken = getProviderTokenAddress(body.toTokenId, toChainId, '0x')
+    //   const oxPromise = try0x(fromChainId, toChainId, oxFromToken, oxToToken, amountBase)
+    //     .then((result) => ({ ...result, provider: '0x' }))
+    //     .catch((error) => {
+    //       if (error instanceof Error && error.message.startsWith('WETH_NOT_AVAILABLE:')) {
+    //         if (DEBUG_QUOTES) {
+    //           console.log(`[quote] Skipping 0x - WETH not available on chain ${fromChainId}`)
+    //         }
+    //       } else if (DEBUG_QUOTES) {
+    //         console.warn('[quote] 0x promise rejected:', error.message)
+    //       }
+    //       return { result: null, error: { provider: '0x', error: error instanceof Error ? error.message : String(error) }, provider: '0x' }
+    //     })
+    //   providerPromises.push({ promise: oxPromise, priority: 3, provider: '0x' })
+    // }
 
       // New bridge providers (enabled via feature flags)
       const enabledProviders = getEnabledProviders()

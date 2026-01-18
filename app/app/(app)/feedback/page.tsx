@@ -5,28 +5,18 @@ import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 import { Input } from '@/components/ui/input'
-import { useSafeAccount, useSafeConnect } from '@/lib/wagmi/safeHooks'
 import { Send, Check } from 'lucide-react'
 
 export default function FeedbackPage() {
-  const { address, isConnected } = useSafeAccount()
-  const { connect, connectors } = useSafeConnect()
   const [feedback, setFeedback] = useState('')
-  const [email, setEmail] = useState('')
+  const [contact, setContact] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitted, setSubmitted] = useState(false)
-
-  const handleConnectWallet = () => {
-    const availableConnector = connectors[0]
-    if (availableConnector) {
-      connect({ connector: availableConnector })
-    }
-  }
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     
-    if (!feedback.trim()) return
+    if (!feedback.trim() || !contact.trim()) return
 
     setIsSubmitting(true)
     try {
@@ -36,16 +26,28 @@ export default function FeedbackPage() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          feedback: feedback.trim(),
-          email: email.trim() || undefined,
-          address: address || undefined,
+          message: feedback.trim(),
+          contact: contact.trim(),
         }),
       })
 
       if (response.ok) {
+        // Увеличить счётчик feedback и инициировать обновление UI
+        const currentCount = parseInt(localStorage.getItem('feedback_count') || '0', 10)
+        localStorage.setItem('feedback_count', String(currentCount + 1))
+        
+        // Инициировать storage event для обновления других вкладок и компонентов
+        window.dispatchEvent(new StorageEvent('storage', {
+          key: 'feedback_count',
+          newValue: String(currentCount + 1),
+          oldValue: String(currentCount),
+          storageArea: localStorage,
+          url: window.location.href,
+        }))
+        
         setSubmitted(true)
         setFeedback('')
-        setEmail('')
+        setContact('')
         setTimeout(() => setSubmitted(false), 3000)
       } else {
         console.error('Failed to submit feedback')
@@ -69,7 +71,7 @@ export default function FeedbackPage() {
           <div className="text-center mb-8">
             <h1 className="text-3xl md:text-4xl font-light mb-2">Feedback</h1>
             <p className="text-sm text-gray-400 font-light">
-              Share your thoughts and help us improve
+              Contact us with your feedback
             </p>
           </div>
 
@@ -88,9 +90,24 @@ export default function FeedbackPage() {
             </motion.div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
+              {/* Contact - required field */}
               <div className="space-y-2">
                 <label className="text-xs text-gray-500 font-light">
-                  Your Feedback
+                  Contact <span className="text-red-400">*</span>
+                </label>
+                <Input
+                  type="text"
+                  value={contact}
+                  onChange={(e) => setContact(e.target.value)}
+                  placeholder="Telegram, email, etc..."
+                  className="w-full bg-white/5 border-white/10 text-white font-light placeholder:text-gray-500"
+                  required
+                />
+              </div>
+
+              <div className="space-y-2">
+                <label className="text-xs text-gray-500 font-light">
+                  Your Feedback <span className="text-red-400">*</span>
                 </label>
                 <Textarea
                   value={feedback}
@@ -102,46 +119,15 @@ export default function FeedbackPage() {
                 />
               </div>
 
-              <div className="space-y-2">
-                <label className="text-xs text-gray-500 font-light">
-                  Email (optional)
-                </label>
-                <Input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="your@email.com"
-                  className="w-full bg-white/5 border-white/10 text-white font-light placeholder:text-gray-500"
-                />
-              </div>
-
-              {!isConnected && (
-                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                  <p className="text-xs text-gray-400 font-light mb-2">
-                    Connect your wallet to link feedback to your account (optional)
-                  </p>
-                  <Button
-                    type="button"
-                    onClick={handleConnectWallet}
-                    className="w-full h-10 bg-white/5 border border-white/10 hover:bg-white/10 hover:border-white/20 text-white font-light rounded-xl transition-all duration-200"
-                  >
-                    Connect Wallet
-                  </Button>
-                </div>
-              )}
-
               <Button
                 type="submit"
-                disabled={!feedback.trim() || isSubmitting}
+                disabled={!feedback.trim() || !contact.trim() || isSubmitting}
                 className="w-full h-12 bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 text-white rounded-xl hover:from-pink-500/40 hover:via-accent/45 hover:to-purple-500/40 hover:border-pink-400/50 shadow-lg shadow-accent/20 hover:shadow-accent/30 disabled:opacity-50 disabled:cursor-not-allowed font-light transition-all duration-300"
               >
                 {isSubmitting ? (
                   'Sending...'
                 ) : (
-                  <>
-                    <Send className="w-4 h-4 mr-2" />
-                    Send Feedback
-                  </>
+                  'Submit feedback'
                 )}
               </Button>
             </form>

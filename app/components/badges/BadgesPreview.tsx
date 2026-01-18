@@ -1,23 +1,106 @@
 'use client'
 
-import { useSafeConnect } from '@/lib/wagmi/safeHooks'
-import { BadgeCardPreview } from './BadgeCardPreview'
-import { BADGE_ORDER } from '@/lib/badges'
+import { useState, useEffect } from 'react'
+import { useSafeAccount } from '@/lib/wagmi/safeHooks'
+import { BadgeEmblem } from './BadgeEmblem'
+import { BADGE_ORDER, BADGE_DEFINITIONS, Badge } from '@/lib/badges'
+import { motion } from 'framer-motion'
 
 interface BadgesPreviewProps {
   onHardReset?: () => void
 }
 
-export function BadgesPreview({ onHardReset }: BadgesPreviewProps) {
-  const { connect, connectors } = useSafeConnect()
-  const DEBUG_WALLET = process.env.NEXT_PUBLIC_DEBUG_WALLET === '1'
-
-  const handleConnectWallet = () => {
-    const availableConnector = connectors[0]
-    if (availableConnector) {
-      connect({ connector: availableConnector })
+// Get earned badges for a specific address
+function getEarnedBadges(address?: string): string[] {
+  if (!address) return []
+  try {
+    const stored = localStorage.getItem('earned_badges')
+    if (stored) {
+      const badgesByAddress = JSON.parse(stored)
+      // Support both old format (array) and new format (object with addresses)
+      if (Array.isArray(badgesByAddress)) {
+        return badgesByAddress // Old format - return all
+      }
+      if (badgesByAddress && typeof badgesByAddress === 'object') {
+        return badgesByAddress[address.toLowerCase()] || []
+      }
     }
+  } catch (error) {
+    // Ignore errors
   }
+  return []
+}
+
+// Badge card - shows all badges, earned or not
+function EarnedBadgeCard({ badgeId, isEarned }: { badgeId: string; isEarned: boolean }) {
+  const badge = BADGE_DEFINITIONS[badgeId]
+  if (!badge) return null
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+      className={`glass-strong rounded-2xl border p-6 relative flex-shrink-0 w-64 ${
+        isEarned 
+          ? 'bg-white/5 border-white/10 shadow-lg shadow-pink-500/10' 
+          : 'bg-white/3 border-white/10 opacity-60'
+      }`}
+    >
+      {/* Icon */}
+      <div className="flex items-center justify-center mb-4 relative z-10">
+        <BadgeEmblem
+          badgeId={badgeId}
+          isEarned={isEarned}
+          isUnlockedUnclaimed={false}
+          isLocked={!isEarned}
+        />
+      </div>
+
+      {/* Title */}
+      <h3 className={`text-lg font-light text-center mb-2 relative z-10 ${isEarned ? 'text-white' : 'text-gray-500'}`}>
+        {badge.title}
+      </h3>
+
+      {/* Description */}
+      <p className={`text-sm font-light text-center relative z-10 ${isEarned ? 'text-gray-400' : 'text-gray-600'}`}>
+        {badge.description}
+      </p>
+    </motion.div>
+  )
+}
+
+export function BadgesPreview({ onHardReset }: BadgesPreviewProps) {
+  const { isConnected, address } = useSafeAccount()
+  const [earnedBadges, setEarnedBadges] = useState<string[]>([])
+
+  // Load earned badges - reactive to localStorage changes
+  useEffect(() => {
+    const loadBadges = () => {
+      setEarnedBadges(getEarnedBadges(address || undefined))
+    }
+    
+    // Initial load
+    loadBadges()
+    
+    // Listen for storage changes
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'earned_badges') {
+        loadBadges()
+      }
+    }
+    
+    window.addEventListener('storage', handleStorageChange)
+    
+    // Also check on focus (for same-tab updates)
+    const handleFocus = () => loadBadges()
+    window.addEventListener('focus', handleFocus)
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange)
+      window.removeEventListener('focus', handleFocus)
+    }
+  }, [address]) // Reload when address changes
 
   return (
     <div className="min-h-screen px-6 lg:px-10 py-12 md:py-16">
@@ -30,32 +113,14 @@ export function BadgesPreview({ onHardReset }: BadgesPreviewProps) {
           </p>
         </div>
 
-        {/* Connect wallet CTA */}
-        <div className="flex justify-center mb-12">
-          <button
-            onClick={handleConnectWallet}
-            className="px-8 py-3 text-base font-light bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 text-white rounded-xl hover:from-pink-500/40 hover:via-accent/45 hover:to-purple-500/40 hover:border-pink-400/50 shadow-lg shadow-accent/20 hover:shadow-accent/30 transition-all duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-          >
-            Connect wallet to continue
-          </button>
-          {DEBUG_WALLET && onHardReset && (
-            <button
-              onClick={onHardReset}
-              className="ml-4 px-8 py-3 text-base font-light bg-red-600/20 border border-red-500/40 text-red-300 rounded-xl hover:bg-red-600/30 hover:border-red-500/50 transition-all duration-[240ms] ease-[cubic-bezier(0.22,1,0.36,1)]"
-            >
-              HARD RESET WALLET STATE
-            </button>
-          )}
-        </div>
-
-        {/* Badges row - single horizontal line */}
-        <div className="flex flex-row justify-center gap-6 overflow-x-auto pb-4">
-          {BADGE_ORDER.map((badgeId) => (
-            <BadgeCardPreview
-              key={badgeId}
-              badgeId={badgeId}
-            />
-          ))}
+        {/* Show all badges from BADGE_ORDER */}
+        <div className="flex flex-row justify-center gap-6 overflow-x-auto pb-4 flex-wrap">
+          {BADGE_ORDER.map((badgeId) => {
+            const isEarned = earnedBadges.includes(badgeId)
+            return (
+              <EarnedBadgeCard key={badgeId} badgeId={badgeId} isEarned={isEarned} />
+            )
+          })}
         </div>
       </div>
     </div>

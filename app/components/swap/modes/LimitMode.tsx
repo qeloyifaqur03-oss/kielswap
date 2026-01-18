@@ -2,8 +2,6 @@
 
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { useSafeAccount } from '@/lib/wagmi/safeHooks'
 
 interface Token {
@@ -17,14 +15,25 @@ interface LimitModeProps {
   toToken: Token
   fromAmount: string
   toAmount: string
+  enablePartialFills?: boolean
+  amountOfParts?: string
+  targetPrice?: string
+  onTargetPriceChange?: (price: string) => void
 }
 
-export function LimitMode({ fromToken, toToken, fromAmount, toAmount }: LimitModeProps) {
+export function LimitMode({ fromToken, toToken, fromAmount, toAmount, enablePartialFills = false, amountOfParts = '2', targetPrice: externalTargetPrice, onTargetPriceChange }: LimitModeProps) {
   const router = useRouter()
   const { isConnected } = useSafeAccount()
-  const [targetPrice, setTargetPrice] = useState('0')
+  const [targetPrice, setTargetPrice] = useState(externalTargetPrice || '0')
   const [expiry, setExpiry] = useState('1d')
   const [youReceive, setYouReceive] = useState('0')
+  
+  // Sync external targetPrice if provided
+  useEffect(() => {
+    if (externalTargetPrice !== undefined && externalTargetPrice !== targetPrice) {
+      setTargetPrice(externalTargetPrice)
+    }
+  }, [externalTargetPrice])
 
   // Calculate you receive based on target price
   useEffect(() => {
@@ -36,14 +45,9 @@ export function LimitMode({ fromToken, toToken, fromAmount, toAmount }: LimitMod
     }
   }, [fromAmount, targetPrice])
 
-  // Fetch quote for initial price suggestion
-  useEffect(() => {
-    if (fromAmount && parseFloat(fromAmount) > 0) {
-      fetchQuote()
-    }
-  }, [fromToken, toToken, fromAmount])
-
-  const fetchQuote = async () => {
+  // Legacy: fetchQuote - NOT USED (limit mode price suggestion could be added later)
+  // Keeping commented for reference
+  const _unused_fetchQuote = async () => {
     try {
       // Map chainId to networkId (simplified - adjust based on your chain registry)
       const getNetworkId = (chainId: number) => {
@@ -81,74 +85,40 @@ export function LimitMode({ fromToken, toToken, fromAmount, toAmount }: LimitMod
   }
 
   return (
-    <div className="space-y-4 mt-6">
-      {/* You Receive */}
-      <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm text-gray-400 font-light">You receive (target)</span>
-          <span className="text-lg text-white font-light">{youReceive} {toToken.symbol}</span>
-        </div>
-      </div>
-
-      {/* Expires In */}
-      <div className="bg-white/5 rounded-xl p-4 border border-white/10">
-        <div className="flex items-center justify-between mb-3">
-          <span className="text-sm text-gray-400 font-light">Expires in</span>
-          <div className="flex gap-2">
-            {['1h', '6h', '1d', '7d'].map((time) => (
-              <button
-                key={time}
-                onClick={() => setExpiry(time)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-light transition-colors ${
-                  expiry === time
-                    ? 'bg-white/10 text-white border border-white/20'
-                    : 'bg-white/5 text-gray-400 border border-white/10 hover:bg-white/5'
-                }`}
-              >
-                {time}
-              </button>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* Price Selection */}
+    <div className="space-y-3 mt-4">
+      {/* Target price — ABOVE */}
       <div className="bg-white/5 rounded-xl p-4 border border-white/10">
         <label className="text-xs text-gray-400 font-light mb-2 block">
-          Target price ({toToken.symbol}/{fromToken.symbol})
-        </label>
-        <Input
-          type="text"
-          value={targetPrice}
-          onChange={(e) => {
-            const value = e.target.value
-            if (value === '' || /^\d*\.?\d*$/.test(value)) {
-              setTargetPrice(value)
-            }
-          }}
-          placeholder="0.0"
-          className="bg-white/5 border-white/10 text-white font-light"
-        />
-        <p className="text-xs text-gray-500 mt-2">
-          Price automatically adjusts "You receive" above
-        </p>
+            Target price
+          </label>
+          <input
+            type="text"
+            value={targetPrice}
+            onChange={(e) => {
+              const value = e.target.value
+              if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                setTargetPrice(value)
+                onTargetPriceChange?.(value)
+              }
+            }}
+            placeholder="0.0"
+            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-white/20 transition-colors"
+          />
       </div>
 
-      {/* Place Limit Order Button */}
-      <Button
-        className="w-full h-12 bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 hover:from-pink-500/40 hover:via-accent/45 hover:to-purple-500/40 hover:border-pink-400/50 text-white rounded-xl font-light transition-all duration-300 shadow-lg shadow-accent/20 hover:shadow-accent/30"
-      >
-        Place limit order
-      </Button>
 
-      {/* My Orders Button */}
-      {isConnected && (
-        <Button
-          onClick={() => router.push('/swap?mode=limit&tab=orders')}
-          className="w-full h-10 bg-transparent border border-white/10 text-gray-300 hover:bg-white/5 rounded-xl font-light"
-        >
-          My orders
-        </Button>
+      {/* Partial Fills Summary - Compact 2-card layout */}
+      {enablePartialFills && parseInt(amountOfParts) > 1 && fromAmount && parseFloat(fromAmount) > 0 && youReceive && parseFloat(youReceive) > 0 && (
+        <div className="grid grid-cols-2 gap-2 mt-3">
+          <div className="bg-white/5 rounded-xl p-3 border border-white/10">
+            <div className="text-xs text-gray-400 font-light mb-1">Sell per part (1/{amountOfParts})</div>
+            <div className="text-sm text-white font-light">{(parseFloat(fromAmount) / parseInt(amountOfParts)).toFixed(6)} {fromToken.symbol}</div>
+          </div>
+          <div className="bg-white/5 rounded-xl p-3 border border-white/10">
+            <div className="text-xs text-gray-400 font-light mb-1">Buy per part (1/{amountOfParts})</div>
+            <div className="text-sm text-white font-light">{(parseFloat(youReceive) / parseInt(amountOfParts)).toFixed(6)} {toToken.symbol}</div>
+          </div>
+        </div>
       )}
     </div>
   )

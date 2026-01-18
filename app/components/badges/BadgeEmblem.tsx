@@ -14,7 +14,8 @@ const purpleColor = '#9333ea' // purple-500
 
 export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }: BadgeEmblemProps) {
   const isVisible = isEarned || isUnlockedUnclaimed
-  const opacity = isLocked ? 0.4 : isEarned ? 1 : 0.7
+  // Make icons bright regardless of state - only vary based on earned/unlocked status
+  const opacity = isEarned ? 1 : 0.85
   const glowIntensity = isEarned ? 1 : isUnlockedUnclaimed ? 0.6 : 0
 
   // Helper function to create gradient ID - using badgeId for uniqueness
@@ -26,13 +27,13 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
       <svg width="80" height="80" viewBox="0 0 80 80" className="relative z-10">
         <defs>
           <linearGradient id={`${gradientId}-main`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 1 : 0.5} />
             <stop offset="50%" stopColor={accentColor} stopOpacity={isVisible ? 1 : 0.6} />
-            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 1 : 0.5} />
           </linearGradient>
           <linearGradient id={`${gradientId}-inner`} x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={purpleColor} stopOpacity={isVisible ? 0.7 : 0.3} />
-            <stop offset="100%" stopColor={pinkColor} stopOpacity={isVisible ? 0.7 : 0.3} />
+            <stop offset="0%" stopColor={purpleColor} stopOpacity={isVisible ? 1 : 0.5} />
+            <stop offset="100%" stopColor={pinkColor} stopOpacity={isVisible ? 1 : 0.5} />
           </linearGradient>
           <filter id={`glow-${badgeId}`}>
             <feGaussianBlur stdDeviation={isEarned ? 4 : 3} result="coloredBlur" />
@@ -50,8 +51,8 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
           ry="18"
           fill="none"
           stroke={`url(#${gradientId}-main)`}
-          strokeWidth="1"
-          opacity={isVisible ? opacity * 0.5 : opacity * 0.3}
+          strokeWidth="1.5"
+          opacity={isVisible ? opacity * 0.7 : opacity * 0.4}
           transform="rotate(-30 40 40)"
         />
         <ellipse
@@ -61,8 +62,8 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
           ry="18"
           fill="none"
           stroke={`url(#${gradientId}-main)`}
-          strokeWidth="1"
-          opacity={isVisible ? opacity * 0.5 : opacity * 0.3}
+          strokeWidth="1.5"
+          opacity={isVisible ? opacity * 0.7 : opacity * 0.4}
           transform="rotate(30 40 40)"
         />
         {/* Main diamond shape */}
@@ -91,18 +92,6 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
         {/* Corner accents */}
         <circle cx="40" cy="12" r="2" fill={`url(#${gradientId}-main)`} opacity={isVisible ? opacity * 0.7 : opacity * 0.4} />
         <circle cx="40" cy="68" r="2" fill={`url(#${gradientId}-main)`} opacity={isVisible ? opacity * 0.7 : opacity * 0.4} />
-        {/* Checkmark - only when claimed */}
-        {isEarned && (
-          <path
-            d="M 30 40 L 37 47 L 50 34"
-            fill="none"
-            stroke={pinkColor}
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity={opacity}
-          />
-        )}
       </svg>
     )
   }
@@ -113,14 +102,14 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
       <svg width="80" height="80" viewBox="0 0 80 80" className="relative z-10">
         <defs>
           <linearGradient id={`${gradientId}-main`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 1 : 0.5} />
             <stop offset="50%" stopColor={accentColor} stopOpacity={isVisible ? 1 : 0.6} />
-            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 1 : 0.5} />
           </linearGradient>
           <linearGradient id={`${gradientId}-wave`} x1="0%" y1="0%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={purpleColor} stopOpacity={isVisible ? 0.6 : 0.3} />
-            <stop offset="50%" stopColor={accentColor} stopOpacity={isVisible ? 0.8 : 0.4} />
-            <stop offset="100%" stopColor={pinkColor} stopOpacity={isVisible ? 0.6 : 0.3} />
+            <stop offset="0%" stopColor={purpleColor} stopOpacity={isVisible ? 1 : 0.5} />
+            <stop offset="50%" stopColor={accentColor} stopOpacity={isVisible ? 1 : 0.6} />
+            <stop offset="100%" stopColor={pinkColor} stopOpacity={isVisible ? 1 : 0.5} />
           </linearGradient>
           <filter id={`glow-${badgeId}`}>
             <feGaussianBlur stdDeviation={isEarned ? 4 : 3} result="coloredBlur" />
@@ -178,18 +167,6 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
         {/* Corner nodes */}
         <circle cx="40" cy="14" r="2" fill={`url(#${gradientId}-main)`} opacity={isVisible ? opacity * 0.6 : opacity * 0.3} />
         <circle cx="40" cy="66" r="2" fill={`url(#${gradientId}-main)`} opacity={isVisible ? opacity * 0.6 : opacity * 0.3} />
-        {/* Checkmark - only when claimed */}
-        {isEarned && (
-          <path
-            d="M 30 40 L 37 47 L 50 34"
-            fill="none"
-            stroke={pinkColor}
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity={opacity}
-          />
-        )}
       </svg>
     )
   }
@@ -200,9 +177,9 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
       <svg width="80" height="80" viewBox="0 0 80 80" className="relative z-10">
         <defs>
           <linearGradient id={`${gradientId}-main`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 1 : 0.5} />
             <stop offset="50%" stopColor={accentColor} stopOpacity={isVisible ? 1 : 0.6} />
-            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 1 : 0.5} />
           </linearGradient>
           <linearGradient id={`${gradientId}-path`} x1="0%" y1="0%" x2="100%" y2="100%">
             <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 0.5 : 0.25} />
@@ -255,22 +232,22 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
           <polygon
             points="24,24 36,36 40,40 36,40 32,32"
             fill={`url(#${gradientId}-main)`}
-            opacity="0.6"
+            opacity="0.9"
           />
           <polygon
             points="56,24 44,36 40,40 44,40 48,32"
             fill={`url(#${gradientId}-main)`}
-            opacity="0.6"
+            opacity="0.9"
           />
           <polygon
             points="24,56 36,44 40,40 36,40 32,48"
             fill={`url(#${gradientId}-main)`}
-            opacity="0.6"
+            opacity="0.9"
           />
           <polygon
             points="56,56 44,44 40,40 44,40 48,48"
             fill={`url(#${gradientId}-main)`}
-            opacity="0.6"
+            opacity="0.9"
           />
         </g>
         {/* Inner circle */}
@@ -291,18 +268,6 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
           fill={`url(#${gradientId}-main)`}
           opacity={isVisible ? opacity : opacity * 0.5}
         />
-        {/* Checkmark - only when claimed */}
-        {isEarned && (
-          <path
-            d="M 30 40 L 37 47 L 50 34"
-            fill="none"
-            stroke={pinkColor}
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity={opacity}
-          />
-        )}
       </svg>
     )
   }
@@ -313,14 +278,14 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
       <svg width="80" height="80" viewBox="0 0 80 80" className="relative z-10">
         <defs>
           <linearGradient id={`${gradientId}-main`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 1 : 0.5} />
             <stop offset="50%" stopColor={accentColor} stopOpacity={isVisible ? 1 : 0.6} />
-            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 1 : 0.5} />
           </linearGradient>
           <linearGradient id={`${gradientId}-sub`} x1="0%" y1="100%" x2="100%" y2="0%">
-            <stop offset="0%" stopColor={purpleColor} stopOpacity={isVisible ? 0.55 : 0.25} />
-            <stop offset="50%" stopColor={accentColor} stopOpacity={isVisible ? 0.75 : 0.35} />
-            <stop offset="100%" stopColor={pinkColor} stopOpacity={isVisible ? 0.55 : 0.25} />
+            <stop offset="0%" stopColor={purpleColor} stopOpacity={isVisible ? 1 : 0.5} />
+            <stop offset="50%" stopColor={accentColor} stopOpacity={isVisible ? 1 : 0.6} />
+            <stop offset="100%" stopColor={pinkColor} stopOpacity={isVisible ? 1 : 0.5} />
           </linearGradient>
           <filter id={`glow-${badgeId}`}>
             <feGaussianBlur stdDeviation={isEarned ? 4 : 3} result="coloredBlur" />
@@ -337,12 +302,12 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
           r="35"
           fill="none"
           stroke={`url(#${gradientId}-main)`}
-          strokeWidth="1.3"
+          strokeWidth="2.5"
           opacity={opacity}
           filter={glowIntensity > 0 ? `url(#glow-${badgeId})` : undefined}
         />
         {/* Interlocking links */}
-        <g opacity={isVisible ? opacity * 0.85 : opacity * 0.55}>
+        <g opacity={isVisible ? opacity : opacity * 0.7}>
           <rect
             x="18"
             y="33"
@@ -351,7 +316,7 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
             rx="9"
             fill="none"
             stroke={`url(#${gradientId}-main)`}
-            strokeWidth="2"
+            strokeWidth="2.5"
             transform="rotate(-18 33 42)"
           />
           <rect
@@ -362,16 +327,16 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
             rx="9"
             fill="none"
             stroke={`url(#${gradientId}-sub)`}
-            strokeWidth="2"
+            strokeWidth="2.5"
             transform="rotate(18 47 38)"
           />
           {/* Inner chain bars */}
-          <line x1="30" y1="38" x2="42" y2="42" stroke={`url(#${gradientId}-sub)`} strokeWidth="1.4" strokeLinecap="round" opacity={isVisible ? 0.65 : 0.4} />
-          <line x1="38" y1="34" x2="50" y2="38" stroke={`url(#${gradientId}-sub)`} strokeWidth="1.4" strokeLinecap="round" opacity={isVisible ? 0.65 : 0.4} />
+          <line x1="30" y1="38" x2="42" y2="42" stroke={`url(#${gradientId}-sub)`} strokeWidth="2" strokeLinecap="round" opacity={isVisible ? 0.9 : 0.6} />
+          <line x1="38" y1="34" x2="50" y2="38" stroke={`url(#${gradientId}-sub)`} strokeWidth="2" strokeLinecap="round" opacity={isVisible ? 0.9 : 0.6} />
         </g>
 
         {/* Routing nodes (referral propagation) */}
-        <g opacity={isVisible ? opacity * 0.75 : opacity * 0.5}>
+        <g opacity={isVisible ? opacity : opacity * 0.7}>
           <circle cx="24" cy="56" r="3.2" fill={`url(#${gradientId}-main)`} />
           <circle cx="56" cy="56" r="3.2" fill={`url(#${gradientId}-main)`} />
           <circle cx="40" cy="62" r="2.6" fill={`url(#${gradientId}-sub)`} />
@@ -379,26 +344,14 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
             d="M 24 56 C 30 58, 34 60, 40 62 C 46 60, 50 58, 56 56"
             fill="none"
             stroke={`url(#${gradientId}-sub)`}
-            strokeWidth="1.3"
+            strokeWidth="2"
             strokeLinecap="round"
-            opacity={isVisible ? 0.7 : 0.45}
+            opacity={isVisible ? 0.9 : 0.6}
           />
           {/* Tiny arrow hints */}
-          <path d="M 36.5 60.6 L 40 62 L 37.6 65" fill="none" stroke={`url(#${gradientId}-sub)`} strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" opacity={isVisible ? 0.6 : 0.35} />
-          <path d="M 43.5 60.6 L 40 62 L 42.4 65" fill="none" stroke={`url(#${gradientId}-sub)`} strokeWidth="1.1" strokeLinecap="round" strokeLinejoin="round" opacity={isVisible ? 0.6 : 0.35} />
+          <path d="M 36.5 60.6 L 40 62 L 37.6 65" fill="none" stroke={`url(#${gradientId}-sub)`} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" opacity={isVisible ? 0.8 : 0.5} />
+          <path d="M 43.5 60.6 L 40 62 L 42.4 65" fill="none" stroke={`url(#${gradientId}-sub)`} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" opacity={isVisible ? 0.8 : 0.5} />
         </g>
-        {/* Checkmark - only when claimed */}
-        {isEarned && (
-          <path
-            d="M 30 40 L 37 47 L 50 34"
-            fill="none"
-            stroke={pinkColor}
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity={opacity}
-          />
-        )}
       </svg>
     )
   }
@@ -410,9 +363,9 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
       <svg width="80" height="80" viewBox="0 0 80 80" className="relative z-10">
         <defs>
           <linearGradient id={`${gradientId}-main`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 1 : 0.5} />
             <stop offset="50%" stopColor={accentColor} stopOpacity={isVisible ? 1 : 0.6} />
-            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 1 : 0.5} />
           </linearGradient>
           <filter id={`glow-${badgeId}`}>
             <feGaussianBlur stdDeviation={isEarned ? 3.5 : 2.5} result="coloredBlur" />
@@ -428,22 +381,10 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
           r="36"
           fill="none"
           stroke={`url(#${gradientId}-main)`}
-          strokeWidth="2"
+          strokeWidth="2.5"
           opacity={opacity}
           filter={glowIntensity > 0 ? `url(#glow-${badgeId})` : undefined}
         />
-        {/* Checkmark centered - only when claimed */}
-        {isEarned && (
-          <path
-            d="M 28 40 L 36 48 L 52 32"
-            fill="none"
-            stroke={pinkColor}
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity={opacity}
-          />
-        )}
       </svg>
     )
   }
@@ -454,9 +395,9 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
       <svg width="80" height="80" viewBox="0 0 80 80" className="relative z-10">
         <defs>
           <linearGradient id={`${gradientId}-main`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 1 : 0.5} />
             <stop offset="50%" stopColor={accentColor} stopOpacity={isVisible ? 1 : 0.6} />
-            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 1 : 0.5} />
           </linearGradient>
           <filter id={`glow-${badgeId}`}>
             <feGaussianBlur stdDeviation={isEarned ? 4.5 : 3.5} result="coloredBlur" />
@@ -473,7 +414,7 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
           r="36"
           fill="none"
           stroke={`url(#${gradientId}-main)`}
-          strokeWidth="2.5"
+          strokeWidth="3"
           opacity={opacity}
           filter={glowIntensity > 0 ? `url(#glow-${badgeId})` : undefined}
         />
@@ -485,19 +426,7 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
             r="28"
             fill="none"
             stroke={`url(#${gradientId}-main)`}
-            strokeWidth="1.5"
-            opacity={opacity * 0.7}
-          />
-        )}
-        {/* Checkmark centered - only when claimed */}
-        {isEarned && (
-          <path
-            d="M 28 40 L 36 48 L 52 32"
-            fill="none"
-            stroke={pinkColor}
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+            strokeWidth="2"
             opacity={opacity}
           />
         )}
@@ -511,9 +440,9 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
       <svg width="80" height="80" viewBox="0 0 80 80" className="relative z-10">
         <defs>
           <linearGradient id={`${gradientId}-main`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 1 : 0.5} />
             <stop offset="50%" stopColor={accentColor} stopOpacity={isVisible ? 1 : 0.6} />
-            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 1 : 0.5} />
           </linearGradient>
           <filter id={`glow-${badgeId}`}>
             <feGaussianBlur stdDeviation={isEarned ? 6 : 5} result="coloredBlur" />
@@ -546,18 +475,6 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
             opacity={opacity * 0.7}
           />
         )}
-        {/* Checkmark centered - only when claimed */}
-        {isEarned && (
-          <path
-            d="M 28 40 L 36 48 L 52 32"
-            fill="none"
-            stroke={pinkColor}
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity={opacity}
-          />
-        )}
       </svg>
     )
   }
@@ -568,9 +485,9 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
       <svg width="80" height="80" viewBox="0 0 80 80" className="relative z-10">
         <defs>
           <linearGradient id={`${gradientId}-main`} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="0%" stopColor={pinkColor} stopOpacity={isVisible ? 1 : 0.5} />
             <stop offset="50%" stopColor={accentColor} stopOpacity={isVisible ? 1 : 0.6} />
-            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 0.9 : 0.5} />
+            <stop offset="100%" stopColor={purpleColor} stopOpacity={isVisible ? 1 : 0.5} />
           </linearGradient>
           <filter id={`glow-${badgeId}`}>
             <feGaussianBlur stdDeviation={isEarned ? 7 : 6} result="coloredBlur" />
@@ -603,18 +520,7 @@ export function BadgeEmblem({ badgeId, isEarned, isUnlockedUnclaimed, isLocked }
             opacity={opacity * 0.8}
           />
         )}
-        {/* Checkmark centered - only when claimed */}
-        {isEarned && (
-          <path
-            d="M 28 40 L 36 48 L 52 32"
-            fill="none"
-            stroke={pinkColor}
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            opacity={opacity}
-          />
-        )}
+
       </svg>
     )
   }

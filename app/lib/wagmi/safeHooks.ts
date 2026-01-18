@@ -60,23 +60,50 @@ export function useSafeConnect() {
     
     // Wrap connect function to handle errors silently
     const originalConnect = connectResult.connect
-    const safeConnect = (...args: Parameters<typeof originalConnect>) => {
+    const safeConnect = async (...args: Parameters<typeof originalConnect>) => {
       try {
-        return originalConnect(...args)
+        const result = originalConnect(...args) as any
+        // If connect returns a Promise, catch rejections
+        if (result && typeof result?.catch === 'function') {
+          return result.catch((error: any) => {
+            // Silently handle MetaMask connection errors
+            const errorMessage = error?.message || error?.reason?.message || String(error || '')
+            const errorStack = error?.stack || error?.reason?.stack || ''
+            
+            const isMetaMaskError = 
+              errorMessage.includes('Failed to connect to MetaMask') ||
+              errorMessage.includes('i: Failed to connect to MetaMask') ||
+              errorMessage.match(/^i:\s*Failed/i) ||
+              errorStack.includes('nkbihfbeogaeaoehlefnkodbefgpgknn') ||
+              errorStack.includes('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn') ||
+              errorStack.includes('inpage.js')
+            
+            if (isMetaMaskError) {
+              // Silently ignore MetaMask errors - return resolved promise instead of throwing
+              return Promise.resolve()
+            }
+            
+            // Re-throw non-MetaMask errors
+            throw error
+          })
+        }
+        return result
       } catch (error: any) {
-        // Silently handle MetaMask connection errors
+        // Silently handle MetaMask connection errors (synchronous)
         const errorMessage = error?.message || error?.reason?.message || String(error || '')
         const errorStack = error?.stack || error?.reason?.stack || ''
         
         const isMetaMaskError = 
           errorMessage.includes('Failed to connect to MetaMask') ||
           errorMessage.includes('i: Failed to connect to MetaMask') ||
+          errorMessage.match(/^i:\s*Failed/i) ||
           errorStack.includes('nkbihfbeogaeaoehlefnkodbefgpgknn') ||
-          errorStack.includes('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn')
+          errorStack.includes('chrome-extension://nkbihfbeogaeaoehlefnkodbefgpgknn') ||
+          errorStack.includes('inpage.js')
         
         if (isMetaMaskError) {
-          // Silently ignore MetaMask errors - don't log or throw
-          return
+          // Silently ignore MetaMask errors - return resolved promise
+          return Promise.resolve()
         }
         
         // Re-throw non-MetaMask errors
