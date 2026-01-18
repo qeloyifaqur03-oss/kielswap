@@ -579,7 +579,7 @@ export function SwapWindow() {
             
             <div className="flex justify-between">
               <span>Fees:</span>
-              <span className="text-white">$0</span>
+              <span className="text-white">Zero fees as beta tester</span>
             </div>
           </div>
           )}
