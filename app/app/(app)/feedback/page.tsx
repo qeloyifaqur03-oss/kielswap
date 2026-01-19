@@ -65,17 +65,17 @@ export default function FeedbackPage() {
   }
 
   return (
-    <section className="relative z-10 min-h-screen flex items-center justify-center px-6 md:px-12 py-32">
+    <section className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-12 py-16 sm:py-24 md:py-32">
       <div className="max-w-2xl mx-auto w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="glass rounded-2xl p-8 md:p-12 border border-white/10 shadow-xl"
+          className="glass rounded-2xl p-6 sm:p-8 md:p-12"
         >
-          <div className="text-center mb-8">
-            <h1 className="text-3xl md:text-4xl font-light mb-2">Feedback</h1>
-            <p className="text-sm text-gray-400 font-light">
+          <div className="text-center mb-6 sm:mb-8">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-light mb-2">Feedback</h1>
+            <p className="text-xs sm:text-sm text-gray-400 font-light px-2">
               Contact us with your feedback
             </p>
           </div>

@@ -11,13 +11,47 @@
 
 @layer utilities {
   .glass {
-    @apply backdrop-blur-xl border border-white/5;
-    background-color: rgba(255, 255, 255, 0.03);
+    @apply backdrop-blur-xl shadow-2xl;
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    position: relative;
+  }
+  
+  .glass::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(to bottom right, rgba(236, 72, 153, 0.05), transparent, rgba(168, 85, 247, 0.05));
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  .glass > * {
+    position: relative;
+    z-index: 1;
   }
   
   .glass-strong {
-    @apply backdrop-blur-xl border border-white/10;
-    background-color: rgba(255, 255, 255, 0.05);
+    @apply backdrop-blur-xl shadow-2xl;
+    background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    position: relative;
+  }
+  
+  .glass-strong::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(to bottom right, rgba(236, 72, 153, 0.05), transparent, rgba(168, 85, 247, 0.05));
+    pointer-events: none;
+    z-index: 0;
+  }
+  
+  .glass-strong > * {
+    position: relative;
+    z-index: 1;
   }
   
   .text-gradient {

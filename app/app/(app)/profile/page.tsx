@@ -83,7 +83,7 @@ export default function ProfilePage() {
   if (!isConnected || !address) {
     return (
       <section className="relative z-10 min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8">
-        <div className="glass rounded-3xl p-8 border border-white/10 shadow-2xl backdrop-blur-xl bg-[rgba(255,255,255,0.05)] max-w-md w-full text-center">
+        <div className="glass rounded-3xl p-8 max-w-md w-full text-center">
           <p className="text-sm text-gray-400 font-light">Please connect your wallet to view your profile</p>
         </div>
       </section>
@@ -93,16 +93,16 @@ export default function ProfilePage() {
   const avatarColor = generateAvatar(address)
   
   return (
-    <section className="relative z-10 min-h-screen px-4 sm:px-6 md:px-8 py-16">
-      <div className="max-w-4xl mx-auto space-y-6">
+    <section className="relative z-10 min-h-screen px-4 sm:px-6 md:px-8 py-8 sm:py-12 md:py-16">
+      <div className="max-w-4xl mx-auto space-y-4 sm:space-y-6">
         {/* Identity Section */}
-        <div className="glass rounded-3xl p-6 border border-white/20 shadow-2xl backdrop-blur-xl bg-gradient-to-br from-[rgba(255,255,255,0.15)] via-[rgba(255,255,255,0.12)] to-[rgba(255,255,255,0.15)] relative overflow-hidden">
+        <div className="glass rounded-2xl sm:rounded-3xl p-4 sm:p-6 relative overflow-hidden">
           <div className="relative z-10">
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-3 sm:gap-6">
             {/* Avatar with Early user aura */}
             <div className="relative">
               <div 
-                className="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-light"
+                className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 rounded-full flex items-center justify-center text-white text-lg sm:text-xl md:text-2xl font-light"
                 style={{ backgroundColor: avatarColor }}
               >
                 {displayName.charAt(0).toUpperCase()}
@@ -152,7 +152,7 @@ export default function ProfilePage() {
         </div>
         
         {/* Credits Section */}
-        <div className="glass rounded-3xl p-6 border border-white/10 shadow-2xl backdrop-blur-xl bg-[rgba(255,255,255,0.05)]">
+        <div className="glass rounded-3xl p-6">
           <h2 className="text-lg font-light text-white mb-4">Credits</h2>
           <div className="bg-white/5 rounded-xl p-4 border border-white/10">
             <p className="text-sm text-gray-400 font-light mb-1">Beta credits</p>
@@ -161,9 +161,9 @@ export default function ProfilePage() {
         </div>
         
         {/* Activity Section */}
-        <div className="glass rounded-3xl p-6 border border-white/10 shadow-2xl backdrop-blur-xl bg-[rgba(255,255,255,0.05)]">
-          <h2 className="text-lg font-light text-white mb-4">Activity</h2>
-          <div className="grid grid-cols-2 gap-4">
+        <div className="glass rounded-2xl sm:rounded-3xl p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-light text-white mb-3 sm:mb-4">Activity</h2>
+          <div className="grid grid-cols-2 gap-3 sm:gap-4">
             <div className="bg-white/5 rounded-xl p-4 border border-white/10">
               <p className="text-xs text-gray-500 font-light mb-1">Swaps count</p>
               <p className="text-xl font-light text-white">0</p>
@@ -176,10 +176,10 @@ export default function ProfilePage() {
         </div>
         
         {/* Badges Section */}
-        <div className="glass rounded-3xl p-6 border border-white/10 shadow-2xl backdrop-blur-xl bg-[rgba(255,255,255,0.05)]">
-          <h2 className="text-lg font-light text-white mb-4">Badges</h2>
+        <div className="glass rounded-2xl sm:rounded-3xl p-4 sm:p-6">
+          <h2 className="text-base sm:text-lg font-light text-white mb-3 sm:mb-4">Badges</h2>
           {earnedBadges.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-3 gap-3 sm:gap-4">
               {earnedBadges.map((badgeId) => {
                 const badge = BADGE_DEFINITIONS[badgeId]
                 if (!badge) return null

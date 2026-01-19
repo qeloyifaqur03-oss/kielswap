@@ -167,7 +167,7 @@ function AccessPageContent() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="glass rounded-2xl p-8 md:p-12 border border-white/10 text-center"
+            className="glass rounded-2xl p-8 md:p-12 text-center"
           >
             <p className="text-gray-400 font-light">Checking access...</p>
           </motion.div>
@@ -185,7 +185,7 @@ function AccessPageContent() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="glass rounded-2xl p-8 md:p-12 border border-white/10 shadow-xl"
+          className="glass rounded-2xl p-8 md:p-12 shadow-xl"
         >
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -283,7 +283,7 @@ export default function AccessPage() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="glass rounded-2xl p-8 md:p-12 border border-white/10 text-center"
+            className="glass rounded-2xl p-8 md:p-12 text-center"
           >
             <p className="text-gray-400 font-light">Loading...</p>
           </motion.div>

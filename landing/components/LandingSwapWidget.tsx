@@ -70,7 +70,7 @@ export function LandingSwapWidget({
     if (fromToken === 'ETH' && toToken === 'USDT') {
       return (amount * exchangeRate).toFixed(2)
     } else if (fromToken === 'USDT' && toToken === 'ETH') {
-      return (amount / exchangeRate).toFixed(6)
+      return (amount / exchangeRate).toFixed(4)
     }
     return '0.00'
   }, [fromAmount, fromToken, toToken, exchangeRate, isLoadingPrices])
@@ -102,6 +102,10 @@ export function LandingSwapWidget({
     if (parts.length > 2) {
       return
     }
+    // Limit decimal places to 4
+    if (parts.length === 2 && parts[1].length > 4) {
+      return
+    }
     if (controlled) {
       onFromAmountChange?.(sanitized)
     } else {
@@ -125,7 +129,7 @@ export function LandingSwapWidget({
     <motion.div
       whileHover={{ scale: controlled ? 1 : 1.01 }}
       transition={{ duration: 0.2 }}
-      className={`${controlled ? '' : 'glass-strong rounded-3xl border border-white/10'} ${controlled ? 'p-4' : 'p-6'} ${controlled ? 'space-y-2' : 'space-y-4'}`}
+      className={`${controlled ? '' : 'glass-strong rounded-3xl'} ${controlled ? 'p-4' : 'p-6'} ${controlled ? 'space-y-2' : 'space-y-4'}`}
     >
         {/* Header */}
         {!controlled && (
@@ -135,40 +139,40 @@ export function LandingSwapWidget({
         )}
 
         {/* Swap Container - horizontal for controlled mode */}
-        <div className={controlled ? "flex flex-row items-center gap-3" : "flex flex-col gap-4"}>
+        <div className={controlled ? "flex flex-row items-center gap-2 overflow-hidden" : "flex flex-col gap-4"}>
           {/* From Token */}
-          <div className={controlled ? "flex-1" : "space-y-2"}>
+          <div className={controlled ? "flex-1 min-w-0 overflow-hidden" : "space-y-2"}>
             {!controlled && <label className="text-xs text-gray-500 font-light">You pay</label>}
             <div className={`rounded-2xl ${controlled ? 'p-3' : 'p-4'}`} style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)' }}>
               {controlled ? (
-                <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center overflow-hidden flex-shrink-0">
-                    {(() => {
-                      const tokenInfo = getTokenInfo(fromToken.toLowerCase())
-                      return tokenInfo?.icon ? (
-                        <img
-                          src={tokenInfo.icon}
-                          alt={fromToken}
-                          className="w-5 h-5"
-                          onError={(e) => {
-                            e.currentTarget.style.display = 'none'
-                          }}
-                        />
-                      ) : (
-                        <div className="w-5 h-5 rounded-full bg-gradient-to-br from-pink-500/20 via-accent/20 to-purple-500/20"></div>
-                      )
-                    })()}
+                  <div className="flex items-center gap-2 w-full min-w-0">
+                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center overflow-hidden flex-shrink-0">
+                      {(() => {
+                        const tokenInfo = getTokenInfo(fromToken.toLowerCase())
+                        return tokenInfo?.icon ? (
+                          <img
+                            src={tokenInfo.icon}
+                            alt={fromToken}
+                            className="w-5 h-5"
+                            onError={(e) => {
+                              e.currentTarget.style.display = 'none'
+                            }}
+                          />
+                        ) : (
+                          <div className="w-5 h-5 rounded-full bg-gradient-to-br from-pink-500/20 via-accent/20 to-purple-500/20"></div>
+                        )
+                      })()}
+                    </div>
+                    <input
+                      type="text"
+                      value={fromAmount}
+                      onChange={(e) => handleAmountChange(e.target.value)}
+                      placeholder="0.0"
+                      className="bg-transparent border-0 text-base font-light text-gray-300 p-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none flex-1 min-w-0 appearance-none"
+                      style={{ backgroundColor: 'transparent', outline: 'none' }}
+                    />
+                    <span className="text-sm font-light text-gray-400 flex-shrink-0">{fromToken}</span>
                   </div>
-                  <input
-                    type="text"
-                    value={fromAmount}
-                    onChange={(e) => handleAmountChange(e.target.value)}
-                    placeholder="0.0"
-                    className="bg-transparent border-0 text-lg font-light text-gray-300 p-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none flex-1 min-w-0 w-full appearance-none"
-                    style={{ backgroundColor: 'transparent', outline: 'none' }}
-                  />
-                  <span className="text-sm font-light text-gray-400">{fromToken}</span>
-                </div>
               ) : (
                 <>
                   <div className="flex items-center justify-between mb-2">
@@ -207,7 +211,7 @@ export function LandingSwapWidget({
           </div>
 
           {/* Swap Button */}
-          <div className={controlled ? "flex items-center justify-center" : "flex justify-center relative z-10 -my-2 mt-4"}>
+          <div className={controlled ? "flex items-center justify-center flex-shrink-0" : "flex justify-center relative z-10 -my-2 mt-4"}>
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
@@ -222,14 +226,14 @@ export function LandingSwapWidget({
                   exit={{ rotate: 180, opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <ArrowUpDown className={`${controlled ? 'w-3 h-3' : 'w-4 h-4'} text-gray-300`} />
+                  <ArrowUpDown className={`${controlled ? 'w-3.5 h-3.5' : 'w-4 h-4'} text-gray-300`} />
                 </motion.div>
               </AnimatePresence>
             </motion.button>
           </div>
 
           {/* To Token */}
-          <div className={controlled ? "flex-1" : "space-y-2"}>
+          <div className={controlled ? "flex-1 min-w-0 overflow-hidden" : "space-y-2"}>
             {!controlled && <label className="text-xs text-gray-500 font-light">You receive</label>}
             <AnimatePresence mode="wait">
               <motion.div
@@ -242,7 +246,7 @@ export function LandingSwapWidget({
                 style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)' }}
               >
                 {controlled ? (
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 w-full min-w-0">
                     <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center overflow-hidden flex-shrink-0">
                       {(() => {
                         const tokenInfo = getTokenInfo(toToken.toLowerCase())
@@ -260,10 +264,10 @@ export function LandingSwapWidget({
                         )
                       })()}
                     </div>
-                    <div className={`text-lg font-light text-gray-300 flex-1 min-w-0 text-left ${isLoadingPrices || !exchangeRate ? 'blur-lg opacity-50' : ''}`}>
+                    <div className={`text-base font-light text-gray-300 flex-1 min-w-0 text-left ${isLoadingPrices || !exchangeRate ? 'opacity-50' : ''}`}>
                       {toAmount}
                     </div>
-                    <span className="text-sm font-light text-gray-400 flex-shrink-0">{toToken}</span>
+                    <span className="text-sm font-light text-gray-400 flex-shrink-0 ml-4">{toToken}</span>
                   </div>
                 ) : (
                   <>
@@ -327,7 +331,7 @@ export function LandingSwapWidget({
       <motion.div
         whileHover={{ scale: 1.01 }}
         transition={{ duration: 0.2 }}
-        className="glass-strong rounded-3xl border border-white/10"
+        className="glass-strong rounded-3xl"
       >
         {content}
       </motion.div>

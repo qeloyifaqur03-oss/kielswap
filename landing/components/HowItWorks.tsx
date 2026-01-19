@@ -1,70 +1,163 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useState, useEffect, useMemo, useCallback } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { LandingSwapWidget } from './LandingSwapWidget'
 import { useTokenPrices } from '@/hooks/useTokenPrices'
-import { Input } from '@/components/ui/input'
 import { Check } from 'lucide-react'
-import { calculateGuaranteedMinimum } from '@/lib/quoteFairness'
 
-// Outcome component for step 2
-function OutcomeSection({ 
-  toAmount, 
-  toToken, 
-  deadline, 
-  setDeadline 
-}: { 
-  toAmount: string | null
-  toToken: 'ETH' | 'USDT'
-  deadline: '5m' | '15m' | '30m' | 'custom'
-  setDeadline: (deadline: '5m' | '15m' | '30m' | 'custom') => void
-}) {
-  const guaranteedMinimum = useMemo(() => {
-    if (!toAmount || toAmount === '...' || parseFloat(toAmount) <= 0) return '0.00'
-    const safetyBps = 100 // Fixed at 1% maximum
-    return calculateGuaranteedMinimum(toAmount, safetyBps)
-  }, [toAmount])
+// Helper: Toggle component (moved outside to prevent re-creation)
+const Toggle = ({ isEnabled, onChange }: { isEnabled: boolean; onChange: (value: boolean) => void }) => (
+  <button
+    type="button"
+    onClick={() => onChange(!isEnabled)}
+    className={`relative w-11 h-6 rounded-full transition-all duration-300 ${
+      isEnabled
+        ? 'bg-gradient-to-r from-pink-500/40 via-accent/40 to-purple-500/40 shadow-lg shadow-pink-500/20'
+        : 'bg-white/5 border border-white/10 hover:border-white/20'
+    }`}
+  >
+    <div
+      className={`absolute top-0.5 w-5 h-5 rounded-full bg-white shadow-md transition-all duration-300 ${
+        isEnabled ? 'right-0.5' : 'left-0.5'
+      }`}
+    />
+  </button>
+)
+
+// Helper: SettingsRow component (moved outside to prevent re-creation)
+const SettingsRow = ({ label, children, control, className = '' }: { label: string; children?: React.ReactNode; control?: React.ReactNode; className?: string }) => (
+  <div className={`space-y-2 ${className}`}>
+    {control ? (
+      <div className="flex items-center justify-between">
+        <label className="text-xs text-gray-300 font-light">{label}</label>
+        {control}
+      </div>
+    ) : (
+      <label className="text-xs text-gray-300 font-light">{label}</label>
+    )}
+    {children}
+  </div>
+)
+
+// Intent Settings component for step 2 - compact version for landing
+function IntentSettingsSection() {
+  const [deadline, setDeadline] = useState('5')
+  const [enablePartialFills, setEnablePartialFills] = useState(false)
+  const [amountOfParts, setAmountOfParts] = useState('2')
+  const [customRecipient, setCustomRecipient] = useState(false)
+  const [recipientAddress, setRecipientAddress] = useState('')
 
   return (
-    <div className="glass rounded-2xl p-6 border border-white/10 w-full max-w-none scale-90 origin-center">
-      <h3 className="text-2xl font-light mb-2">Outcome</h3>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        {/* Guaranteed minimum */}
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <label className="text-xs text-gray-400 font-light">Guaranteed minimum</label>
-          </div>
-          <div className="relative pointer-events-auto">
-            <div className="bg-white/5 border border-white/10 rounded-xl px-4 py-2 text-sm min-h-[2.5rem] flex items-center">
-              <div className="flex-1">
-                {guaranteedMinimum}
+    <div className="relative glass rounded-3xl p-5 sm:p-6 w-full max-w-lg scale-[0.88] origin-center 
+                    bg-gradient-to-br from-white/[0.03] to-white/[0.01] 
+                    shadow-2xl shadow-black/50
+                    backdrop-blur-xl mx-auto">
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-pink-500/5 via-transparent to-purple-500/5 pointer-events-none" />
+      
+      <div className="relative z-10">
+        <h3 className="text-xl sm:text-2xl font-light mb-5 text-white/90 tracking-tight">Settings</h3>
+        
+        <div className="space-y-5">
+          {/* Deadline */}
+          <SettingsRow label="Deadline" className="mb-4">
+            <div className="space-y-2">
+              <div className="flex items-center gap-2">
+                <input
+                  type="number"
+                  value={deadline}
+                  onChange={(e) => {
+                    const value = e.target.value
+                    // Only allow whole numbers
+                    if (value === '' || /^\d+$/.test(value)) {
+                      setDeadline(value)
+                    }
+                  }}
+                  placeholder="5"
+                  className="flex-1 bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm placeholder:text-gray-500 
+                             focus:outline-none focus:border-pink-500/40 focus:bg-white/8 
+                             focus:ring-2 focus:ring-pink-500/20 
+                             transition-all duration-200
+                             hover:border-white/20"
+                  autoFocus={false}
+                />
+                <span className="text-xs text-gray-400 font-light">minutes</span>
               </div>
             </div>
-          </div>
-        </div>
+          </SettingsRow>
 
-        {/* Deadline */}
-        <div className="space-y-2">
-          <label className="text-xs text-gray-400 font-light">Deadline</label>
-          <div className="flex gap-2 flex-wrap">
-            {['5m', '15m', '30m', 'custom'].map((option) => (
-              <button
-                key={option}
-                onClick={() => setDeadline(option as any)}
-                className={`px-3 py-2 rounded-xl text-xs font-light transition-colors ${
-                  deadline === option
-                    ? 'bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 text-white shadow-lg shadow-accent/20'
-                    : 'bg-white/5 border border-white/10 text-gray-400 hover:bg-white/10'
-                }`}
-              >
-                {option === 'custom' ? 'Custom' : option}
-              </button>
-            ))}
-          </div>
-          <div className="text-xs text-gray-500 font-light">
-            Order expires after this time.
-          </div>
+          {/* Enable Partial Fills Toggle */}
+          <SettingsRow 
+            label="Enable partial fills"
+            className="mb-4"
+            control={
+              <Toggle
+                isEnabled={enablePartialFills}
+                onChange={setEnablePartialFills}
+              />
+            }
+          >
+            {/* Amount of Parts - only visible if partial fills enabled */}
+            {enablePartialFills && (
+              <div className="mt-3 space-y-2">
+                <label className="text-xs text-gray-300 font-light">Amount of parts</label>
+                <input
+                  type="number"
+                  value={amountOfParts}
+                  onChange={(e) => {
+                    const value = e.target.value
+                    // Only allow whole numbers, minimum 2
+                    if (value === '' || /^\d+$/.test(value)) {
+                      const num = parseInt(value, 10)
+                      // If value is empty or valid number >= 2, allow it
+                      if (value === '' || (num >= 2)) {
+                        setAmountOfParts(value)
+                      }
+                      // If user tries to enter 1, just ignore it (don't update state)
+                    }
+                  }}
+                  placeholder="2"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm placeholder:text-gray-500 
+                             focus:outline-none focus:border-pink-500/40 focus:bg-white/8 
+                             focus:ring-2 focus:ring-pink-500/20 
+                             transition-all duration-200
+                             hover:border-white/20"
+                  autoFocus={false}
+                />
+              </div>
+            )}
+          </SettingsRow>
+
+          {/* Custom Recipient Toggle */}
+          <SettingsRow 
+            label="Custom recipient"
+            className="mb-4"
+            control={
+              <Toggle
+                isEnabled={customRecipient}
+                onChange={setCustomRecipient}
+              />
+            }
+          >
+            {/* Recipient Address - only visible if custom recipient enabled */}
+            {customRecipient && (
+              <div className="mt-3 space-y-2">
+                <input
+                  type="text"
+                  value={recipientAddress}
+                  onChange={(e) => setRecipientAddress(e.target.value)}
+                  placeholder="Wallet address"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-2.5 text-white text-sm placeholder:text-gray-500 
+                             focus:outline-none focus:border-pink-500/40 focus:bg-white/8 
+                             focus:ring-2 focus:ring-pink-500/20 
+                             transition-all duration-200
+                             hover:border-white/20"
+                  autoFocus={false}
+                />
+              </div>
+            )}
+          </SettingsRow>
         </div>
       </div>
     </div>
@@ -144,35 +237,58 @@ function TrackingSection() {
   }, [])
 
   return (
-    <div className="glass rounded-2xl p-6 border border-white/10 w-full max-w-none scale-90 origin-center">
-      <h3 className="text-2xl font-light mb-4">Summary</h3>
-      <div className="w-full h-full bg-white/5 rounded-lg flex flex-col items-center justify-center text-gray-400 p-4 space-y-3">
-        <div className="text-sm text-gray-500 mb-2">Tracking timeline</div>
-        <div className="w-full space-y-2">
-          {timelineSteps.map((step, index) => {
-            const isCompleted = completedSteps.includes(index)
-            const isLoading = activeStep === index && !isCompleted
-            const isPending = !isCompleted && !isLoading
+    <div className="relative glass rounded-3xl p-5 sm:p-6 w-full max-w-lg scale-[0.88] origin-center
+                    bg-gradient-to-br from-white/[0.03] to-white/[0.01] 
+                    shadow-2xl shadow-black/50
+                    backdrop-blur-xl mx-auto">
+      {/* Subtle gradient overlay */}
+      <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-pink-500/5 via-transparent to-purple-500/5 pointer-events-none" />
+      
+      <div className="relative z-10">
+        <h3 className="text-xl sm:text-2xl font-light mb-5 text-white/90 tracking-tight">Summary</h3>
+        <div className="w-full h-full bg-gradient-to-br from-white/5 to-white/[0.02] rounded-2xl border border-white/10 
+                        flex flex-col items-start justify-center p-5 sm:p-6 space-y-4
+                        backdrop-blur-sm">
+          <div className="text-xs sm:text-sm text-gray-400 font-light mb-1 tracking-wide">Tracking timeline</div>
+          <div className="w-full space-y-3.5">
+            {timelineSteps.map((step, index) => {
+              const isCompleted = completedSteps.includes(index)
+              const isLoading = activeStep === index && !isCompleted
+              const isPending = !isCompleted && !isLoading
 
-            return (
-              <div key={step.id} className="flex items-center gap-3 text-sm">
-                <div className="relative w-5 h-5 flex items-center justify-center">
-                  {isCompleted ? (
-                    <div className="w-5 h-5 rounded-full bg-gradient-to-br from-pink-500/40 via-accent/40 to-purple-500/40 flex items-center justify-center">
-                      <Check className="w-3.5 h-3.5 text-white" />
-                    </div>
-                  ) : isLoading ? (
-                    <div className="w-3 h-3 rounded-full bg-gray-400 animate-pulse"></div>
-                  ) : (
-                    <div className="w-3 h-3 rounded-full bg-gray-500"></div>
-                  )}
+              return (
+                <div key={step.id} className="flex items-center gap-4 text-sm group">
+                  <div className="relative w-6 h-6 flex items-center justify-center flex-shrink-0">
+                    {isCompleted ? (
+                      <div className="w-6 h-6 rounded-full bg-gradient-to-br from-pink-500/50 via-accent/50 to-purple-500/50 
+                                   flex items-center justify-center shadow-lg shadow-pink-500/30
+                                   ring-2 ring-pink-500/20">
+                        <Check className="w-4 h-4 text-white" strokeWidth={2.5} />
+                      </div>
+                    ) : isLoading ? (
+                      <div className="relative w-5 h-5">
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-pink-500/40 via-accent/40 to-purple-500/40 
+                                      animate-pulse shadow-md shadow-pink-500/20"></div>
+                        <div className="absolute inset-1 rounded-full bg-white/20 animate-ping"></div>
+                      </div>
+                    ) : (
+                      <div className="w-4 h-4 rounded-full bg-white/10 
+                                    group-hover:bg-white/15 transition-colors duration-200"></div>
+                    )}
+                  </div>
+                  <span className={`font-light transition-all duration-300 ${
+                    isCompleted 
+                      ? 'text-white' 
+                      : isLoading 
+                        ? 'text-gray-200' 
+                        : 'text-gray-500 group-hover:text-gray-400'
+                  }`}>
+                    {step.label}
+                  </span>
                 </div>
-                <span className={isCompleted ? 'text-white' : isLoading ? 'text-gray-300' : 'text-gray-500'}>
-                  {step.label}
-                </span>
-              </div>
-            )
-          })}
+              )
+            })}
+          </div>
         </div>
       </div>
     </div>
@@ -184,7 +300,6 @@ export default function HowItWorks() {
   const [fromToken, setFromToken] = useState<'ETH' | 'USDT'>('ETH')
   const [toToken, setToToken] = useState<'ETH' | 'USDT'>('USDT')
   const [fromAmount, setFromAmount] = useState<string>('1')
-  const [deadline, setDeadline] = useState<'5m' | '15m' | '30m' | 'custom'>('15m')
 
   // Use React Query for optimized caching
   const { data: priceData } = useTokenPrices(['eth', 'usdt'])
@@ -218,21 +333,29 @@ export default function HowItWorks() {
       title: 'Choose what you pay',
       description: "Select the asset and network you're starting from.",
       component: (
-        <div className="scale-90 origin-center w-full">
-          <div className="glass rounded-2xl p-4 border border-white/10 w-full max-w-none">
-            <LandingSwapWidget 
-              controlled={true}
-              fromToken={fromToken}
-              toToken={toToken}
-              fromAmount={fromAmount}
-              onFromTokenChange={setFromToken}
-              onToTokenChange={setToToken}
-              onFromAmountChange={setFromAmount}
-              onToAmountChange={(amount) => {
-                // State is already updated via useMemo
-              }}
-              className="w-full"
-            />
+        <div className="scale-[0.88] origin-center w-full flex justify-center">
+          <div className="relative glass rounded-3xl p-5 sm:p-6 w-full max-w-lg
+                          bg-gradient-to-br from-white/[0.03] to-white/[0.01] 
+                          shadow-2xl shadow-black/50
+                          backdrop-blur-xl">
+            {/* Subtle gradient overlay */}
+            <div className="absolute inset-0 rounded-3xl bg-gradient-to-br from-pink-500/5 via-transparent to-purple-500/5 pointer-events-none" />
+            
+            <div className="relative z-10">
+              <LandingSwapWidget 
+                controlled={true}
+                fromToken={fromToken}
+                toToken={toToken}
+                fromAmount={fromAmount}
+                onFromTokenChange={setFromToken}
+                onToTokenChange={setToToken}
+                onFromAmountChange={setFromAmount}
+                onToAmountChange={(amount) => {
+                  // State is already updated via useMemo
+                }}
+                className="w-full"
+              />
+            </div>
           </div>
         </div>
       ),
@@ -240,15 +363,8 @@ export default function HowItWorks() {
     {
       number: '2',
       title: 'Set your constraints',
-      description: 'Set the minimum you want to receive and the time window for execution.',
-      component: (
-        <OutcomeSection 
-          toAmount={toAmount}
-          toToken={toToken}
-          deadline={deadline}
-          setDeadline={setDeadline}
-        />
-      ),
+      description: 'Configure execution parameters like deadline, partial fills, and recipient settings.',
+      component: <IntentSettingsSection />,
     },
     {
       number: '3',

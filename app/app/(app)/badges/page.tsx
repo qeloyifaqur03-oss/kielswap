@@ -174,12 +174,12 @@ export default function BadgesPage() {
   }
 
   return (
-    <div className="min-h-screen px-6 lg:px-10 py-12 md:py-16">
+    <div className="min-h-screen px-4 sm:px-6 lg:px-10 py-8 sm:py-12 md:py-16">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="mb-12 text-center">
-          <h1 className="text-4xl font-light text-white mb-3">Badges</h1>
-          <p className="text-sm text-gray-400 font-light max-w-md mx-auto">
+        <div className="mb-8 sm:mb-12 text-center">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-light text-white mb-2 sm:mb-3">Badges</h1>
+          <p className="text-xs sm:text-sm text-gray-400 font-light max-w-md mx-auto px-4">
             Your on-chain activity is reflected here
           </p>
         </div>
@@ -197,7 +197,7 @@ export default function BadgesPage() {
         )}
 
         {/* Badges Grid */}
-        <div className="flex justify-center items-center gap-4 mt-16 relative">
+        <div className="flex flex-wrap justify-center items-center gap-3 sm:gap-4 mt-8 sm:mt-12 md:mt-16 relative px-2">
           {badges.map((badge) => (
             <BadgeCard
               key={badge.id}

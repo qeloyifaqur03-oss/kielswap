@@ -20,19 +20,19 @@ export function ModeSelector({ currentMode }: ModeSelectorProps) {
   }
 
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-1 sm:gap-2">
       {modes.map((mode) => (
         <button
           key={mode.id}
           onClick={() => handleModeChange(mode.id)}
-          className={`relative px-4 py-2 rounded-xl text-sm font-light transition-all duration-200 ${
+          className={`relative px-2 sm:px-3 md:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl text-xs sm:text-sm font-light transition-all duration-200 ${
             currentMode === mode.id
               ? 'text-white'
               : 'text-gray-400 hover:text-gray-300'
           }`}
         >
           {currentMode === mode.id && (
-            <div className="absolute inset-0 bg-white/10 rounded-xl border border-white/20" />
+            <div className="absolute inset-0 bg-white/10 rounded-lg sm:rounded-xl border border-white/20" />
           )}
           <span className="relative z-10">{mode.label}</span>
         </button>

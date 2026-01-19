@@ -11,7 +11,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="glass rounded-2xl p-8 md:p-12 border border-white/10 text-center space-y-8"
+          className="glass rounded-2xl p-8 md:p-12 text-center space-y-8"
         >
           <div className="space-y-4">
             <h1 className="text-4xl md:text-5xl font-light">Get in touch</h1>
@@ -29,7 +29,7 @@ export default function Contact() {
               whileTap={{ scale: 0.95 }}
             >
               <Button
-                className="w-full sm:w-auto px-8 py-4 rounded-xl font-light glass border border-white/10 hover:border-pink-400/30 text-white transition-all duration-300"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl font-light glass hover:border-pink-400/30 text-white transition-all duration-300"
               >
                 Message on X
               </Button>
@@ -42,7 +42,7 @@ export default function Contact() {
               whileTap={{ scale: 0.95 }}
             >
               <Button
-                className="w-full sm:w-auto px-8 py-4 rounded-xl font-light glass border border-white/10 hover:border-pink-400/30 text-white transition-all duration-300"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl font-light glass hover:border-pink-400/30 text-white transition-all duration-300"
               >
                 Message on Telegram
               </Button>

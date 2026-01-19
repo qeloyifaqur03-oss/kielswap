@@ -67,7 +67,7 @@ export function AccessGate({ onAccessGranted }: { onAccessGranted: () => void })
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-          className="glass-strong rounded-2xl border border-white/10 shadow-xl p-8"
+          className="glass-strong rounded-2xl p-8"
         >
           <div className="text-center mb-8">
             <h1 className="text-2xl font-light text-white mb-2">

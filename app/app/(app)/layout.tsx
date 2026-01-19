@@ -185,24 +185,24 @@ export default function AppLayout({
         <div className="w-full">
           <div className="flex items-center justify-between h-16">
             {/* Logo - at left edge with minimal padding */}
-            <Link href={isAccessPage ? "/" : "/swap"} className="flex items-center h-full pl-0.5 sm:pl-1 md:pl-3">
+            <Link href={isAccessPage ? "/" : "/swap"} className="flex items-center h-full pl-2 sm:pl-3 md:pl-4 lg:pl-6">
               <Image
                 src="/kielswaplogo.png"
                 alt="Kielswap"
                 width={120}
                 height={40}
-                className="h-6 w-auto object-contain"
+                className="h-5 sm:h-6 w-auto object-contain"
                 priority
               />
             </Link>
             
             {/* Navigation Items - hidden on /access - at right edge with minimal padding */}
             {!isAccessPage && (
-              <div className="flex items-center gap-1 pr-0.5 sm:pr-1 md:pr-3">
+              <div className="flex items-center gap-0.5 sm:gap-1 md:gap-2 pr-2 sm:pr-3 md:pr-4 lg:pr-6">
                 {/* Swap */}
                 <Link
                   href="/swap"
-                  className="px-4 py-2 text-sm font-light rounded-lg transition-all duration-200 text-gray-400 hover:text-gray-300 hover:bg-white/5"
+                  className="px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm font-light rounded-lg transition-all duration-200 text-gray-400 hover:text-gray-300 hover:bg-white/5"
                 >
                   Swap
                 </Link>
@@ -210,7 +210,7 @@ export default function AppLayout({
                 {/* Badges */}
                 <Link
                   href="/badges"
-                  className="px-4 py-2 text-sm font-light rounded-lg transition-all duration-200 relative text-gray-400 hover:text-gray-300 hover:bg-white/5"
+                  className="px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm font-light rounded-lg transition-all duration-200 relative text-gray-400 hover:text-gray-300 hover:bg-white/5"
                 >
                   <span className={`relative ${hasBadges ? 'drop-shadow-[0_0_12px_rgba(236,72,153,0.6)] text-white' : ''}`}>
                     Badges
@@ -277,9 +277,10 @@ export default function AppLayout({
                 {!isConnected ? (
                   <button
                     onClick={handleConnectWallet}
-                    className="px-4 py-2 text-sm font-light rounded-lg bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 hover:from-pink-500/40 hover:via-accent/45 hover:to-purple-500/40 hover:border-pink-400/50 text-white transition-all duration-300 shadow-lg shadow-accent/20 hover:shadow-accent/30"
+                    className="px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm font-light rounded-lg bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 hover:from-pink-500/40 hover:via-accent/45 hover:to-purple-500/40 hover:border-pink-400/50 text-white transition-all duration-300 shadow-lg shadow-accent/20 hover:shadow-accent/30"
                   >
-                    Connect wallet
+                    <span className="hidden sm:inline">Connect wallet</span>
+                    <span className="sm:hidden">Connect</span>
                   </button>
                 ) : (
                   <InlineDropdown
@@ -289,10 +290,11 @@ export default function AppLayout({
                     trigger={
                       <button
                         type="button"
-                        className="px-4 py-2 text-sm font-light rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors flex items-center gap-2"
+                        className="px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm font-light rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors flex items-center gap-1 sm:gap-2"
                       >
-                        {formatAddress(address || '')}
-                        <ChevronDown className="w-3 h-3" />
+                        <span className="hidden md:inline">{formatAddress(address || '')}</span>
+                        <span className="md:hidden text-[10px] sm:text-xs">{address ? `${address.slice(0, 4)}...${address.slice(-2)}` : ''}</span>
+                        <ChevronDown className="w-3 h-3 hidden sm:block" />
                       </button>
                     }
                   >

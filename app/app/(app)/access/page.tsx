@@ -180,10 +180,10 @@ function AccessPageContent() {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-center mb-8 relative z-10"
           >
-            <h1 className="text-3xl md:text-4xl font-light mb-2">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-light mb-2">
               Access code
             </h1>
-            <p className="text-sm text-gray-400 font-light">
+            <p className="text-xs sm:text-sm text-gray-400 font-light">
               Enter your code to open the app.
             </p>
           </motion.div>

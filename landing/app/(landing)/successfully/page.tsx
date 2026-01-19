@@ -25,7 +25,7 @@ export default function SuccessfullyPage() {
         className="max-w-2xl w-full"
       >
         {/* Success Card */}
-        <div className="glass-strong rounded-3xl border border-white/10 p-8 md:p-12 space-y-8">
+        <div className="glass-strong rounded-3xl p-8 md:p-12 space-y-8">
           {/* Success Icon */}
           <motion.div
             initial={{ scale: 0 }}
@@ -56,7 +56,7 @@ export default function SuccessfullyPage() {
             className="space-y-6"
           >
             {/* From Token */}
-            <div className="glass rounded-2xl p-6 border border-white/5">
+            <div className="glass rounded-2xl p-6">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-sm text-gray-500 font-light">You paid</span>
                 <span className="text-xs text-gray-500">{network}</span>
@@ -98,7 +98,7 @@ export default function SuccessfullyPage() {
             </div>
 
             {/* To Token */}
-            <div className="glass rounded-2xl p-6 border border-white/5">
+            <div className="glass rounded-2xl p-6">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-sm text-gray-500 font-light">You received</span>
                 <span className="text-xs text-gray-500">{network}</span>

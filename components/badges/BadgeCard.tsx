@@ -132,7 +132,7 @@ export function BadgeCard({ badge, onClaim }: BadgeCardProps) {
                 <span className="flex items-center justify-center w-full h-full leading-[1] text-center">?</span>
               </button>
             </PopoverTrigger>
-            <PopoverContent className="w-64 p-4 glass-strong border border-white/10 rounded-xl" align="center">
+            <PopoverContent className="w-64 p-4 glass-strong rounded-xl" align="center">
               <h4 className="text-sm font-light text-white mb-3">How to unlock</h4>
               <ul className="space-y-2">
                 {EXPLORER_UNLOCK_CONDITIONS.map((condition, index) => (

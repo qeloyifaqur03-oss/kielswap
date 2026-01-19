@@ -126,10 +126,10 @@ export function TokenFrame({
             </div>
 
             {/* Token Symbol */}
-            <span className="text-white font-medium text-sm">{token.symbol}</span>
+            <span className="text-white font-medium text-xs sm:text-sm">{token.symbol}</span>
 
             {/* Chain Name */}
-            <span className="text-gray-400 text-xs">{token.chainName}</span>
+            <span className="text-gray-400 text-[10px] sm:text-xs hidden sm:inline">{token.chainName}</span>
 
             {/* Dropdown Arrow */}
             <ChevronDown className="w-4 h-4 text-gray-400" />
@@ -137,7 +137,7 @@ export function TokenFrame({
 
           {/* Token Select Dropdown - TODO: Implement full dropdown */}
           {isTokenSelectOpen && (
-            <div className="absolute right-0 mt-2 w-64 glass rounded-2xl p-2 border border-white/10 shadow-xl z-50">
+            <div className="absolute right-0 mt-2 w-64 glass rounded-2xl p-2 z-50">
               <div className="text-xs text-gray-500 p-2">Token selector coming soon</div>
             </div>
           )}

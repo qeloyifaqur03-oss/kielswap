@@ -327,7 +327,7 @@ export function SwapWindow() {
     <div className="w-full max-w-[538px] mx-auto space-y-4 px-4 sm:px-6 md:px-0">
       <div>
         {/* Main Swap Window */}
-        <div className="glass rounded-3xl p-4 sm:p-6 border border-white/10 shadow-2xl backdrop-blur-xl bg-[rgba(255,255,255,0.05)]">
+        <div className="glass rounded-3xl p-4 sm:p-6">
         {/* Mode Selector and Settings */}
         <div className="mb-4 flex items-center justify-between">
           <ModeSelector currentMode={mode} />
@@ -479,14 +479,14 @@ export function SwapWindow() {
           </button>
           
           {isSummaryOpen && (
-          <div className="mt-2 px-4 py-3 rounded-xl bg-white/5 border border-white/10 space-y-2 text-xs text-gray-400 font-light">
-            <div className="flex justify-between">
-              <span>You pay:</span>
-              <span className="text-white">{fromAmount} {fromToken.symbol} on {fromToken.chainName}</span>
+          <div className="mt-2 px-3 sm:px-4 py-2 sm:py-3 rounded-xl bg-white/5 border border-white/10 space-y-2 text-[10px] sm:text-xs text-gray-400 font-light">
+            <div className="flex justify-between items-start gap-2">
+              <span className="flex-shrink-0">You pay:</span>
+              <span className="text-white text-right break-words">{fromAmount} {fromToken.symbol} <span className="hidden sm:inline">on {fromToken.chainName}</span></span>
             </div>
-            <div className="flex justify-between">
-              <span>You receive:</span>
-              <span className="text-white">
+            <div className="flex justify-between items-start gap-2">
+              <span className="flex-shrink-0">You receive:</span>
+              <span className="text-white text-right break-words">
                 {(() => {
                   if (mode === 'limit' && targetPrice && parseFloat(targetPrice) > 0 && fromAmount && parseFloat(fromAmount) > 0) {
                     return `${(parseFloat(fromAmount) * parseFloat(targetPrice)).toFixed(6)} ${toToken.symbol} on ${toToken.chainName}`
@@ -500,15 +500,15 @@ export function SwapWindow() {
             {mode === 'intent' && (
               <>
                 {toAmount && parseFloat(toAmount) > 0 && (
-                  <div className="flex justify-between">
-                    <span>Minimum receive:</span>
-                    <span className="text-white">{(parseFloat(toAmount) * 0.995).toFixed(4)} {toToken.symbol}</span>
+                  <div className="flex justify-between items-start gap-2">
+                    <span className="flex-shrink-0">Minimum receive:</span>
+                    <span className="text-white text-right break-words">{(parseFloat(toAmount) * 0.995).toFixed(4)} {toToken.symbol}</span>
                   </div>
                 )}
                 {activeSettings.deadline && (
-                  <div className="flex justify-between">
-                    <span>Deadline:</span>
-                    <span className="text-white">{activeSettings.deadline}m</span>
+                  <div className="flex justify-between items-start gap-2">
+                    <span className="flex-shrink-0">Deadline:</span>
+                    <span className="text-white text-right">{activeSettings.deadline}m</span>
                   </div>
                 )}
               </>
@@ -516,9 +516,9 @@ export function SwapWindow() {
             
             {/* Instant mode specific */}
             {mode === 'instant' && activeSettings.slippage && (
-              <div className="flex justify-between">
-                <span>Slippage:</span>
-                <span className="text-white">{activeSettings.slippage}%</span>
+              <div className="flex justify-between items-start gap-2">
+                <span className="flex-shrink-0">Slippage:</span>
+                <span className="text-white text-right">{activeSettings.slippage}%</span>
               </div>
             )}
             
@@ -526,18 +526,18 @@ export function SwapWindow() {
             {mode === 'limit' && (
               <>
                 {activeSettings.expiration && (
-                  <div className="flex justify-between">
-                    <span>Expiration:</span>
-                    <span className="text-white">{activeSettings.expiration}</span>
+                  <div className="flex justify-between items-start gap-2">
+                    <span className="flex-shrink-0">Expiration:</span>
+                    <span className="text-white text-right">{activeSettings.expiration}</span>
                   </div>
                 )}
               </>
             )}
             
             {/* Recipient - показываем для всех модов */}
-            <div className="flex justify-between">
-              <span>Recipient:</span>
-              <span className="text-white">
+            <div className="flex justify-between items-start gap-2">
+              <span className="flex-shrink-0">Recipient:</span>
+              <span className="text-white text-right break-all">
                 {activeSettings.customRecipient && activeSettings.recipientAddress 
                   ? `${activeSettings.recipientAddress.slice(0, 6)}…${activeSettings.recipientAddress.slice(-4)}`
                   : 'Default'}
@@ -547,19 +547,19 @@ export function SwapWindow() {
             {/* Partial fills - показываем только для Intent и Limit, НЕ для Instant */}
             {activeSettings.enablePartialFills && mode !== 'instant' && (
               <>
-                <div className="flex justify-between">
-                  <span>Partial fills:</span>
-                  <span className="text-white">Enabled ({activeSettings.amountOfParts || '2'} parts)</span>
+                <div className="flex justify-between items-start gap-2">
+                  <span className="flex-shrink-0">Partial fills:</span>
+                  <span className="text-white text-right break-words">Enabled ({activeSettings.amountOfParts || '2'} parts)</span>
                 </div>
                 {fromAmount && parseFloat(fromAmount) > 0 && (
                   <>
-                    <div className="flex justify-between">
-                      <span>Sell per part (1/{activeSettings.amountOfParts || '2'}):</span>
-                      <span className="text-white">{(parseFloat(fromAmount) / parseInt(activeSettings.amountOfParts || '2')).toFixed(4)} {fromToken.symbol}</span>
+                    <div className="flex justify-between items-start gap-2">
+                      <span className="flex-shrink-0 text-[9px] sm:text-[10px]">Sell per part (1/{activeSettings.amountOfParts || '2'}):</span>
+                      <span className="text-white text-right break-words">{(parseFloat(fromAmount) / parseInt(activeSettings.amountOfParts || '2')).toFixed(4)} {fromToken.symbol}</span>
                     </div>
-                    <div className="flex justify-between">
-                      <span>Buy per part (1/{activeSettings.amountOfParts || '2'}):</span>
-                      <span className="text-white">
+                    <div className="flex justify-between items-start gap-2">
+                      <span className="flex-shrink-0 text-[9px] sm:text-[10px]">Buy per part (1/{activeSettings.amountOfParts || '2'}):</span>
+                      <span className="text-white text-right break-words">
                         {(() => {
                           const parts = parseInt(activeSettings.amountOfParts || '2')
                           if (mode === 'limit' && targetPrice && parseFloat(targetPrice) > 0 && fromAmount && parseFloat(fromAmount) > 0) {
@@ -577,9 +577,9 @@ export function SwapWindow() {
               </>
             )}
             
-            <div className="flex justify-between">
-              <span>Fees:</span>
-              <span className="text-white">Zero fees as beta tester</span>
+            <div className="flex justify-between items-start gap-2">
+              <span className="flex-shrink-0">Fees:</span>
+              <span className="text-white text-right break-words">Zero fees as beta tester</span>
             </div>
           </div>
           )}
@@ -591,7 +591,7 @@ export function SwapWindow() {
           console.log('Swap clicked')
         } : handleConnectWallet}
         disabled={isConnected && (!fromAmount || parseFloat(fromAmount) === 0 || !hasSufficientBalance)}
-        className="mt-4 w-full h-12 bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 hover:from-pink-500/40 hover:via-accent/45 hover:to-purple-500/40 hover:border-pink-400/50 text-white rounded-xl font-light transition-all duration-300 shadow-lg shadow-accent/20 hover:shadow-accent/30 disabled:opacity-50 disabled:cursor-not-allowed"
+        className="mt-4 w-full h-11 sm:h-12 text-sm sm:text-base bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 hover:from-pink-500/40 hover:via-accent/45 hover:to-purple-500/40 hover:border-pink-400/50 text-white rounded-xl font-light transition-all duration-300 shadow-lg shadow-accent/20 hover:shadow-accent/30 disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {isConnected ? 'Swap' : 'Connect wallet'}
       </button>

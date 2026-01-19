@@ -259,7 +259,7 @@ export default function KeyFeatures() {
                 viewport={{ once: true, margin: '-50px' }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 whileHover={{ scale: 1.02, y: -5 }}
-                className="glass rounded-2xl p-6 border border-white/5 hover:border-white/10 transition-all duration-300 group cursor-default"
+                className="glass rounded-2xl p-6 hover:border-white/30 transition-all duration-300 group cursor-default"
               >
                 {/* Icon */}
                 <motion.div

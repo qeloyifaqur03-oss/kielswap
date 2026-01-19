@@ -160,7 +160,7 @@ export function LandingSwapWidget({
     <motion.div
       whileHover={{ scale: controlled ? 1 : 1.01 }}
       transition={{ duration: 0.2 }}
-      className={`${controlled ? '' : 'glass-strong rounded-3xl border border-white/10'} ${controlled ? 'p-4' : 'p-6'} ${controlled ? 'space-y-2' : 'space-y-4'}`}
+      className={`${controlled ? '' : 'glass-strong rounded-3xl'} ${controlled ? 'p-4' : 'p-6'} ${controlled ? 'space-y-2' : 'space-y-4'}`}
     >
         {/* Header */}
         {!controlled && (
@@ -362,7 +362,7 @@ export function LandingSwapWidget({
       <motion.div
         whileHover={{ scale: 1.01 }}
         transition={{ duration: 0.2 }}
-        className="glass-strong rounded-3xl border border-white/10"
+        className="glass-strong rounded-3xl"
       >
         {content}
       </motion.div>

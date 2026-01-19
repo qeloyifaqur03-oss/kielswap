@@ -95,7 +95,7 @@ export default function RequestPage() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="glass rounded-2xl p-8 md:p-12 border border-white/10 text-center space-y-4"
+            className="glass rounded-2xl p-8 md:p-12 text-center space-y-4"
           >
             <h2 className="text-3xl md:text-4xl font-light mb-2">Request received</h2>
             <p className="text-gray-400 text-lg">
@@ -112,7 +112,7 @@ export default function RequestPage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="glass rounded-2xl p-8 md:p-12 border border-white/10"
+            className="glass rounded-2xl p-8 md:p-12"
           >
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -301,7 +301,7 @@ export default function RequestPage() {
                     checked={consent}
                     onChange={(e) => setConsent(e.target.checked)}
                     required
-                    className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-pink-400 focus:ring-pink-400/50 focus:ring-offset-0 cursor-pointer"
+                    className="mt-1 w-4 h-4 rounded border-white/20 bg-white/5 text-green-400 focus:ring-green-400/50 focus:ring-offset-0 cursor-pointer"
                   />
                   <label htmlFor="consent" className="text-sm text-gray-400 font-light cursor-pointer">
                     I agree to receive a message from Kielswap on X regarding Early Access.
