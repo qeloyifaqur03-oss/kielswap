@@ -139,21 +139,21 @@ export function LandingSwapWidget({
         )}
 
         {/* Swap Container - horizontal for controlled mode */}
-        <div className={controlled ? "flex flex-row items-center gap-2 overflow-hidden" : "flex flex-col gap-4"}>
+        <div className={controlled ? "flex flex-row items-center gap-2 max-md:gap-1.5 overflow-hidden" : "flex flex-col gap-4"}>
           {/* From Token */}
           <div className={controlled ? "flex-1 min-w-0 overflow-hidden" : "space-y-2"}>
             {!controlled && <label className="text-xs text-gray-500 font-light">You pay</label>}
-            <div className={`rounded-2xl ${controlled ? 'p-3' : 'p-4'}`} style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)' }}>
+            <div className={`rounded-2xl ${controlled ? 'p-3 max-md:p-2' : 'p-4'}`} style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)' }}>
               {controlled ? (
-                  <div className="flex items-center gap-2 w-full min-w-0">
-                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="flex items-center gap-2 max-md:gap-1.5 w-full min-w-0">
+                    <div className="w-8 h-8 max-md:w-6 max-md:h-6 rounded-full bg-white/5 flex items-center justify-center overflow-hidden flex-shrink-0">
                       {(() => {
                         const tokenInfo = getTokenInfo(fromToken.toLowerCase())
                         return tokenInfo?.icon ? (
                           <img
                             src={tokenInfo.icon}
                             alt={fromToken}
-                            className="w-5 h-5"
+                            className="w-5 h-5 max-md:w-4 max-md:h-4"
                             onError={(e) => {
                               e.currentTarget.style.display = 'none'
                             }}
@@ -168,10 +168,10 @@ export function LandingSwapWidget({
                       value={fromAmount}
                       onChange={(e) => handleAmountChange(e.target.value)}
                       placeholder="0.0"
-                      className="bg-transparent border-0 text-base font-light text-gray-300 p-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none flex-1 min-w-0 appearance-none"
+                      className="bg-transparent border-0 text-base max-md:text-sm font-light text-gray-300 p-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 focus-visible:outline-none flex-1 min-w-0 appearance-none"
                       style={{ backgroundColor: 'transparent', outline: 'none' }}
                     />
-                    <span className="text-sm font-light text-gray-400 flex-shrink-0">{fromToken}</span>
+                    <span className="text-sm max-md:text-xs font-light text-gray-400 flex-shrink-0">{fromToken}</span>
                   </div>
               ) : (
                 <>
@@ -216,7 +216,7 @@ export function LandingSwapWidget({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={handleSwap}
-              className={`${controlled ? 'w-7 h-7' : 'w-9 h-9'} rounded-full glass-strong border border-white/20 flex items-center justify-center hover:border-pink-400/50 transition-colors flex-shrink-0`}
+              className={`${controlled ? 'w-7 h-7 max-md:w-6 max-md:h-6' : 'w-9 h-9'} rounded-full glass-strong border border-white/20 flex items-center justify-center hover:border-pink-400/50 transition-colors flex-shrink-0`}
             >
               <AnimatePresence mode="wait">
                 <motion.div
@@ -226,7 +226,7 @@ export function LandingSwapWidget({
                   exit={{ rotate: 180, opacity: 0 }}
                   transition={{ duration: 0.3 }}
                 >
-                  <ArrowUpDown className={`${controlled ? 'w-3.5 h-3.5' : 'w-4 h-4'} text-gray-300`} />
+                  <ArrowUpDown className={`${controlled ? 'w-3.5 h-3.5 max-md:w-3 max-md:h-3' : 'w-4 h-4'} text-gray-300`} />
                 </motion.div>
               </AnimatePresence>
             </motion.button>
@@ -242,19 +242,19 @@ export function LandingSwapWidget({
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: controlled ? 0 : -10 }}
                 transition={{ duration: 0.2 }}
-                className={`rounded-2xl ${controlled ? 'p-3' : 'p-4'}`}
+                className={`rounded-2xl ${controlled ? 'p-3 max-md:p-2' : 'p-4'}`}
                 style={{ backgroundColor: 'rgba(255, 255, 255, 0.03)' }}
               >
                 {controlled ? (
-                  <div className="flex items-center gap-2 w-full min-w-0">
-                    <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center overflow-hidden flex-shrink-0">
+                  <div className="flex items-center gap-2 max-md:gap-1.5 w-full min-w-0">
+                    <div className="w-8 h-8 max-md:w-6 max-md:h-6 rounded-full bg-white/5 flex items-center justify-center overflow-hidden flex-shrink-0">
                       {(() => {
                         const tokenInfo = getTokenInfo(toToken.toLowerCase())
                         return tokenInfo?.icon ? (
                           <img
                             src={tokenInfo.icon}
                             alt={toToken}
-                            className="w-5 h-5"
+                            className="w-5 h-5 max-md:w-4 max-md:h-4"
                             onError={(e) => {
                               e.currentTarget.style.display = 'none'
                             }}
@@ -264,10 +264,10 @@ export function LandingSwapWidget({
                         )
                       })()}
                     </div>
-                    <div className={`text-base font-light text-gray-300 flex-1 min-w-0 text-left ${isLoadingPrices || !exchangeRate ? 'opacity-50' : ''}`}>
-                      {toAmount}
+                    <div className={`text-base max-md:text-sm font-light text-gray-300 flex-1 min-w-0 text-left overflow-hidden text-ellipsis ${isLoadingPrices || !exchangeRate ? 'opacity-50' : ''}`}>
+                      <span className="whitespace-nowrap">{toAmount}</span>
                     </div>
-                    <span className="text-sm font-light text-gray-400 flex-shrink-0 ml-4">{toToken}</span>
+                    <span className="text-sm max-md:text-xs font-light text-gray-400 flex-shrink-0 ml-2 max-md:ml-1">{toToken}</span>
                   </div>
                 ) : (
                   <>
