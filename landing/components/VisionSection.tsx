@@ -1,11 +1,13 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { MobileScaleCanvas } from './MobileScaleCanvas'
 
 export default function VisionSection() {
   return (
     <section className="relative z-10 px-4 max-md:px-4 md:px-12 py-16 max-md:py-12 md:py-32">
-      <div className="max-w-5xl mx-auto">
+      <MobileScaleCanvas designWidth={1200}>
+        <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -89,7 +91,8 @@ export default function VisionSection() {
             ))}
           </motion.div>
         </motion.div>
-      </div>
+        </div>
+      </MobileScaleCanvas>
     </section>
   )
 }

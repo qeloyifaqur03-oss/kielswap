@@ -5,6 +5,7 @@ import { useState, useEffect, useMemo } from 'react'
 import { LandingSwapWidget } from './LandingSwapWidget'
 import { useTokenPrices } from '@/hooks/useTokenPrices'
 import { Check } from 'lucide-react'
+import { MobileScaleCanvas } from './MobileScaleCanvas'
 
 // Helper: Toggle component (moved outside to prevent re-creation)
 const Toggle = ({ isEnabled, onChange }: { isEnabled: boolean; onChange: (value: boolean) => void }) => (
@@ -376,7 +377,8 @@ export default function HowItWorks() {
 
   return (
     <section className="relative z-10 px-4 max-md:px-4 md:px-12 py-16 max-md:py-12 md:py-32">
-      <div className="max-w-7xl mx-auto flex flex-col items-center">
+      <MobileScaleCanvas designWidth={1200}>
+        <div className="max-w-7xl mx-auto flex flex-col items-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -426,7 +428,8 @@ export default function HowItWorks() {
             </motion.div>
           ))}
         </div>
-      </div>
+        </div>
+      </MobileScaleCanvas>
     </section>
   )
 }

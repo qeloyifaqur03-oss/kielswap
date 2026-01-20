@@ -2,11 +2,13 @@
 
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
+import { MobileScaleCanvas } from './MobileScaleCanvas'
 
 export default function NewHero() {
   return (
     <section className="relative z-10 min-h-screen flex items-center justify-center px-4 max-md:px-4 md:px-12 py-12 max-md:py-8 md:py-20">
-      <div className="max-w-7xl mx-auto w-full">
+      <MobileScaleCanvas designWidth={1200}>
+        <div className="max-w-7xl mx-auto w-full">
         <div className="flex flex-col items-center text-center space-y-4 max-md:space-y-4 md:space-y-6">
           {/* Text Content - Centered */}
           <motion.div
@@ -85,7 +87,8 @@ export default function NewHero() {
             </a>
           </motion.div>
         </div>
-      </div>
+        </div>
+      </MobileScaleCanvas>
     </section>
   )
 }

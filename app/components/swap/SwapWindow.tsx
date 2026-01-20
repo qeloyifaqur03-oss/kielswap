@@ -12,6 +12,7 @@ import { IntentMode } from './modes/IntentMode'
 import { InstantMode } from './modes/InstantMode'
 import { LimitMode } from './modes/LimitMode'
 import { SUPPORTED_TOKENS, SUPPORTED_NETWORKS } from '@/lib/supportedAssets'
+import { MobileScaleCanvas } from '@/components/MobileScaleCanvas'
 
 export function SwapWindow() {
   const searchParams = useSearchParams()
@@ -324,10 +325,11 @@ export function SwapWindow() {
   }
 
   return (
-    <div className="w-full max-w-[538px] mx-auto space-y-4 px-4 sm:px-6 md:px-0">
-      <div>
-        {/* Main Swap Window */}
-        <div className="glass rounded-3xl p-4 sm:p-6 max-md:p-4">
+    <MobileScaleCanvas designWidth={1200}>
+      <div className="w-full max-w-[538px] mx-auto space-y-4 px-4 sm:px-6 md:px-0">
+        <div>
+          {/* Main Swap Window */}
+          <div className="glass rounded-3xl p-4 sm:p-6 max-md:p-4">
         {/* Mode Selector and Settings */}
         <div className="mb-4 flex items-center justify-between">
           <ModeSelector currentMode={mode} />
@@ -600,6 +602,7 @@ export function SwapWindow() {
         {isConnected ? 'Swap' : 'Connect wallet'}
       </button>
       </div>
-    </div>
+      </div>
+    </MobileScaleCanvas>
   )
 }

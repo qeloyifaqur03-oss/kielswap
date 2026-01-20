@@ -3,11 +3,13 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
+import { MobileScaleCanvas } from './MobileScaleCanvas'
 
 export default function EarlyAccessSection() {
   return (
     <section className="relative z-10 px-4 max-md:px-4 md:px-12 py-16 max-md:py-12 md:py-32">
-      <div className="max-w-4xl mx-auto text-center">
+      <MobileScaleCanvas designWidth={1200}>
+        <div className="max-w-4xl mx-auto text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -55,7 +57,8 @@ export default function EarlyAccessSection() {
             </Link>
           </motion.div>
         </motion.div>
-      </div>
+        </div>
+      </MobileScaleCanvas>
     </section>
   )
 }
