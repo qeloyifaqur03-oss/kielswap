@@ -35,7 +35,7 @@ export default function ReferralPage() {
 
           {!isConnected ? (
             <div className="space-y-4">
-              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <div className="relative rounded-xl p-6 border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-xl before:-z-10">
                 <div className="text-center mb-4">
                   <p className="text-xs text-gray-500 font-light mb-2">Status</p>
                   <p className="text-sm text-gray-400 font-light">Locked</p>
@@ -63,7 +63,7 @@ export default function ReferralPage() {
           ) : (
             <div className="space-y-6">
               {/* Locked State */}
-              <div className="bg-white/5 rounded-xl p-6 border border-white/10">
+              <div className="relative rounded-xl p-6 border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-xl before:-z-10">
                 <div className="text-center mb-4">
                   <p className="text-xs text-gray-500 font-light mb-2">Status</p>
                   <p className="text-sm text-gray-400 font-light">Locked</p>

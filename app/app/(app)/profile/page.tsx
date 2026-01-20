@@ -154,7 +154,7 @@ export default function ProfilePage() {
         {/* Credits Section */}
         <div className="glass rounded-3xl p-6">
           <h2 className="text-lg font-light text-white mb-4">Credits</h2>
-          <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+          <div className="relative rounded-xl p-4 border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-xl before:-z-10">
             <p className="text-sm text-gray-400 font-light mb-1">Beta credits</p>
             <p className="text-2xl font-light text-white bg-gradient-to-r from-pink-400 via-accent to-purple-400 bg-clip-text text-transparent">$100</p>
           </div>
@@ -164,11 +164,11 @@ export default function ProfilePage() {
         <div className="glass rounded-2xl sm:rounded-3xl p-4 sm:p-6">
           <h2 className="text-base sm:text-lg font-light text-white mb-3 sm:mb-4">Activity</h2>
           <div className="grid grid-cols-2 gap-3 sm:gap-4">
-            <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+            <div className="relative rounded-xl p-4 border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-xl before:-z-10">
               <p className="text-xs text-gray-500 font-light mb-1">Swaps count</p>
               <p className="text-xl font-light text-white">0</p>
             </div>
-            <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+            <div className="relative rounded-xl p-4 border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-xl before:-z-10">
               <p className="text-xs text-gray-500 font-light mb-1">Total volume</p>
               <p className="text-xl font-light text-white">$0</p>
             </div>
