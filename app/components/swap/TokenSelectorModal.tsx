@@ -220,7 +220,7 @@ export function TokenSelectorModal({
             handleNetworkSelect(network.id)
           }
         }}
-        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left bg-white/5 hover:bg-white/10 transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/20"
+        className="relative w-full flex items-center gap-3 px-3 py-2.5 max-md:px-4 max-md:py-4 rounded-lg text-left transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/20 bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10 hover:before:from-pink-500/6 hover:before:to-purple-500/6"
       >
         {(() => {
           const networkIcon = getNetworkIconUrl(network.id)
@@ -279,7 +279,7 @@ export function TokenSelectorModal({
             handleTokenClick()
           }
         }}
-        className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left bg-white/5 hover:bg-white/10 transition-colors group cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/20"
+        className="relative w-full flex items-center gap-3 px-3 py-2.5 max-md:px-4 max-md:py-4 rounded-lg text-left transition-colors group cursor-pointer focus:outline-none focus:ring-2 focus:ring-white/20 bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10 hover:before:from-pink-500/6 hover:before:to-purple-500/6"
       >
         {(() => {
           const tokenIcon = getTokenIconUrl(token.id)
@@ -317,164 +317,168 @@ export function TokenSelectorModal({
 
   return (
     <Dialog open={open} onOpenChange={(isOpen) => !isOpen && onClose()}>
-      <DialogContent className="w-[95vw] sm:w-[90vw] md:w-[80vw] max-w-6xl h-[90vh] sm:h-[85vh] md:h-[80vh] max-h-[800px] p-4 sm:p-6 flex flex-col bg-[rgba(255,255,255,0.05)]">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl sm:text-2xl font-light text-white">Select Token</h2>
-        </div>
-        
-        {/* Search */}
-        <div className="mb-4">
-          <input
-            type="text"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            placeholder="Search token or network"
-            className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-white text-sm placeholder:text-gray-500 focus:outline-none focus:border-white/20 transition-colors"
-            autoFocus
-          />
-        </div>
-        
-        {/* Selected Network Pill - only show when not searching */}
-        {selectedNetwork && !search && (
+      <DialogContent className="w-[95vw] sm:w-[90vw] md:w-[80vw] max-w-6xl h-[90vh] sm:h-[85vh] md:h-[80vh] max-h-[800px] max-md:w-full max-md:h-full max-md:max-h-none max-md:max-w-none max-md:rounded-none p-0 overflow-hidden bg-transparent border-0">
+        <div className="relative w-full h-full p-4 sm:p-6 flex flex-col bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-3xl before:-z-10">
+          {/* Header */}
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl sm:text-2xl font-light text-white">Select Token</h2>
+          </div>
+          
+          {/* Search */}
           <div className="mb-4">
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-white/5 border border-white/10 rounded-lg">
-              {(() => {
-                const networkIcon = getNetworkIconUrl(selectedNetwork.id)
-                return networkIcon ? (
-                  <TokenIcon
-                    src={networkIcon}
-                    alt={selectedNetwork.name}
-                    width={16}
-                    height={16}
-                    className="w-4 h-4"
-                  />
-                ) : null
-              })()}
-              <span className="text-xs text-gray-400 font-light">{selectedNetwork.name}</span>
+            <div className="relative w-full rounded-xl bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-xl before:-z-10 border border-white/10">
+              <input
+                type="text"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                placeholder="Search token or network"
+                className="w-full bg-transparent border-0 rounded-xl px-4 py-3 text-white text-sm placeholder:text-gray-500 focus:outline-none transition-colors"
+                autoFocus
+              />
             </div>
           </div>
-        )}
-        
-        {/* Search Results Mode - Single Column */}
-        {search ? (
-          <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-white/30 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]">
-            <div className="space-y-4">
-              {/* Networks Section */}
-              {filteredNetworks.length > 0 && (
-                <div>
-                  <h3 className="text-xs text-gray-500 font-light mb-2 px-2">Networks</h3>
-                  <div className="space-y-1">
-                    {filteredNetworks.map((network) => (
-                      <NetworkRow key={network.id} network={network} />
-                    ))}
-                  </div>
-                </div>
-              )}
-              
-              {/* Tokens Section */}
-              {expandedTokensForSearch.length > 0 && (
-                <div>
-                  <h3 className="text-xs text-gray-500 font-light mb-2 px-2">Tokens</h3>
-                  <div className="space-y-1">
-                    {expandedTokensForSearch.map(({ token, displayNetworkId }, index) => (
-                      <TokenRow 
-                        key={`${token.id}-${displayNetworkId}-${index}`} 
-                        token={token} 
-                        displayNetworkId={displayNetworkId}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-              
-              {/* Empty State */}
-              {filteredNetworks.length === 0 && expandedTokensForSearch.length === 0 && (
-                <div className="text-center py-12">
-                  <p className="text-sm text-gray-500 font-light">No results found</p>
-                </div>
-              )}
-            </div>
-          </div>
-        ) : (
-          /* Normal Mode - Two Columns: Networks (left) and Tokens (right) */
-          <div className="flex-1 grid grid-cols-1 md:grid-cols-[280px_1fr] gap-4 overflow-hidden">
-            {/* Networks Column */}
-            <div className="overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-white/30 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]">
-              <div className="space-y-1">
-                {networks.map((network) => (
-                  <button
-                    key={network.id}
-                    type="button"
-                    onClick={() => handleNetworkSelect(network.id)}
-                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-left transition-colors ${
-                      localSelectedNetworkId === network.id
-                        ? 'bg-white/10 text-white'
-                        : 'bg-white/5 text-gray-400 hover:bg-white/10 hover:text-gray-300'
-                    }`}
-                  >
-                    {(() => {
-                      const networkIcon = getNetworkIconUrl(network.id)
-                      return networkIcon ? (
-                        <TokenIcon
-                          src={networkIcon}
-                          alt={network.name}
-                          width={20}
-                          height={20}
-                          className="w-5 h-5"
-                        />
-                      ) : null
-                    })()}
-                    <span className="text-sm font-light">{network.name}</span>
-                  </button>
-                ))}
+          
+          {/* Selected Network Pill - only show when not searching */}
+          {selectedNetwork && !search && (
+            <div className="mb-4">
+              <div className="relative inline-flex items-center gap-2 px-3 py-1.5 border border-white/10 rounded-lg bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10">
+                {(() => {
+                  const networkIcon = getNetworkIconUrl(selectedNetwork.id)
+                  return networkIcon ? (
+                    <TokenIcon
+                      src={networkIcon}
+                      alt={selectedNetwork.name}
+                      width={16}
+                      height={16}
+                      className="w-4 h-4"
+                    />
+                  ) : null
+                })()}
+                <span className="text-xs text-gray-400 font-light">{selectedNetwork.name}</span>
               </div>
             </div>
-            
-            {/* Tokens Column */}
-            <div className="overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-white/30 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]">
-              {/* Starred Section */}
-              {starredFiltered.length > 0 && (
-                <div className={starredFiltered.length > 0 && recentFiltered.length === 0 && fullList.length === 0 ? '' : 'mb-4'}>
-                  <h3 className="text-xs text-gray-500 font-light mb-2 px-2">Starred</h3>
-                  <div className="space-y-1">
-                    {starredFiltered.map((token) => (
-                      <TokenRow key={token.id} token={token} />
-                    ))}
+          )}
+          
+          {/* Search Results Mode - Single Column */}
+          {search ? (
+            <div className="flex-1 overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-white/30 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]">
+              <div className="space-y-4">
+                {/* Networks Section */}
+                {filteredNetworks.length > 0 && (
+                  <div>
+                    <h3 className="text-xs text-gray-500 font-light mb-2 px-2">Networks</h3>
+                    <div className="space-y-1">
+                      {filteredNetworks.map((network) => (
+                        <NetworkRow key={network.id} network={network} />
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
-              
-              {/* Recents Section */}
-              {recentFiltered.length > 0 && (
-                <div className={recentFiltered.length > 0 && fullList.length === 0 && starredFiltered.length === 0 ? '' : 'mb-4'}>
-                  <h3 className="text-xs text-gray-500 font-light mb-2 px-2">Recents</h3>
-                  <div className="space-y-1">
-                    {recentFiltered.map((token) => (
-                      <TokenRow key={token.id} token={token} />
-                    ))}
+                )}
+                
+                {/* Tokens Section */}
+                {expandedTokensForSearch.length > 0 && (
+                  <div>
+                    <h3 className="text-xs text-gray-500 font-light mb-2 px-2">Tokens</h3>
+                    <div className="space-y-1">
+                      {expandedTokensForSearch.map(({ token, displayNetworkId }, index) => (
+                        <TokenRow 
+                          key={`${token.id}-${displayNetworkId}-${index}`} 
+                          token={token} 
+                          displayNetworkId={displayNetworkId}
+                        />
+                      ))}
+                    </div>
                   </div>
-                </div>
-              )}
-              
-              {/* Full List Section */}
-              {fullList.length > 0 && (
+                )}
+                
+                {/* Empty State */}
+                {filteredNetworks.length === 0 && expandedTokensForSearch.length === 0 && (
+                  <div className="text-center py-12">
+                    <p className="text-sm text-gray-500 font-light">No results found</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          ) : (
+            /* Normal Mode - Two Columns: Networks (left) and Tokens (right) */
+            <div className="flex-1 grid grid-cols-1 md:grid-cols-[280px_1fr] gap-4 overflow-hidden">
+              {/* Networks Column */}
+              <div className="overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-white/30 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]">
                 <div className="space-y-1">
-                  {fullList.map((token) => (
-                    <TokenRow key={token.id} token={token} />
+                  {networks.map((network) => (
+                    <button
+                      key={network.id}
+                      type="button"
+                      onClick={() => handleNetworkSelect(network.id)}
+                      className={`relative w-full flex items-center gap-3 px-3 py-2.5 max-md:px-4 max-md:py-4 rounded-lg text-left transition-colors ${
+                        localSelectedNetworkId === network.id
+                          ? 'text-white bg-gradient-to-br from-white/[0.06] to-white/[0.03] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/6 before:via-transparent before:to-purple-500/6 before:rounded-lg before:-z-10'
+                          : 'text-gray-400 hover:text-gray-300 bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10 hover:before:from-pink-500/6 hover:before:to-purple-500/6'
+                      }`}
+                    >
+                      {(() => {
+                        const networkIcon = getNetworkIconUrl(network.id)
+                        return networkIcon ? (
+                          <TokenIcon
+                            src={networkIcon}
+                            alt={network.name}
+                            width={20}
+                            height={20}
+                            className="w-5 h-5"
+                          />
+                        ) : null
+                      })()}
+                      <span className="text-sm font-light">{network.name}</span>
+                    </button>
                   ))}
                 </div>
-              )}
+              </div>
               
-              {/* Empty State */}
-              {filteredTokens.length === 0 && (
-                <div className="text-center py-12">
-                  <p className="text-sm text-gray-500 font-light">No tokens found</p>
-                </div>
-              )}
+              {/* Tokens Column */}
+              <div className="overflow-y-auto [&::-webkit-scrollbar]:w-2 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-white/20 [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-white/30 [scrollbar-width:thin] [scrollbar-color:rgba(255,255,255,0.2)_transparent]">
+                {/* Starred Section */}
+                {starredFiltered.length > 0 && (
+                  <div className={starredFiltered.length > 0 && recentFiltered.length === 0 && fullList.length === 0 ? '' : 'mb-4'}>
+                    <h3 className="text-xs text-gray-500 font-light mb-2 px-2">Starred</h3>
+                    <div className="space-y-1">
+                      {starredFiltered.map((token) => (
+                        <TokenRow key={token.id} token={token} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Recents Section */}
+                {recentFiltered.length > 0 && (
+                  <div className={recentFiltered.length > 0 && fullList.length === 0 && starredFiltered.length === 0 ? '' : 'mb-4'}>
+                    <h3 className="text-xs text-gray-500 font-light mb-2 px-2">Recents</h3>
+                    <div className="space-y-1">
+                      {recentFiltered.map((token) => (
+                        <TokenRow key={token.id} token={token} />
+                      ))}
+                    </div>
+                  </div>
+                )}
+                
+                {/* Full List Section */}
+                {fullList.length > 0 && (
+                  <div className="space-y-1">
+                    {fullList.map((token) => (
+                      <TokenRow key={token.id} token={token} />
+                    ))}
+                  </div>
+                )}
+                
+                {/* Empty State */}
+                {filteredTokens.length === 0 && (
+                  <div className="text-center py-12">
+                    <p className="text-sm text-gray-500 font-light">No tokens found</p>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </DialogContent>
     </Dialog>
   )

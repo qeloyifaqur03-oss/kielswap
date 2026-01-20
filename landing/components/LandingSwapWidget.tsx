@@ -129,12 +129,12 @@ export function LandingSwapWidget({
     <motion.div
       whileHover={{ scale: controlled ? 1 : 1.01 }}
       transition={{ duration: 0.2 }}
-      className={`${controlled ? '' : 'glass-strong rounded-3xl'} ${controlled ? 'p-4' : 'p-6'} ${controlled ? 'space-y-2' : 'space-y-4'}`}
+      className={`${controlled ? '' : 'glass-strong rounded-3xl'} ${controlled ? 'p-4 max-md:p-3' : 'p-6 max-md:p-4'} ${controlled ? 'space-y-2' : 'space-y-4 max-md:space-y-3'}`}
     >
         {/* Header */}
         {!controlled && (
-          <div className="text-center mb-6">
-            <h3 className="text-2xl font-light">Swap tokens</h3>
+          <div className="text-center mb-4 max-md:mb-4 md:mb-6">
+            <h3 className="text-xl max-md:text-xl md:text-2xl font-light">Swap tokens</h3>
           </div>
         )}
 

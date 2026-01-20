@@ -56,7 +56,7 @@ export function TokenFrame({
   const { formatted: balance, isLoading: isLoadingBalance } = useTokenBalance(tokenId, token.chainId)
 
   return (
-    <div className="bg-white/5 rounded-2xl p-3 sm:p-4 border border-white/10">
+    <div className="relative rounded-2xl p-3 sm:p-4 border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-2xl before:-z-10">
       {/* Label and Balance */}
       <div className="mb-3 flex items-center justify-between">
         <span className="text-xs text-gray-500 font-light">{label}</span>
@@ -70,7 +70,7 @@ export function TokenFrame({
       {/* Amount and Token Selector */}
       <div className="flex items-center gap-3">
         {/* Amount Input */}
-        <div className="flex-1 flex items-center h-[42px] bg-white/3 border border-white/10 rounded-xl px-4">
+        <div className="relative flex-1 flex items-center h-[42px] rounded-xl px-4 border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-xl before:-z-10">
           <input
             type="text"
             value={amount}
@@ -97,7 +97,7 @@ export function TokenFrame({
         <div className="relative">
           <button
             onClick={() => setIsTokenSelectOpen(!isTokenSelectOpen)}
-            className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+            className="relative flex items-center gap-2 px-3 py-2 rounded-xl border border-white/10 hover:border-white/20 transition-colors bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-xl before:-z-10"
           >
             {/* Token and Chain Icons */}
             <div className="relative flex items-center justify-center flex-shrink-0">

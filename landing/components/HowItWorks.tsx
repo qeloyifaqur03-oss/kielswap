@@ -375,20 +375,20 @@ export default function HowItWorks() {
   ]
 
   return (
-    <section className="relative z-10 px-6 md:px-12 py-32">
+    <section className="relative z-10 px-4 max-md:px-4 md:px-12 py-16 max-md:py-12 md:py-32">
       <div className="max-w-7xl mx-auto flex flex-col items-center">
         <motion.h2
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="text-4xl md:text-5xl font-light mb-20 text-center"
+          className="text-2xl max-md:text-2xl md:text-5xl font-light mb-12 max-md:mb-12 md:mb-20 text-center"
         >
           How it works
         </motion.h2>
 
         {/* 3 Vertical Rows - Each step with its interactive component */}
-        <div className="space-y-24 w-full">
+        <div className="space-y-12 max-md:space-y-12 md:space-y-24 w-full">
           {steps.map((step, index) => (
             <motion.div
               key={step.number}
@@ -396,21 +396,21 @@ export default function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-100px' }}
               transition={{ duration: 0.7, delay: index * 0.1 }}
-              className="flex flex-col md:flex-row gap-8 md:gap-12 items-center"
+              className="flex flex-col max-md:flex-col md:flex-row gap-6 max-md:gap-6 md:gap-12 items-center"
             >
               {/* Left: Step Number */}
               <motion.div
                 whileHover={{ scale: 1.1, rotate: 5 }}
                 transition={{ duration: 0.2 }}
-                className="flex-shrink-0 w-20 h-20 rounded-full bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 flex items-center justify-center text-white text-3xl font-light border border-pink-400/30 shadow-lg shadow-accent/20"
+                className="flex-shrink-0 w-16 max-md:w-16 md:w-20 h-16 max-md:h-16 md:h-20 rounded-full bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 flex items-center justify-center text-white text-2xl max-md:text-2xl md:text-3xl font-light border border-pink-400/30 shadow-lg shadow-accent/20"
               >
                 {step.number}
               </motion.div>
 
               {/* Center: Step Title + Description */}
-              <div className="flex-1 max-w-lg">
-                <h3 className="text-3xl md:text-4xl font-light mb-4">{step.title}</h3>
-                <p className="text-gray-400 text-lg">{step.description}</p>
+              <div className="flex-1 max-w-lg text-center max-md:text-center md:text-left">
+                <h3 className="text-xl max-md:text-xl md:text-4xl font-light mb-3 max-md:mb-3 md:mb-4">{step.title}</h3>
+                <p className="text-gray-400 text-base max-md:text-base md:text-lg">{step.description}</p>
               </div>
 
               {/* Right: Interactive Component - unified width container */}

@@ -61,10 +61,17 @@ export function InlineSettingsMenu({
   const menuRef = useRef<HTMLDivElement>(null)
   const [panelPosition, setPanelPosition] = useState<{ top: number; right: number } | null>(null)
   const [mounted, setMounted] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
-  // Set mounted on client side
+  // Set mounted on client side and detect mobile
   useEffect(() => {
     setMounted(true)
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
   // Load settings from localStorage on mount
@@ -377,6 +384,13 @@ export function InlineSettingsMenu({
     const calculatePosition = () => {
       if (!containerRef.current) return
 
+      // On mobile (≤768px), use bottom sheet - no position calculation needed
+      if (isMobile) {
+        setPanelPosition({ top: 0, right: 0 }) // Dummy position, will be overridden by CSS
+        return
+      }
+
+      // Desktop: calculate position relative to trigger
       const rect = containerRef.current.getBoundingClientRect()
       const panelWidth = 288 // w-72 = 18rem = 288px
       const spacing = 8 // gap between trigger and panel
@@ -390,14 +404,14 @@ export function InlineSettingsMenu({
     calculatePosition()
     
     // Recalculate on resize/scroll
-    window.addEventListener('resize', calculatePosition)
-    window.addEventListener('scroll', calculatePosition, true)
+      window.addEventListener('resize', calculatePosition)
+      window.addEventListener('scroll', calculatePosition, true)
 
     return () => {
       window.removeEventListener('resize', calculatePosition)
       window.removeEventListener('scroll', calculatePosition, true)
     }
-  }, [open])
+  }, [open, isMobile])
 
   // Close on Esc key
   useEffect(() => {
@@ -560,15 +574,19 @@ export function InlineSettingsMenu({
                   <motion.div
                     key="settings-panel"
                     ref={menuRef}
-                    initial={{ y: -8, scale: 0.95, opacity: 0 }}
-                    animate={{ y: 0, scale: 1, opacity: 1 }}
-                    exit={{ opacity: 0 }}
+                    initial={isMobile ? { y: '100%', opacity: 0 } : { y: -8, scale: 0.95, opacity: 0 }}
+                    animate={isMobile ? { y: 0, opacity: 1 } : { y: 0, scale: 1, opacity: 1 }}
+                    exit={isMobile ? { y: '100%', opacity: 0 } : { opacity: 0 }}
                     transition={{
-                      duration: 0.2,
+                      duration: 0.3,
                       ease: [0.16, 1, 0.3, 1],
                     }}
                     layout={false}
-                    className="fixed z-[10001] w-72 rounded-3xl p-6 settings-menu-fixed-bg"
+                    className={`fixed z-[10001] settings-menu-fixed-bg ${
+                      isMobile 
+                        ? 'w-full max-w-none left-0 right-0 bottom-0 rounded-t-3xl rounded-b-none p-6 max-h-[90vh] overflow-y-auto' 
+                        : 'w-72 rounded-3xl p-6'
+                    }`}
                     data-settings-menu="true"
                     style={{ 
                       backgroundColor: 'rgba(10, 10, 12, 1)',
@@ -576,8 +594,10 @@ export function InlineSettingsMenu({
                       backgroundClip: 'border-box',
                       opacity: 1,
                       pointerEvents: 'auto',
-                      top: `${panelPosition.top}px`,
-                      right: `${panelPosition.right}px`,
+                      ...(!isMobile ? {
+                        top: `${panelPosition.top}px`,
+                        right: `${panelPosition.right}px`,
+                      } : {}),
                     } as React.CSSProperties}
                     onClick={(e) => {
                       // Stop propagation to prevent click from reaching overlay
@@ -603,28 +623,30 @@ export function InlineSettingsMenu({
                 <SettingsRow label="Deadline" className="mb-4">
                   <div className="space-y-2">
                     <div className="flex items-center gap-2">
-                      <input
-                        type="number"
-                        value={localDeadline}
-                        onChange={(e) => {
-                          const value = e.target.value
-                          // Only allow whole numbers
-                          if (value === '' || /^\d+$/.test(value)) {
-                            setLocalDeadline(value)
-                            // Clear error on input
-                            if (errors.deadline) {
-                              const error = validateDeadline(value)
-                              setErrors(prev => ({ ...prev, deadline: error }))
+                      <div className="relative flex-1 rounded-lg bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10">
+                        <input
+                          type="number"
+                          value={localDeadline}
+                          onChange={(e) => {
+                            const value = e.target.value
+                            // Only allow whole numbers
+                            if (value === '' || /^\d+$/.test(value)) {
+                              setLocalDeadline(value)
+                              // Clear error on input
+                              if (errors.deadline) {
+                                const error = validateDeadline(value)
+                                setErrors(prev => ({ ...prev, deadline: error }))
+                              }
                             }
-                          }
-                        }}
-                        placeholder="5"
-                        className={`flex-1 bg-white/5 border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
-                          errors.deadline 
-                            ? 'border-red-500/50 focus:border-red-500' 
-                            : 'border-white/10 focus:border-white/20'
-                        }`}
-                      />
+                          }}
+                          placeholder="5"
+                          className={`w-full bg-transparent border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
+                            errors.deadline 
+                              ? 'border-red-500/50 focus:border-red-500' 
+                              : 'border-white/10 focus:border-white/20'
+                          }`}
+                        />
+                      </div>
                       <span className="text-xs text-gray-500 font-light">minutes</span>
                     </div>
                     {errors.deadline && (
@@ -649,26 +671,28 @@ export function InlineSettingsMenu({
                   {localEnablePartialFills && (
                     <div className="mt-3 space-y-2">
                       <label className="text-xs text-gray-400 font-light">Amount of parts</label>
-                      <input
-                        type="number"
-                        value={localAmountOfParts}
-                        onChange={(e) => {
-                          const value = e.target.value
-                          // Only allow whole numbers (positive integers) - block decimals, negative signs, etc.
-                          if (value === '' || /^\d+$/.test(value)) {
-                            setLocalAmountOfParts(value)
-                            // Validate on input to show errors immediately
-                            const error = validateAmountOfParts(value)
-                            setErrors(prev => ({ ...prev, amountOfParts: error }))
-                          }
-                        }}
-                        placeholder="2"
-                        className={`w-full bg-white/5 border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
-                          errors.amountOfParts 
-                            ? 'border-red-500/50 focus:border-red-500' 
-                            : 'border-white/10 focus:border-white/20'
-                        }`}
-                      />
+                      <div className="relative w-full rounded-lg bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10">
+                        <input
+                          type="number"
+                          value={localAmountOfParts}
+                          onChange={(e) => {
+                            const value = e.target.value
+                            // Only allow whole numbers (positive integers) - block decimals, negative signs, etc.
+                            if (value === '' || /^\d+$/.test(value)) {
+                              setLocalAmountOfParts(value)
+                              // Validate on input to show errors immediately
+                              const error = validateAmountOfParts(value)
+                              setErrors(prev => ({ ...prev, amountOfParts: error }))
+                            }
+                          }}
+                          placeholder="2"
+                          className={`w-full bg-transparent border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
+                            errors.amountOfParts 
+                              ? 'border-red-500/50 focus:border-red-500' 
+                              : 'border-white/10 focus:border-white/20'
+                          }`}
+                        />
+                      </div>
                       {errors.amountOfParts && (
                         <p className="text-xs text-red-400 font-light">{errors.amountOfParts}</p>
                       )}
@@ -701,23 +725,25 @@ export function InlineSettingsMenu({
                   {/* Recipient Address - only visible if custom recipient enabled */}
                   {localCustomRecipient && (
                     <div className="mt-3 space-y-2">
-                      <input
-                        type="text"
-                        value={localRecipientAddress}
-                        onChange={(e) => {
-                          const value = e.target.value
-                          setLocalRecipientAddress(value)
-                          // Validate on input to show errors immediately
-                          const error = validateRecipientAddress(value)
-                          setErrors(prev => ({ ...prev, recipientAddress: error }))
-                        }}
-                        placeholder="Wallet address"
-                        className={`w-full bg-white/5 border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
-                          errors.recipientAddress
-                            ? 'border-red-500/50 focus:border-red-500'
-                            : 'border-white/10 focus:border-white/20'
-                        }`}
-                      />
+                      <div className="relative w-full rounded-lg bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10">
+                        <input
+                          type="text"
+                          value={localRecipientAddress}
+                          onChange={(e) => {
+                            const value = e.target.value
+                            setLocalRecipientAddress(value)
+                            // Validate on input to show errors immediately
+                            const error = validateRecipientAddress(value)
+                            setErrors(prev => ({ ...prev, recipientAddress: error }))
+                          }}
+                          placeholder="Wallet address"
+                          className={`w-full bg-transparent border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
+                            errors.recipientAddress
+                              ? 'border-red-500/50 focus:border-red-500'
+                              : 'border-white/10 focus:border-white/20'
+                          }`}
+                        />
+                      </div>
                       {errors.recipientAddress && (
                         <p className="text-xs text-red-400 font-light">{errors.recipientAddress}</p>
                       )}
@@ -755,28 +781,30 @@ export function InlineSettingsMenu({
                     ))}
                   </div>
                   <div className="mt-2">
-                    <input
-                      type="text"
-                      value={localUseCustomSlippage ? localCustomSlippage : ''}
-                      onChange={(e) => {
-                        const value = e.target.value
-                        if (value === '' || /^\d*\.?\d*$/.test(value)) {
-                          setLocalCustomSlippage(value)
-                          setLocalUseCustomSlippage(true)
-                          if (value) setLocalSlippage(value)
-                          // Clear error on input if value is entered
-                          if (errors.slippage && value.trim() !== '') {
-                            setErrors(prev => ({ ...prev, slippage: undefined }))
+                    <div className="relative w-full rounded-lg bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10">
+                      <input
+                        type="text"
+                        value={localUseCustomSlippage ? localCustomSlippage : ''}
+                        onChange={(e) => {
+                          const value = e.target.value
+                          if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                            setLocalCustomSlippage(value)
+                            setLocalUseCustomSlippage(true)
+                            if (value) setLocalSlippage(value)
+                            // Clear error on input if value is entered
+                            if (errors.slippage && value.trim() !== '') {
+                              setErrors(prev => ({ ...prev, slippage: undefined }))
+                            }
                           }
-                        }
-                      }}
-                      placeholder="Custom, %"
-                      className={`w-full bg-white/5 border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
-                        errors.slippage
-                          ? 'border-red-500/50 focus:border-red-500'
-                          : 'border-white/10 focus:border-white/20'
-                      }`}
-                    />
+                        }}
+                        placeholder="Custom, %"
+                        className={`w-full bg-transparent border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
+                          errors.slippage
+                            ? 'border-red-500/50 focus:border-red-500'
+                            : 'border-white/10 focus:border-white/20'
+                        }`}
+                      />
+                    </div>
                     {errors.slippage && (
                       <p className="text-xs text-red-400 font-light mt-1">{errors.slippage}</p>
                     )}
@@ -808,23 +836,25 @@ export function InlineSettingsMenu({
                   {/* Recipient Address - only visible if custom recipient enabled */}
                   {localCustomRecipient && (
                     <div className="mt-3 space-y-2">
-                      <input
-                        type="text"
-                        value={localRecipientAddress}
-                        onChange={(e) => {
-                          const value = e.target.value
-                          setLocalRecipientAddress(value)
-                          // Validate on input to show errors immediately
-                          const error = validateRecipientAddress(value)
-                          setErrors(prev => ({ ...prev, recipientAddress: error }))
-                        }}
-                        placeholder="Wallet address"
-                        className={`w-full bg-white/5 border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
-                          errors.recipientAddress 
-                            ? 'border-red-500/50 focus:border-red-500' 
-                            : 'border-white/10 focus:border-white/20'
-                        }`}
-                      />
+                      <div className="relative w-full rounded-lg bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10">
+                        <input
+                          type="text"
+                          value={localRecipientAddress}
+                          onChange={(e) => {
+                            const value = e.target.value
+                            setLocalRecipientAddress(value)
+                            // Validate on input to show errors immediately
+                            const error = validateRecipientAddress(value)
+                            setErrors(prev => ({ ...prev, recipientAddress: error }))
+                          }}
+                          placeholder="Wallet address"
+                          className={`w-full bg-transparent border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
+                            errors.recipientAddress 
+                              ? 'border-red-500/50 focus:border-red-500' 
+                              : 'border-white/10 focus:border-white/20'
+                          }`}
+                        />
+                      </div>
                       {errors.recipientAddress && (
                         <p className="text-xs text-red-400 font-light">{errors.recipientAddress}</p>
                       )}
@@ -862,35 +892,37 @@ export function InlineSettingsMenu({
                     ))}
                   </div>
                   <div className="mt-2">
-                    <input
-                      type="number"
-                      value={localUseCustomExpiration ? localCustomExpiration : ''}
-                      onFocus={() => {
-                        // Clear preset selection when focusing on custom input
-                        setLocalUseCustomExpiration(true)
-                        if (errors.expiration) {
-                          setErrors(prev => ({ ...prev, expiration: undefined }))
-                        }
-                      }}
-                      onChange={(e) => {
-                        const value = e.target.value
-                        if (value === '' || /^\d*$/.test(value)) {
-                          setLocalCustomExpiration(value)
+                    <div className="relative w-full rounded-lg bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10">
+                      <input
+                        type="number"
+                        value={localUseCustomExpiration ? localCustomExpiration : ''}
+                        onFocus={() => {
+                          // Clear preset selection when focusing on custom input
                           setLocalUseCustomExpiration(true)
-                          if (value) setLocalExpiration(value + 'h')
-                          // Clear error on input if value is entered
-                          if (errors.expiration && value.trim() !== '') {
+                          if (errors.expiration) {
                             setErrors(prev => ({ ...prev, expiration: undefined }))
                           }
-                        }
-                      }}
-                      placeholder="Custom (hours)"
-                      className={`w-full bg-white/5 border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
-                        errors.expiration
-                          ? 'border-red-500/50 focus:border-red-500'
-                          : 'border-white/10 focus:border-white/20'
-                      }`}
-                    />
+                        }}
+                        onChange={(e) => {
+                          const value = e.target.value
+                          if (value === '' || /^\d*$/.test(value)) {
+                            setLocalCustomExpiration(value)
+                            setLocalUseCustomExpiration(true)
+                            if (value) setLocalExpiration(value + 'h')
+                            // Clear error on input if value is entered
+                            if (errors.expiration && value.trim() !== '') {
+                              setErrors(prev => ({ ...prev, expiration: undefined }))
+                            }
+                          }
+                        }}
+                        placeholder="Custom (hours)"
+                        className={`w-full bg-transparent border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
+                          errors.expiration
+                            ? 'border-red-500/50 focus:border-red-500'
+                            : 'border-white/10 focus:border-white/20'
+                        }`}
+                      />
+                    </div>
                     {errors.expiration && (
                       <p className="text-xs text-red-400 font-light mt-1">{errors.expiration}</p>
                     )}
@@ -913,26 +945,28 @@ export function InlineSettingsMenu({
                   {localLimitPartialFills && (
                     <div className="mt-3 space-y-2">
                       <label className="text-xs text-gray-400 font-light">Number of parts</label>
-                      <input
-                        type="number"
-                        value={localLimitAmountOfParts}
-                        onChange={(e) => {
-                          const value = e.target.value
-                          // Only allow whole numbers (positive integers) - block decimals, negative signs, etc.
-                          if (value === '' || /^\d+$/.test(value)) {
-                            setLocalLimitAmountOfParts(value)
-                            // Validate on input to show errors immediately
-                            const error = validateAmountOfParts(value)
-                            setErrors(prev => ({ ...prev, limitAmountOfParts: error }))
-                          }
-                        }}
-                        placeholder="2"
-                        className={`w-full bg-white/5 border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
-                          errors.limitAmountOfParts 
-                            ? 'border-red-500/50 focus:border-red-500' 
-                            : 'border-white/10 focus:border-white/20'
-                        }`}
-                      />
+                      <div className="relative w-full rounded-lg bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10">
+                        <input
+                          type="number"
+                          value={localLimitAmountOfParts}
+                          onChange={(e) => {
+                            const value = e.target.value
+                            // Only allow whole numbers (positive integers) - block decimals, negative signs, etc.
+                            if (value === '' || /^\d+$/.test(value)) {
+                              setLocalLimitAmountOfParts(value)
+                              // Validate on input to show errors immediately
+                              const error = validateAmountOfParts(value)
+                              setErrors(prev => ({ ...prev, limitAmountOfParts: error }))
+                            }
+                          }}
+                          placeholder="2"
+                          className={`w-full bg-transparent border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
+                            errors.limitAmountOfParts 
+                              ? 'border-red-500/50 focus:border-red-500' 
+                              : 'border-white/10 focus:border-white/20'
+                          }`}
+                        />
+                      </div>
                       {errors.limitAmountOfParts && (
                         <p className="text-xs text-red-400 font-light">{errors.limitAmountOfParts}</p>
                       )}
@@ -965,23 +999,25 @@ export function InlineSettingsMenu({
                   {/* Recipient Address - only visible if custom recipient enabled */}
                   {localCustomRecipient && (
                     <div className="mt-3 space-y-2">
-                      <input
-                        type="text"
-                        value={localRecipientAddress}
-                        onChange={(e) => {
-                          const value = e.target.value
-                          setLocalRecipientAddress(value)
-                          // Validate on input to show errors immediately
-                          const error = validateRecipientAddress(value)
-                          setErrors(prev => ({ ...prev, recipientAddress: error }))
-                        }}
-                        placeholder="Wallet address"
-                        className={`w-full bg-white/5 border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
-                          errors.recipientAddress
-                            ? 'border-red-500/50 focus:border-red-500'
-                            : 'border-white/10 focus:border-white/20'
-                        }`}
-                      />
+                      <div className="relative w-full rounded-lg bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10">
+                        <input
+                          type="text"
+                          value={localRecipientAddress}
+                          onChange={(e) => {
+                            const value = e.target.value
+                            setLocalRecipientAddress(value)
+                            // Validate on input to show errors immediately
+                            const error = validateRecipientAddress(value)
+                            setErrors(prev => ({ ...prev, recipientAddress: error }))
+                          }}
+                          placeholder="Wallet address"
+                          className={`w-full bg-transparent border rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none transition-colors ${
+                            errors.recipientAddress
+                              ? 'border-red-500/50 focus:border-red-500'
+                              : 'border-white/10 focus:border-white/20'
+                          }`}
+                        />
+                      </div>
                       {errors.recipientAddress && (
                         <p className="text-xs text-red-400 font-light">{errors.recipientAddress}</p>
                       )}

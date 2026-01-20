@@ -32,7 +32,7 @@ export function ModeSelector({ currentMode }: ModeSelectorProps) {
           }`}
         >
           {currentMode === mode.id && (
-            <div className="absolute inset-0 bg-white/10 rounded-lg sm:rounded-xl border border-white/20" />
+            <div className="absolute inset-0 rounded-lg sm:rounded-xl border border-white/20 bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg sm:before:rounded-xl before:-z-10" />
           )}
           <span className="relative z-10">{mode.label}</span>
         </button>

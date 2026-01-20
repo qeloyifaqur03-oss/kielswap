@@ -181,7 +181,7 @@ export default function AppLayout({
       )}
       
       {/* Navigation */}
-      <nav className={`relative z-20 border-b border-white/10 backdrop-blur-xl bg-[rgba(255,255,255,0.03)]`}>
+      <nav className={`relative z-20 border-b border-white/10 glass`}>
         <div className="w-full">
           <div className="flex items-center justify-between h-16">
             {/* Logo - at left edge with minimal padding */}
@@ -290,7 +290,7 @@ export default function AppLayout({
                     trigger={
                       <button
                         type="button"
-                        className="px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm font-light rounded-lg bg-white/5 border border-white/10 hover:bg-white/10 text-white transition-colors flex items-center gap-1 sm:gap-2"
+                        className="px-2 sm:px-3 md:px-4 py-2 text-xs sm:text-sm font-light rounded-lg border border-white/10 hover:border-white/20 text-white transition-colors flex items-center gap-1 sm:gap-2 relative bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10"
                       >
                         <span className="hidden md:inline">{formatAddress(address || '')}</span>
                         <span className="md:hidden text-[10px] sm:text-xs">{address ? `${address.slice(0, 4)}...${address.slice(-2)}` : ''}</span>

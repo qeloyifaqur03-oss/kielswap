@@ -102,28 +102,32 @@ export default function FeedbackPage() {
                 <label className="text-xs text-gray-500 font-light">
                   Contact <span className="text-red-400">*</span>
                 </label>
-                <Input
-                  type="text"
-                  value={contact}
-                  onChange={(e) => setContact(e.target.value)}
-                  placeholder="Telegram, email, etc..."
-                  className="w-full bg-white/5 border-white/10 text-white font-light placeholder:text-gray-500"
-                  required
-                />
+                <div className="relative w-full rounded-lg bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10">
+                  <Input
+                    type="text"
+                    value={contact}
+                    onChange={(e) => setContact(e.target.value)}
+                    placeholder="Telegram, email, etc..."
+                    className="w-full bg-transparent border-white/10 text-white font-light placeholder:text-gray-500"
+                    required
+                  />
+                </div>
               </div>
 
               <div className="space-y-2">
                 <label className="text-xs text-gray-500 font-light">
                   Your Feedback <span className="text-red-400">*</span>
                 </label>
-                <Textarea
-                  value={feedback}
-                  onChange={(e) => setFeedback(e.target.value)}
-                  placeholder="Tell us what you think about kielswap..."
-                  rows={6}
-                  className="w-full bg-white/5 border-white/10 text-white font-light placeholder:text-gray-500 resize-none"
-                  required
-                />
+                <div className="relative w-full rounded-lg bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10">
+                  <Textarea
+                    value={feedback}
+                    onChange={(e) => setFeedback(e.target.value)}
+                    placeholder="Tell us what you think about kielswap..."
+                    rows={6}
+                    className="w-full bg-transparent border-white/10 text-white font-light placeholder:text-gray-500 resize-none"
+                    required
+                  />
+                </div>
               </div>
 
               <Button

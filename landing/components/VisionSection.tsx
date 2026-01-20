@@ -4,14 +4,14 @@ import { motion } from 'framer-motion'
 
 export default function VisionSection() {
   return (
-    <section className="relative z-10 px-6 md:px-12 py-32">
+    <section className="relative z-10 px-4 max-md:px-4 md:px-12 py-16 max-md:py-12 md:py-32">
       <div className="max-w-5xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.8 }}
-          className="text-center space-y-8"
+          className="text-center space-y-6 max-md:space-y-6 md:space-y-8"
         >
           {/* Badge */}
           <motion.div
@@ -36,7 +36,7 @@ export default function VisionSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.3 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-light leading-tight"
+            className="text-2xl max-md:text-2xl md:text-5xl lg:text-6xl font-light leading-tight"
           >
             <motion.span
               initial={{ opacity: 0 }}
@@ -64,7 +64,7 @@ export default function VisionSection() {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl text-gray-400 font-light leading-relaxed max-w-3xl mx-auto"
+            className="text-base max-md:text-base md:text-xl text-gray-400 font-light leading-relaxed max-w-3xl mx-auto"
           >
             Kielswap turns cross-chain complexity into a single flow across 30+ networks, with predictable outcomes and end-to-end tracking.
           </motion.p>

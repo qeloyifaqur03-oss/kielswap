@@ -327,7 +327,7 @@ export function SwapWindow() {
     <div className="w-full max-w-[538px] mx-auto space-y-4 px-4 sm:px-6 md:px-0">
       <div>
         {/* Main Swap Window */}
-        <div className="glass rounded-3xl p-4 sm:p-6">
+        <div className="glass rounded-3xl p-4 sm:p-6 max-md:p-4">
         {/* Mode Selector and Settings */}
         <div className="mb-4 flex items-center justify-between">
           <ModeSelector currentMode={mode} />
@@ -367,9 +367,9 @@ export function SwapWindow() {
             )}
             <button
               onClick={() => setIsSettingsOpen(!isSettingsOpen)}
-              className="w-8 h-8 flex items-center justify-center rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors"
+              className="relative w-8 h-8 flex items-center justify-center rounded-xl border border-white/10 hover:border-white/20 transition-colors bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-xl before:-z-10"
             >
-              <Settings className="w-4 h-4 text-gray-400" />
+              <Settings className="w-4 h-4 text-gray-400 relative z-10" />
             </button>
           </div>
         </div>
@@ -412,9 +412,9 @@ export function SwapWindow() {
           <div className="flex items-center justify-center relative -my-2 z-10">
             <button
               onClick={handleSwapTokens}
-              className="w-8 h-8 rounded-full bg-white/10 border border-white/20 hover:bg-white/15 hover:border-pink-400/50 transition-colors flex items-center justify-center shadow-lg"
+              className="relative w-8 h-8 rounded-full border border-white/10 hover:border-white/20 transition-colors flex items-center justify-center shadow-lg bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-full before:-z-10"
             >
-              <ArrowUpDown className={`w-4 h-4 text-white transition-transform duration-300 ${isRotated ? 'rotate-180' : ''}`} />
+              <ArrowUpDown className={`w-4 h-4 text-white transition-transform duration-300 relative z-10 ${isRotated ? 'rotate-180' : ''}`} />
             </button>
           </div>
 
@@ -429,46 +429,49 @@ export function SwapWindow() {
           />
         </div>
 
-        {/* Mode-specific content */}
-        {mode === 'intent' && (
-          <IntentMode
-            fromToken={fromToken}
-            toToken={toToken}
-            fromAmount={fromAmount}
-            toAmount={toAmount}
-            isRefreshing={quotePhase === 'fetching' || quotePhase === 'refreshing'}
-            remainingTime={remainingTime}
-            enablePartialFills={activeSettings.enablePartialFills ?? false}
-            amountOfParts={activeSettings.amountOfParts ?? '2'}
-          />
-        )}
-        {mode === 'instant' && (
-          <InstantMode
-            fromToken={fromToken}
-            toToken={toToken}
-            fromAmount={fromAmount}
-            toAmount={toAmount}
-          />
-        )}
-        {mode === 'limit' && (
-          <LimitMode
-            fromToken={fromToken}
-            toToken={toToken}
-            fromAmount={fromAmount}
-            toAmount={toAmount}
-            enablePartialFills={activeSettings.enablePartialFills ?? false}
-            amountOfParts={activeSettings.amountOfParts ?? '2'}
-            targetPrice={targetPrice}
-            onTargetPriceChange={setTargetPrice}
-          />
-        )}
+        {/* Mode-specific content - hidden on mobile */}
+        <div className="hidden md:block">
+          {mode === 'intent' && (
+            <IntentMode
+              fromToken={fromToken}
+              toToken={toToken}
+              fromAmount={fromAmount}
+              toAmount={toAmount}
+              isRefreshing={quotePhase === 'fetching' || quotePhase === 'refreshing'}
+              remainingTime={remainingTime}
+              enablePartialFills={activeSettings.enablePartialFills ?? false}
+              amountOfParts={activeSettings.amountOfParts ?? '2'}
+            />
+          )}
+          {mode === 'instant' && (
+            <InstantMode
+              fromToken={fromToken}
+              toToken={toToken}
+              fromAmount={fromAmount}
+              toAmount={toAmount}
+            />
+          )}
+          {mode === 'limit' && (
+            <LimitMode
+              fromToken={fromToken}
+              toToken={toToken}
+              fromAmount={fromAmount}
+              toAmount={toAmount}
+              enablePartialFills={activeSettings.enablePartialFills ?? false}
+              amountOfParts={activeSettings.amountOfParts ?? '2'}
+              targetPrice={targetPrice}
+              onTargetPriceChange={setTargetPrice}
+            />
+          )}
+        </div>
       </div>
       </div>
 
       <div className="space-y-4">
 
-      {/* Show Summary button only when: wallet connected, amount entered, and sufficient balance */}
+      {/* Show Summary button only when: wallet connected, amount entered, and sufficient balance - hidden on mobile */}
       {isConnected && fromAmount && parseFloat(fromAmount) > 0 && fromTokenBalance !== null && fromTokenBalance !== undefined && parseFloat(fromTokenBalance) >= parseFloat(fromAmount) && (
+        <div className="hidden md:block">
         <div className="mt-4 relative">
           <button
             onClick={() => setIsSummaryOpen(!isSummaryOpen)}
@@ -583,6 +586,7 @@ export function SwapWindow() {
             </div>
           </div>
           )}
+        </div>
         </div>
       )}
 

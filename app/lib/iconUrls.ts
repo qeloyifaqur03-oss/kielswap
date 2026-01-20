@@ -98,7 +98,7 @@ const NETWORK_FALLBACK_URLS: Record<string, string> = {
   avalanche: 'https://assets.coingecko.com/coins/images/15085/large/avalanche.png',
   arbitrum: 'https://assets.coingecko.com/coins/images/16547/large/Arbitrum.png',
   optimism: 'https://assets.coingecko.com/coins/images/25244/large/Optimism.png',
-  base: 'https://assets.coingecko.com/asset_platforms/images/8453/large/base.png',
+  base: 'https://assets.coingecko.com/asset_platforms/images/131/small/base.png',
   zksync: 'https://assets.coingecko.com/asset_platforms/images/324/large/zksync.png',
   linea: 'https://assets.coingecko.com/asset_platforms/images/59144/large/linea.png',
   scroll: 'https://assets.coingecko.com/asset_platforms/images/534352/large/scroll.png',
@@ -108,7 +108,7 @@ const NETWORK_FALLBACK_URLS: Record<string, string> = {
   mantle: 'https://assets.coingecko.com/coins/images/30973/large/Mantle.png',
   ronin: 'https://assets.coingecko.com/coins/images/31289/large/ronin.png',
   cronos: 'https://assets.coingecko.com/coins/images/7310/large/crypto-com-coin.png',
-  rootstock: 'https://assets.coingecko.com/coins/images/12948/large/Rootstock.png',
+  rootstock: 'https://assets.coingecko.com/asset_platforms/images/5070/small/Rootstock_RSK.jpg',
   sonic: 'https://assets.coingecko.com/coins/images/38371/large/sonic.png',
   core: 'https://assets.coingecko.com/coins/images/21369/large/core.png',
   kava: 'https://assets.coingecko.com/coins/images/9761/large/kava.png',
@@ -177,6 +177,8 @@ const TOKEN_FALLBACK_URLS: Record<string, string> = {
 
 // Direct CoinGecko URLs for networks (using URLs found manually)
 const NETWORK_DIRECT_URLS: Record<string, string> = {
+  base: 'https://assets.coingecko.com/asset_platforms/images/131/small/base.png',
+  rootstock: 'https://assets.coingecko.com/asset_platforms/images/5070/small/Rootstock_RSK.jpg',
   goat: 'https://assets.coingecko.com/coins/images/69522/standard/goated.png',
   merlin: 'https://assets.coingecko.com/asset_platforms/images/188/small/merlin-chain.jpeg',
   abstract: 'https://assets.coingecko.com/asset_platforms/images/22196/small/abstract.jpg',

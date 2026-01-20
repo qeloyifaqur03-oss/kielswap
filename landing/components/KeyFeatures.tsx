@@ -229,7 +229,7 @@ const features = [
 
 export default function KeyFeatures() {
   return (
-    <section className="relative z-10 px-6 md:px-12 py-32">
+    <section className="relative z-10 px-4 max-md:px-4 md:px-12 py-16 max-md:py-12 md:py-32">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -237,18 +237,18 @@ export default function KeyFeatures() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-8 max-md:mb-8 md:mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-light mb-4">
+          <h2 className="text-2xl max-md:text-2xl md:text-5xl font-light mb-3 max-md:mb-3 md:mb-4">
             Key Features
           </h2>
-          <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+          <p className="text-gray-400 text-base max-md:text-base md:text-lg max-w-2xl mx-auto">
           Built for constraint-led cross-chain execution.
           </p>
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 max-md:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-md:gap-4 md:gap-6">
           {features.map((feature, index) => {
             const Icon = feature.icon
             return (

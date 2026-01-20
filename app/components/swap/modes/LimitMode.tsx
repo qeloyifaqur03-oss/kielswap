@@ -87,23 +87,25 @@ export function LimitMode({ fromToken, toToken, fromAmount, toAmount, enablePart
   return (
     <div className="space-y-3 mt-4">
       {/* Target price — ABOVE */}
-      <div className="bg-white/5 rounded-xl p-4 border border-white/10">
+      <div className="relative rounded-xl p-4 border border-white/10 bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-xl before:-z-10">
         <label className="text-xs text-gray-400 font-light mb-2 block">
             Target price
           </label>
-          <input
-            type="text"
-            value={targetPrice}
-            onChange={(e) => {
-              const value = e.target.value
-              if (value === '' || /^\d*\.?\d*$/.test(value)) {
-                setTargetPrice(value)
-                onTargetPriceChange?.(value)
-              }
-            }}
-            placeholder="0.0"
-            className="w-full bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-white/20 transition-colors"
-          />
+          <div className="relative rounded-lg bg-gradient-to-br from-white/[0.04] to-white/[0.02] backdrop-blur-sm shadow-md shadow-black/10 before:absolute before:inset-0 before:bg-gradient-to-br before:from-pink-500/5 before:via-transparent before:to-purple-500/5 before:rounded-lg before:-z-10">
+            <input
+              type="text"
+              value={targetPrice}
+              onChange={(e) => {
+                const value = e.target.value
+                if (value === '' || /^\d*\.?\d*$/.test(value)) {
+                  setTargetPrice(value)
+                  onTargetPriceChange?.(value)
+                }
+              }}
+              placeholder="0.0"
+              className="w-full bg-transparent border border-white/10 rounded-lg px-3 py-2 text-white text-sm placeholder:text-gray-600 focus:outline-none focus:border-white/20 transition-colors"
+            />
+          </div>
       </div>
 
 

@@ -174,7 +174,7 @@ const TOKEN_DEFINITIONS = [
   { id: 'gmx', symbol: 'GMX', name: 'GMX', networkIds: ['arbitrum', 'avalanche'], decimals: 18 },
   { id: 'joe', symbol: 'JOE', name: 'Trader Joe', networkIds: ['avalanche', 'arbitrum'], decimals: 18 },
   { id: 'qi', symbol: 'QI', name: 'Qi Dao', networkIds: ['polygon', 'avalanche'], decimals: 18 },
-  { id: 'mnt-token', symbol: 'MNT', name: 'Mantle Token', networkIds: ['mantle', 'ethereum'], decimals: 18 },
+  { id: 'mnt-token', symbol: 'MNT', name: 'Mantle Token', networkIds: ['ethereum'], decimals: 18 },
 ]
 
 export const SUPPORTED_TOKENS: Token[] = TOKEN_DEFINITIONS.map(token => ({
