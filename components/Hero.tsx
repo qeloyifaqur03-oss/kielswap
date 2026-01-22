@@ -105,7 +105,7 @@ export default function Hero() {
             whileHover={{ y: -2 }}
             className="px-8 py-4 glass-strong rounded-full text-lg font-light transition-all duration-300 border border-pink-400/20 shadow-[0_0_20px_rgba(236,72,153,0.1)] hover:border-pink-400/40 hover:shadow-[0_0_30px_rgba(236,72,153,0.2)] hover:bg-white/15"
           >
-            Launch App
+            Get access
           </motion.a>
 
           {/* Try Intent Swap Button */}

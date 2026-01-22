@@ -72,7 +72,7 @@ export default function NewHero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="pt-4 max-md:pt-4 md:pt-8"
           >
-            <a href="https://app.kielswap.com/swap?mode=intent" target="_blank" rel="noopener noreferrer" className="block">
+            <a href="https://www.kielswap.com/request" target="_blank" rel="noopener noreferrer" className="block">
               <motion.div
                 whileHover={{ y: -2 }}
                 whileTap={{ y: 0 }}
@@ -81,7 +81,7 @@ export default function NewHero() {
                 <Button
                   className="px-6 max-md:px-6 md:px-8 py-3 max-md:py-3 md:py-4 rounded-xl font-light text-white transition-all duration-300 text-base max-md:text-base md:text-lg bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 hover:border-pink-400/50 hover:from-pink-500/40 hover:via-accent/45 hover:to-purple-500/40 shadow-lg shadow-accent/20 hover:shadow-accent/30"
                 >
-                  Try intent swap
+                Join closed beta
                 </Button>
               </motion.div>
             </a>

@@ -10,7 +10,7 @@ export default function Hero() {
 
   useEffect(() => {
     // Always link to app.kielswap.com
-    setAppUrl('https://app.kielswap.com/swap')
+    setAppUrl('https://www.kielswap.com/request')
     setIsExternal(true)
   }, [])
 
@@ -54,7 +54,7 @@ export default function Hero() {
             whileHover={{ y: -2 }}
             className="px-8 py-4 glass-strong rounded-full text-lg font-light transition-all duration-300 border border-pink-400/20 shadow-[0_0_20px_rgba(236,72,153,0.1)] hover:border-pink-400/40 hover:shadow-[0_0_30px_rgba(236,72,153,0.2)] hover:bg-white/15"
           >
-            Launch App
+            Get access
           </motion.a>
 
           {/* Try Intent Swap Button */}
@@ -63,7 +63,7 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.35, ease: [0.4, 0, 0.2, 1] }}
           >
-            <a href="https://app.kielswap.com/swap?mode=intent" target="_blank" rel="noopener noreferrer" className="block">
+            <a href="https://www.kielswap.com/request" target="_blank" rel="noopener noreferrer" className="block">
               <Button
                 className="px-6 py-3 rounded-xl font-light bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 hover:from-pink-500/40 hover:via-accent/45 hover:to-purple-500/40 hover:border-pink-400/50 shadow-lg shadow-accent/20 hover:shadow-accent/30 text-white transition-all duration-300"
               >
