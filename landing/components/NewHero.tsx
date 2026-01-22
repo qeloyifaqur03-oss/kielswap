@@ -72,7 +72,7 @@ export default function NewHero() {
             transition={{ duration: 0.8, delay: 0.4 }}
             className="pt-4 max-md:pt-4 md:pt-8"
           >
-            <a href="https://www.kielswap.com/request" target="_blank" rel="noopener noreferrer" className="block">
+            <a href="https://app.kielswap.com/swap" target="_blank" rel="noopener noreferrer" className="block">
               <motion.div
                 whileHover={{ y: -2 }}
                 whileTap={{ y: 0 }}
