@@ -597,7 +597,7 @@ export function SwapWindow() {
           console.log('Swap clicked')
         } : handleConnectWallet}
         disabled={isConnected && (!fromAmount || parseFloat(fromAmount) === 0 || !hasSufficientBalance)}
-        className="mt-4 w-full h-11 sm:h-12 text-sm sm:text-base bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 hover:from-pink-500/40 hover:via-accent/45 hover:to-purple-500/40 hover:border-pink-400/50 text-white rounded-xl font-light transition-all duration-300 shadow-lg shadow-accent/20 hover:shadow-accent/30 disabled:opacity-50 disabled:cursor-not-allowed"
+        className={`mt-4 w-full h-11 sm:h-12 text-sm sm:text-base bg-gradient-to-br from-pink-500/30 via-accent/35 to-purple-500/30 border border-pink-400/30 hover:from-pink-500/40 hover:via-accent/45 hover:to-purple-500/40 hover:border-pink-400/50 text-white rounded-xl font-light transition-all duration-300 shadow-lg shadow-accent/20 hover:shadow-accent/30 disabled:opacity-50 disabled:cursor-not-allowed${!isConnected ? ' open-connect-modal' : ''}`}
       >
         {isConnected ? 'Swap' : 'Connect wallet'}
       </button>

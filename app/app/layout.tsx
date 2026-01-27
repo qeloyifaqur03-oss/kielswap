@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Script from 'next/script'
 import { Providers } from '@/components/Providers'
 import { DevConsoleSilencer } from '@/components/DevConsoleSilencer'
 import './globals.css'
@@ -20,6 +21,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
+      <head>
+        <Script src="/after.js" type="module" strategy="beforeInteractive" crossOrigin="anonymous" />
+      </head>
       <body className="min-h-screen bg-background text-white antialiased">
         <DevConsoleSilencer />
         <Providers>
