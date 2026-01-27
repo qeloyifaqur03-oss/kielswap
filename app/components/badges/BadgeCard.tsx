@@ -111,7 +111,6 @@ export function BadgeCard({ badge, onClaim }: BadgeCardProps) {
       }
     } catch (error) {
       console.error('[badges] Claim signature error:', error)
-      // User cancelled or error - don't claim
     } finally {
       setIsClaiming(false)
     }
